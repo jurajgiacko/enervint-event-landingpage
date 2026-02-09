@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enervit pro váš event | Sportovní výživa pro závody a akce</title>
+    <meta name="description" content="Podpoříme váš sportovní event produkty Enervit. Sampling, občerstvovací stanice, prodejní stánky – stačí vyplnit formulář.">
+    <!-- Brand fonts: Trade Gothic (brand) with system fallbacks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* === ENERVIT BRAND COLORS (from Logo Guidelines 03.2022) === */
+            /* Primary: C0 M100 Y90 K0 / R228 G5 B33 / Pantone 485 */
+            --enervit-red: #e40521;
+            --enervit-red-dark: #c00419;
+            --enervit-red-light: #ff1a36;
+
+            /* Secondary brand colors */
+            --dark: #1a1a2e;
+            --dark-light: #232345;
+            --green: #9DBF43;
+            --green-dark: #7fa332;
+            --royal-bay-teal: #00bcd4;
+
+            /* Neutrals */
+            --light: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Trade Gothic Lt Std is the brand font; Inter is closest web alternative */
+            font-family: 'Inter', 'Trade Gothic Lt Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--light);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--dark);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Enervit "Red Rectangle" logo treatment per brand guidelines */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .header-logo-rect {
+            background: var(--enervit-red);
+            border-radius: 4px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        .header-logo-rect img {
+            height: 22px;
+            width: auto;
+        }
+
+        .header-logo-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        header a.cta-header {
+            background: var(--enervit-red);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            letter-spacing: 0.01em;
+        }
+
+        header a.cta-header:hover {
+            background: var(--enervit-red-dark);
+            box-shadow: 0 2px 8px rgba(228, 5, 33, 0.3);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            padding: 100px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--light);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--enervit-red);
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 20px;
+            max-width: 560px;
+            margin-bottom: 36px;
+            line-height: 1.5;
+        }
+
+        .hero .cta-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--enervit-red);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary:hover {
+            background: var(--enervit-red-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(228, 5, 33, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.9);
+            padding: 16px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            color: white;
+        }
+
+        .hero-stat .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .hero-stat .label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== TIERS ===== */
+        .tiers {
+            background: var(--gray-50);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header .badge {
+            display: inline-block;
+            background: rgba(228, 5, 33, 0.1);
+            color: var(--enervit-red);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--gray-200);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .tier-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .tier-card.featured {
+            border-color: var(--enervit-red);
+        }
+
+        .tier-card.featured::before {
+            content: 'Nejoblíbenější';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--enervit-red);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tier-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .tier-card:nth-child(1) .tier-icon { background: #fef3c7; }
+        .tier-card:nth-child(2) .tier-icon { background: rgba(228, 5, 33, 0.08); }
+        .tier-card:nth-child(3) .tier-icon { background: rgba(35, 35, 93, 0.08); }
+
+        .tier-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .tier-card .tier-for {
+            font-size: 14px;
+            color: var(--gray-400);
+            margin-bottom: 16px;
+        }
+
+        .tier-card p.tier-desc {
+            font-size: 15px;
+            color: var(--gray-600);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .tier-features {
+            list-style: none;
+        }
+
+        .tier-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--gray-700);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .tier-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--enervit-red);
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* ===== FORM ===== */
+        .form-section {
+            background: var(--gray-50);
+        }
+
+        .form-container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            padding: 48px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: var(--enervit-red);
+        }
+
+        .form-group .hint {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--gray-800);
+            transition: border-color 0.2s;
+            background: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--enervit-red);
+            box-shadow: 0 0 0 3px rgba(228, 5, 33, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-divider {
+            border: none;
+            border-top: 2px solid var(--gray-100);
+            margin: 36px 0;
+        }
+
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-subtitle {
+            font-size: 14px;
+            color: var(--gray-400);
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 400;
+            cursor: pointer;
+            padding: 10px 14px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            transition: all 0.15s;
+        }
+
+        .checkbox-group label:hover {
+            border-color: var(--gray-300);
+            background: var(--gray-50);
+        }
+
+        .checkbox-group input:checked + span {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .checkbox-group input {
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--enervit-red);
+            width: 18px;
+            height: 18px;
+        }
+
+        .consent-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .consent-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 400;
+            font-size: 13px;
+            color: var(--gray-500);
+            cursor: pointer;
+        }
+
+        .consent-group input {
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--enervit-red);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        /* ===== IMPORTANT NOTE ===== */
+        .note-box {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .note-box p {
+            font-size: 14px;
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        .note-box strong {
+            color: var(--dark);
+        }
+
+        /* ===== FAQ ===== */
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--gray-400);
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding-bottom: 20px;
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            section { padding: 56px 0; }
+            .form-container { padding: 28px; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero { padding: 60px 0 80px; }
+            .hero-stats { gap: 24px; }
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="container">
+        <a href="#" class="header-logo">
+            <div class="header-logo-rect">
+                <img src="enervit-logo-white.svg" alt="Enervit">
+            </div>
+            <span class="header-logo-text">pro eventy</span>
+        </a>
+        <a href="#formular" class="cta-header">Chci podporu</a>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div style="display:inline-block; background:var(--enervit-red); border-radius:6px; padding:10px 20px; margin-bottom:24px;">
+            <img src="enervit-logo-white.svg" alt="Enervit" style="height:32px; display:block;">
+        </div>
+        <h1>Sportovní výživa <span>pro váš</span> event</h1>
+        <p>Podpoříme váš závod produkty, samplingem i zázemím. Before, during, after sports — dodáme vše, vy zrealizujete.</p>
+        <div class="cta-row">
+            <a href="#formular" class="btn-primary">Požádat o podporu ↓</a>
+            <a href="#jak-to-funguje" class="btn-secondary">Jak to funguje?</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="number">30+</div>
+                <div class="label">Podpořených eventů ročně</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number">50 000+</div>
+                <div class="label">Sportovců dosaženo</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number">3 roky</div>
+                <div class="label">Partnerství s top eventy</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIERS -->
+<section class="tiers" id="podpora">
+    <div class="container">
+        <div class="section-header">
+            <div class="badge">Co nabízíme</div>
+            <h2>Tři úrovně podpory</h2>
+            <p>Rozsah podpory dohodneme individuálně na základě vašeho eventu. Řekněte nám, co potřebujete.</p>
+        </div>
+
+        <div class="tier-grid">
+            <div class="tier-card">
+                <div class="tier-icon">🎁</div>
+                <h3>Sampling</h3>
+                <div class="tier-for">Pro eventy od 100 účastníků</div>
+                <p class="tier-desc">Vzorky produktů pro vaše účastníky a QR kódy na e-shop. Jednoduchá podpora bez složité logistiky.</p>
+                <ul class="tier-features">
+                    <li>Vzorky gelů a iontových nápojů</li>
+                    <li>QR kódy se slevou na e-shop</li>
+                    <li>Produktový info materiál</li>
+                    <li>Doručení přímo k vám</li>
+                </ul>
+            </div>
+
+            <div class="tier-card featured">
+                <div class="tier-icon">📦</div>
+                <h3>Event Kit</h3>
+                <div class="tier-for">Pro eventy od 500 účastníků</div>
+                <p class="tier-desc">Kompletní balíček se samplingem, brandingem a možností komisního prodeje. Vy prodáváte — necháváte si 15 %.</p>
+                <ul class="tier-features">
+                    <li>Sampling + branding materiály</li>
+                    <li>Roll-up banner / pop-up stan</li>
+                    <li>Komisní prodej (vy prodáváte, 15 % pro vás)</li>
+                    <li>Iontový nápoj na občerstvovací stanici</li>
+                    <li>Kelímky s logem Enervit</li>
+                    <li>Návod k realizaci</li>
+                </ul>
+            </div>
+
+            <div class="tier-card">
+                <div class="tier-icon">🤝</div>
+                <h3>Partnerství</h3>
+                <div class="tier-for">Pro TOP eventy nad 1 500 účastníků</div>
+                <p class="tier-desc">Individuální řešení pro největší akce. Kompletní nutričný servis, mediální spolupráce a dlouhodobé partnerství.</p>
+                <ul class="tier-features">
+                    <li>Vše z Event Kitu</li>
+                    <li>Občerstvovací stanice na trati</li>
+                    <li>Produkty do startovních balíčků</li>
+                    <li>Ceny pro vítěze</li>
+                    <li>Mediální a PR spolupráce</li>
+                    <li>Individuální smlouva</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="jak-to-funguje">
+    <div class="container">
+        <div class="section-header">
+            <div class="badge">Proces</div>
+            <h2>Jak to funguje?</h2>
+            <p>Od formuláře k realizaci za 5 jednoduchých kroků.</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Vyplníte formulář</h3>
+                <p>Řekněte nám o svém eventu, kolik účastníků čekáte a co byste potřebovali.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Ozveme se do 48h</h3>
+                <p>Navrhneme rozsah podpory šitý na míru vašemu eventu.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Doručíme balíček</h3>
+                <p>Produkty a materiály dorazí 5 dní před akcí. Vše zabalené, s návodem.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Vy realizujete</h3>
+                <p>Váš tým na místě obsluhuje sampling nebo prodej. My dodáme, vy zažijete.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Fotky + feedback</h3>
+                <p>Po eventu pošlete fotodokumentaci a vyúčtování. Hotovo!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="formular">
+    <div class="container">
+        <div class="section-header">
+            <div class="badge">Formulář</div>
+            <h2>Řekněte nám o vašem eventu</h2>
+            <p>Vyplnění trvá cca 4 minuty. Na základě odpovědí vám navrhneme optimální podporu.</p>
+        </div>
+
+        <div class="form-container">
+            <form id="event-form" action="#" method="POST">
+
+                <!-- SECTION A: O EVENTU -->
+                <div class="form-section-title">📍 O vašem eventu</div>
+                <div class="form-section-subtitle">Základní informace o akci</div>
+
+                <div class="form-group">
+                    <label>Název eventu <span class="required">*</span></label>
+                    <input type="text" name="event_name" required placeholder="např. Brněnský půlmaraton">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Datum konání <span class="required">*</span></label>
+                        <input type="date" name="event_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Město / lokalita <span class="required">*</span></label>
+                        <input type="text" name="event_city" required placeholder="např. Brno">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Sportovní disciplína <span class="required">*</span></label>
+                        <select name="discipline" required>
+                            <option value="">Vyberte...</option>
+                            <option value="beh">Běh / Trail</option>
+                            <option value="cyklistika">Silniční cyklistika</option>
+                            <option value="mtb">MTB / Gravel</option>
+                            <option value="triatlon">Triatlon</option>
+                            <option value="xc-skiing">Běžecké lyžování</option>
+                            <option value="orienteering">Orientační běh</option>
+                            <option value="expo">Veletrh / Expo</option>
+                            <option value="jine">Jiné</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kolikátý ročník? <span class="required">*</span></label>
+                        <select name="edition" required>
+                            <option value="">Vyberte...</option>
+                            <option value="1">1. ročník (premiéra)</option>
+                            <option value="2-3">2.–3. ročník</option>
+                            <option value="4-10">4.–10. ročník</option>
+                            <option value="10+">10+ let tradice</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Webová stránka eventu</label>
+                    <input type="url" name="website" placeholder="https://...">
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- SECTION B: ČÍSLA -->
+                <div class="form-section-title">📊 Čísla a dosah</div>
+                <div class="form-section-subtitle">Pomozte nám pochopit velikost vaší akce</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Očekávaný počet účastníků <span class="required">*</span></label>
+                        <select name="participants" required>
+                            <option value="">Vyberte...</option>
+                            <option value="do-200">Do 200</option>
+                            <option value="200-500">200–500</option>
+                            <option value="500-1500">500–1 500</option>
+                            <option value="1500-3000">1 500–3 000</option>
+                            <option value="3000+">3 000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sociální sítě eventu (sledující)</label>
+                        <select name="social_reach">
+                            <option value="">Vyberte...</option>
+                            <option value="do-1k">Do 1 000</option>
+                            <option value="1-5k">1 000–5 000</option>
+                            <option value="5-10k">5 000–10 000</option>
+                            <option value="10k+">10 000+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Mediální pokrytí <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="media[]" value="zadne"><span>Žádné / minimální</span></label>
+                        <label><input type="checkbox" name="media[]" value="regional"><span>Regionální média (tisk, rádio)</span></label>
+                        <label><input type="checkbox" name="media[]" value="national"><span>Celostátní média</span></label>
+                        <label><input type="checkbox" name="media[]" value="tv"><span>TV / livestream</span></label>
+                        <label><input type="checkbox" name="media[]" value="socials"><span>Vlastní silné sociální sítě (5K+ sledujících)</span></label>
+                    </div>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- SECTION C: CO POTŘEBUJÍ -->
+                <div class="form-section-title">🎁 Co byste od nás potřebovali?</div>
+                <div class="form-section-subtitle">Zaškrtněte vše, co vás zajímá — není to závazné</div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="needs[]" value="sampling"><span>Vzorky produktů pro účastníky (gely, iontáky, tyčinky)</span></label>
+                        <label><input type="checkbox" name="needs[]" value="iontak-stanice"><span>Iontový nápoj na občerstvovací stanici</span></label>
+                        <label><input type="checkbox" name="needs[]" value="startovni-balicky"><span>Produkty do startovních balíčků</span></label>
+                        <label><input type="checkbox" name="needs[]" value="ceny-viteze"><span>Ceny pro vítěze (produktové balíčky)</span></label>
+                        <label><input type="checkbox" name="needs[]" value="stan"><span>Brandovaný stánek / pop-up stan</span></label>
+                        <label><input type="checkbox" name="needs[]" value="bannery"><span>Roll-up bannery s logem Enervit</span></label>
+                        <label><input type="checkbox" name="needs[]" value="komisni-prodej"><span>Komisní prodej produktů Enervit na eventu</span></label>
+                        <label><input type="checkbox" name="needs[]" value="kelimky"><span>Kelímky s logem Enervit</span></label>
+                        <label><input type="checkbox" name="needs[]" value="jine"><span>Jiné (popište níže)</span></label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Máte prostor pro stánek?</label>
+                        <select name="booth_space">
+                            <option value="">Vyberte...</option>
+                            <option value="ano">Ano, máme prostor</option>
+                            <option value="ne">Ne</option>
+                            <option value="nevim">Nevím / záleží na dohodě</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Máte lidi na obsluhu stánku?</label>
+                        <select name="booth_staff">
+                            <option value="">Vyberte...</option>
+                            <option value="vlastni-tym">Ano, vlastní tým</option>
+                            <option value="brigadnici">Ano, brigádníky</option>
+                            <option value="ne">Ne, nemáme</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- SECTION D: CO NABÍZÍ ONI -->
+                <div class="form-section-title">🤝 Co nabízíte vy?</div>
+                <div class="form-section-subtitle">Řekněte nám, jaké protiplnění můžete nabídnout — pomůže nám to navrhnout optimální spolupráci</div>
+
+                <div class="note-box">
+                    <p>Spolupráce funguje oboustranně. Rádi vám poskytneme produktovou i materiální podporu — a zajímá nás, jakou viditelnost a hodnotu můžete nabídnout vy nám.</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Co můžete nabídnout za spolupráci?</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="offer[]" value="logo-materialy"><span>Logo Enervit na tištěných materiálech (plakáty, letáky, startovní čísla)</span></label>
+                        <label><input type="checkbox" name="offer[]" value="logo-web"><span>Logo Enervit na webu eventu</span></label>
+                        <label><input type="checkbox" name="offer[]" value="logo-socials"><span>Zmínka / logo na sociálních sítích eventu</span></label>
+                        <label><input type="checkbox" name="offer[]" value="newsletter"><span>Zmínka v newsletteru / emailu účastníkům</span></label>
+                        <label><input type="checkbox" name="offer[]" value="banner-trat"><span>Prostor pro banner na trati / v cíli / na startu</span></label>
+                        <label><input type="checkbox" name="offer[]" value="moderator"><span>Zmínka od moderátora</span></label>
+                        <label><input type="checkbox" name="offer[]" value="fotky-video"><span>Fotky / video z eventu k volnému použití</span></label>
+                        <label><input type="checkbox" name="offer[]" value="databaze"><span>Přístup k databázi účastníků (se souhlasem)</span></label>
+                        <label><input type="checkbox" name="offer[]" value="vip"><span>VIP přístupy / zázemí pro tým Enervit</span></label>
+                        <label><input type="checkbox" name="offer[]" value="exkluzivita"><span>Exkluzivita v kategorii sportovní výživa</span></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Něco dalšího, co můžete nabídnout?</label>
+                    <textarea name="offer_other" rows="3" placeholder="Např. TV přenos, mediální výstupy, VIP program, startovní balíčky..."></textarea>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- SECTION E: HISTORIE -->
+                <div class="form-section-title">📋 Předchozí spolupráce</div>
+                <div class="form-section-subtitle">Není povinné — pomůže nám to pochopit kontext</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Spolupracovali jste s Enervit / VITAR Sport?</label>
+                        <select name="past_collab">
+                            <option value="">Vyberte...</option>
+                            <option value="ano">Ano</option>
+                            <option value="ne">Ne, jsme noví</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Spolupracujete s jiným výrobcem sportovní výživy?</label>
+                        <select name="competitor">
+                            <option value="">Vyberte...</option>
+                            <option value="ne">Ne</option>
+                            <option value="ano">Ano</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Podrobnosti k předchozí spolupráci</label>
+                    <textarea name="past_details" rows="2" placeholder="Pokud jste s námi spolupracovali dříve, napište jak. Pokud spolupracujete s jinou značkou, napište s jakou."></textarea>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- SECTION F: KONTAKT -->
+                <div class="form-section-title">👤 Kontaktní údaje</div>
+                <div class="form-section-subtitle">Komu se máme ozvat?</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Jméno kontaktní osoby <span class="required">*</span></label>
+                        <input type="text" name="contact_name" required placeholder="Jan Novák">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" name="contact_email" required placeholder="jan@event.cz">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Telefon <span class="required">*</span></label>
+                        <input type="tel" name="contact_phone" required placeholder="+420 ...">
+                    </div>
+                    <div class="form-group">
+                        <label>Organizace / firma</label>
+                        <input type="text" name="organization" placeholder="Název organizace">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Doručovací adresa pro zásilku <span class="required">*</span></label>
+                    <textarea name="delivery_address" rows="2" required placeholder="Ulice, město, PSČ"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Cokoliv dalšího, co bychom měli vědět?</label>
+                    <textarea name="notes" rows="3" placeholder="Speciální požadavky, kontext, poznámky..."></textarea>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- CONSENT -->
+                <div class="consent-group">
+                    <label>
+                        <input type="checkbox" required>
+                        <span>Souhlasím s podmínkami programu Enervit pro eventy <span class="required">*</span></span>
+                    </label>
+                    <label>
+                        <input type="checkbox" required>
+                        <span>Zavazuji se pořídit fotodokumentaci (min. 5 fotek) a zaslat ji do 5 dnů po eventu <span class="required">*</span></span>
+                    </label>
+                    <label>
+                        <input type="checkbox" required>
+                        <span>Souhlasím se zpracováním osobních údajů za účelem vyřízení žádosti <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit">Odeslat žádost o podporu</button>
+
+            </form>
+
+            <div id="form-success" style="display:none; text-align:center; padding: 60px 0;">
+                <div style="font-size:64px; margin-bottom:16px;">✅</div>
+                <h3 style="font-size:24px; color:var(--dark); margin-bottom:8px;">Děkujeme!</h3>
+                <p style="color:var(--gray-500); font-size:16px;">Vaše žádost byla odeslána. Ozveme se do 48 hodin.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="container">
+        <div class="section-header">
+            <div class="badge">Otázky</div>
+            <h2>Časté dotazy</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">Stojí to něco?</button>
+                <div class="faq-answer">
+                    <p>Sampling a produktová podpora je zdarma. U větších eventů nabízíme komisní prodej — vy prodáváte naše produkty, necháváte si 15 % z tržby. U partnerství řešíme individuální podmínky.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Přijedou vaši lidé na náš event?</button>
+                <div class="faq-answer">
+                    <p>U většiny eventů ne — dodáme vám vše potřebné a vy to zrealizujete sami. Pošleme návod, materiály i produkty. U vybraných TOP eventů řešíme osobní účast individuálně.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Jak daleko dopředu musíme žádat?</button>
+                <div class="faq-answer">
+                    <p>Minimálně 30 dní před eventem. Ideálně dříve — kapacita kitů je omezená a přidělujeme je podle pořadí a strategického fitu.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Co od nás budete potřebovat po eventu?</button>
+                <div class="faq-answer">
+                    <p>Minimálně 5 fotek z akce, vyplněný inventurní list (pokud jste měli komisní prodej), a krátký feedback. Vše do 5 dní po eventu.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Můžeme si vybrat, jaké produkty dostaneme?</button>
+                <div class="faq-answer">
+                    <p>Sestavení kitu řešíme my na základě typu vašeho eventu. Můžete nám sdělit preference a specifické potřeby (např. občerstvovací stanice = iontáky + kelímky, startovní balíčky = gely + tyčinky).</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Podporujete i slovenské eventy?</button>
+                <div class="faq-answer">
+                    <p>Ano! Formulář je pro eventy v ČR i SK. Doručení na Slovensko řešíme standardně.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Co když potřebujeme víc, než co nabízíte?</button>
+                <div class="faq-answer">
+                    <p>Napište nám do formuláře co potřebujete — u vybraných eventů řešíme individuální partnerství na míru včetně dlouhodobých smluv.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div style="display:inline-block; background:var(--enervit-red); border-radius:4px; padding:8px 16px; margin-bottom:12px;">
+            <img src="enervit-logo-white.svg" alt="Enervit" style="height:24px; display:block;">
+        </div>
+        <p style="margin-bottom:4px; color:rgba(255,255,255,0.6); font-size:13px; text-transform:uppercase; letter-spacing:0.1em;">Before, During, After Sports</p>
+        <p style="margin-bottom:16px;">
+            <a href="https://www.enervit.cz" target="_blank">enervit.cz</a> ·
+            <a href="https://www.royalbay.cz" target="_blank">royalbay.cz</a> ·
+            VITAR Sport s.r.o.
+        </p>
+        <p style="font-size:12px;">© 2026 VITAR Sport s.r.o. Všechna práva vyhrazena. · <a href="mailto:events@vitarsport.cz">events@vitarsport.cz</a></p>
+    </div>
+</footer>
+
+<script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.parentElement;
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+
+    // Form submission (demo)
+    document.getElementById('event-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('formular').offsetTop - 80, behavior: 'smooth' });
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.tier-card, .step').forEach(el => {
+        el.classList.add('fade-up');
+        observer.observe(el);
+    });
+</script>
+
+</body>
+</html>
