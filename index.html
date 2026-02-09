@@ -46,6 +46,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body {
+            overflow-x: hidden;
+        }
+
         body {
             /* Trade Gothic Lt Std is the brand font; Inter is closest web alternative */
             font-family: 'Inter', 'Trade Gothic Lt Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -274,7 +278,7 @@
 
         .tier-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
