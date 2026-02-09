@@ -1178,12 +1178,57 @@
         });
     });
 
-    // Form submission (demo)
-    document.getElementById('event-form').addEventListener('submit', function(e) {
+    // Form submission → Google Sheets via Apps Script
+    // REPLACE this URL with your deployed Apps Script Web App URL:
+    const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+    document.getElementById('event-form').addEventListener('submit', async function(e) {
         e.preventDefault();
-        this.style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('formular').offsetTop - 80, behavior: 'smooth' });
+        const form = this;
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+
+        // Disable button & show loading
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Odesílám...';
+        submitBtn.style.opacity = '0.6';
+
+        // Collect all form data
+        const data = {};
+        // Simple fields (text, date, select, textarea, email, tel, url)
+        form.querySelectorAll('input:not([type=checkbox]), select, textarea').forEach(el => {
+            if (el.name && el.type !== 'checkbox') data[el.name] = el.value;
+        });
+        // Checkbox groups → comma-separated
+        const checkboxGroups = {};
+        form.querySelectorAll('input[type=checkbox]:checked').forEach(el => {
+            if (!el.name) return;
+            const key = el.name.replace('[]', '');
+            if (!checkboxGroups[key]) checkboxGroups[key] = [];
+            checkboxGroups[key].push(el.value);
+        });
+        Object.entries(checkboxGroups).forEach(([k, v]) => { data[k] = v.join(', '); });
+
+        // Add timestamp
+        data['timestamp'] = new Date().toISOString();
+
+        try {
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            // Show success (no-cors = we can't read response, but data is sent)
+            form.style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+            window.scrollTo({ top: document.getElementById('formular').offsetTop - 80, behavior: 'smooth' });
+        } catch (err) {
+            alert('Chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte na events@vitarsport.cz');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            submitBtn.style.opacity = '1';
+        }
     });
 
     // Scroll animations
