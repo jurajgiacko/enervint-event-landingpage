@@ -371,8 +371,8 @@
         /* ===== HOW IT WORKS ===== */
         .steps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
         }
 
         .step {
@@ -661,13 +661,42 @@
         }
 
         /* ===== RESPONSIVE ===== */
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .steps-grid { grid-template-columns: repeat(3, 1fr); }
+            .tier-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            section { padding: 56px 0; }
-            .form-container { padding: 28px; }
-            .form-row { grid-template-columns: 1fr; }
-            .hero { padding: 60px 0 80px; }
-            .hero-stats { gap: 24px; }
+            section { padding: 48px 0; }
+            .container { padding: 0 20px; }
+            .hero { padding: 56px 0 64px; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 15px; }
+            .cta-row { flex-direction: column; gap: 12px; }
+            .cta-row a { width: 100%; text-align: center; }
+            .steps-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .step-number { width: 40px; height: 40px; font-size: 16px; }
+            .step h3 { font-size: 16px; }
             .tier-grid { grid-template-columns: 1fr; }
+            .tier-card { padding: 28px; }
+            .form-container { padding: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 24px; }
+            .faq-question { font-size: 15px; padding: 16px 0; }
+            header .container { padding: 0 16px; }
+            .header-logo-text { font-size: 13px; }
+            .cta-header { padding: 8px 16px; font-size: 13px; }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+            .steps-grid { grid-template-columns: 1fr; gap: 16px; }
+            .hero h1 { font-size: 24px; }
+            .form-container { padding: 16px; }
+            .tier-card { padding: 24px; }
         }
 
         /* ===== ANIMATIONS ===== */
