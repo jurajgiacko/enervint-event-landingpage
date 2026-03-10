@@ -37,7 +37,6 @@ export default async function handler(req, res) {
             'Organizace': data.organization || '',
             'Adresa': data.delivery_address || '',
             'Poznámky': data.notes || '',
-            'Status': 'Nové',
         };
 
         // Remove empty optional fields to avoid Airtable validation errors
