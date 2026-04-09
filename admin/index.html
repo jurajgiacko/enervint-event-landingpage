@@ -53,66 +53,37 @@
             width: 90%;
         }
 
-        .pin-box h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .pin-box p {
-            color: var(--text-dim);
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
+        .pin-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .pin-box p { color: var(--text-dim); font-size: 14px; margin-bottom: 24px; }
 
         .pin-box input {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--dark);
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--text);
-            font-size: 18px;
-            font-family: inherit;
-            text-align: center;
-            letter-spacing: 0.15em;
-            margin-bottom: 16px;
+            width: 100%; padding: 12px 16px;
+            background: var(--dark); border: 1.5px solid var(--border);
+            border-radius: var(--radius); color: var(--text);
+            font-size: 18px; font-family: inherit;
+            text-align: center; letter-spacing: 0.15em; margin-bottom: 16px;
         }
 
-        .pin-box input:focus {
-            outline: none;
-            border-color: var(--red);
-        }
+        .pin-box input:focus { outline: none; border-color: var(--red); }
+        .pin-error { color: var(--red); font-size: 13px; margin-bottom: 12px; display: none; }
 
-        .pin-error {
-            color: var(--red);
-            font-size: 13px;
-            margin-bottom: 12px;
-            display: none;
-        }
-
+        /* ===== BUTTONS ===== */
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-            padding: 10px 20px;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            border: none;
-            transition: all 0.15s;
+            padding: 10px 20px; border-radius: 100px;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            cursor: pointer; border: none; transition: all 0.15s;
         }
 
         .btn-red { background: var(--red); color: white; }
         .btn-red:hover { background: var(--red-dark); }
         .btn-red:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-ghost {
-            background: transparent;
-            color: var(--text-dim);
-            border: 1px solid var(--border);
-        }
+        .btn-green { background: var(--green); color: white; }
+        .btn-green:hover { background: #16a34a; }
+        .btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
         .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
         .btn-sm { padding: 6px 14px; font-size: 12px; }
+        .btn-xs { padding: 4px 10px; font-size: 11px; border-radius: 6px; }
 
         /* ===== LAYOUT ===== */
         #app { display: none; }
@@ -121,135 +92,105 @@
             background: var(--surface);
             border-bottom: 1px solid var(--border);
             padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 50;
         }
 
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .topbar-left { display: flex; align-items: center; gap: 12px; }
 
         .topbar-logo {
-            background: var(--red);
-            padding: 5px 10px;
-            display: flex;
-            align-items: center;
-            height: 28px;
+            background: var(--red); padding: 5px 10px;
+            display: flex; align-items: center; height: 28px;
         }
 
         .topbar-logo img { height: 14px; }
 
         .topbar-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            font-size: 13px; font-weight: 600; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 0.08em;
         }
 
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+        .view-toggle {
+            display: flex; background: var(--dark); border-radius: 100px;
+            border: 1px solid var(--border); overflow: hidden;
         }
 
-        .main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+        .view-toggle button {
+            padding: 6px 16px; font-size: 12px; font-weight: 600;
+            font-family: inherit; border: none; cursor: pointer;
+            background: transparent; color: var(--text-dim); transition: all 0.15s;
+        }
+
+        .view-toggle button.active {
+            background: var(--red); color: white;
+        }
+
+        .view-toggle button:hover:not(.active) { color: var(--text); }
+
+        .main { padding: 24px; max-width: 1600px; margin: 0 auto; }
 
         /* ===== STATS ===== */
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
+            display: grid; grid-template-columns: repeat(5, 1fr);
+            gap: 12px; margin-bottom: 24px;
         }
 
         .stat-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 20px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 16px 20px;
         }
 
         .stat-label {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            margin-bottom: 4px;
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px;
         }
 
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-        }
-
+        .stat-value { font-size: 28px; font-weight: 800; }
         .stat-value.red { color: var(--red); }
 
         /* ===== FILTERS ===== */
         .filters {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
+            display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+            align-items: center;
         }
 
         .filter-btn {
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-dim);
-            font-family: inherit;
-            transition: all 0.15s;
+            padding: 6px 14px; border-radius: 100px;
+            font-size: 12px; font-weight: 600; cursor: pointer;
+            border: 1px solid var(--border); background: transparent;
+            color: var(--text-dim); font-family: inherit; transition: all 0.15s;
         }
 
         .filter-btn:hover { border-color: var(--border-hover); color: var(--text); }
         .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
 
-        /* ===== TABLE ===== */
-        .table-wrap {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
+        .filter-separator {
+            width: 1px; height: 20px; background: var(--border); margin: 0 4px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
+        /* ===== TABLE (both views) ===== */
+        .table-wrap {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); overflow-x: auto;
         }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
         thead th {
-            background: rgba(255,255,255,0.03);
-            padding: 10px 14px;
-            text-align: left;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-            white-space: nowrap;
-            cursor: pointer;
-            user-select: none;
+            background: rgba(255,255,255,0.03); padding: 10px 12px;
+            text-align: left; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            color: var(--text-muted); border-bottom: 1px solid var(--border);
+            white-space: nowrap; cursor: pointer; user-select: none;
+            position: sticky; top: 0;
         }
 
         thead th:hover { color: var(--text-dim); }
 
         tbody tr {
             border-bottom: 1px solid var(--border);
-            cursor: pointer;
             transition: background 0.1s;
         }
 
@@ -257,21 +198,18 @@
         tbody tr:last-child { border-bottom: none; }
 
         td {
-            padding: 10px 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
+            padding: 8px 12px; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; max-width: 200px;
         }
+
+        tbody tr.decided { opacity: 0.5; }
+        tbody tr.decided:hover { opacity: 0.8; }
+        tbody tr.urgent { border-left: 3px solid var(--orange); }
 
         /* ===== BADGES ===== */
         .badge {
-            display: inline-flex;
-            padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
+            display: inline-flex; padding: 3px 10px; border-radius: 100px;
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
             letter-spacing: 0.04em;
         }
 
@@ -285,13 +223,9 @@
         .badge-exclusive { background: rgba(255,255,255,0.08); color: var(--text); }
 
         .score-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 700;
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: 100px;
+            font-size: 12px; font-weight: 700;
         }
 
         .score-high { background: rgba(34,197,94,0.15); color: var(--green); }
@@ -299,43 +233,122 @@
         .score-low { background: rgba(234,179,8,0.15); color: var(--yellow); }
         .score-reject { background: rgba(239,68,68,0.15); color: #ef4444; }
 
+        /* ===== CRITERION DOTS ===== */
+        .dots {
+            display: flex; gap: 3px; align-items: center;
+        }
+
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .dot.filled { background: var(--red); }
+        .dot.filled.c1 { background: #ef4444; }
+        .dot.filled.c2 { background: var(--orange); }
+        .dot.filled.c3 { background: var(--yellow); }
+        .dot.filled.c4 { background: var(--blue); }
+        .dot.filled.c5 { background: var(--green); }
+
+        .dots-label {
+            font-size: 10px; color: var(--text-muted);
+            margin-left: 4px; min-width: 8px;
+        }
+
+        /* ===== DECISION BUTTONS ===== */
+        .decision-cell {
+            display: flex; gap: 6px; align-items: center;
+        }
+
+        .decision-cell .btn-approve {
+            padding: 4px 12px; font-size: 11px; font-weight: 700;
+            border-radius: 6px; border: none; cursor: pointer;
+            background: rgba(34,197,94,0.15); color: var(--green);
+            font-family: inherit; transition: all 0.15s;
+        }
+
+        .decision-cell .btn-approve:hover { background: rgba(34,197,94,0.3); }
+
+        .decision-cell .btn-reject {
+            padding: 4px 12px; font-size: 11px; font-weight: 700;
+            border-radius: 6px; border: none; cursor: pointer;
+            background: rgba(239,68,68,0.15); color: #ef4444;
+            font-family: inherit; transition: all 0.15s;
+        }
+
+        .decision-cell .btn-reject:hover { background: rgba(239,68,68,0.3); }
+
+        .decision-cell .btn-detail {
+            padding: 4px 8px; font-size: 11px;
+            border-radius: 6px; border: 1px solid var(--border);
+            background: transparent; color: var(--text-muted);
+            cursor: pointer; font-family: inherit;
+        }
+
+        .decision-cell .btn-detail:hover { color: var(--text-dim); border-color: var(--border-hover); }
+
+        .decision-done {
+            font-size: 11px; font-weight: 600;
+        }
+
+        /* ===== TIER SELECTOR POPOVER ===== */
+        .tier-popover {
+            position: fixed; z-index: 300;
+            background: var(--dark-mid); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px; min-width: 220px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+        }
+
+        .tier-popover h4 {
+            font-size: 12px; font-weight: 700; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 0.06em;
+            margin-bottom: 12px;
+        }
+
+        .tier-option {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 12px; border-radius: 8px;
+            cursor: pointer; transition: background 0.1s;
+            margin-bottom: 4px;
+        }
+
+        .tier-option:hover { background: rgba(255,255,255,0.05); }
+
+        .tier-option .tier-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+
+        .tier-option .tier-name {
+            font-size: 13px; font-weight: 600; color: var(--text);
+        }
+
+        .tier-option .tier-desc {
+            font-size: 11px; color: var(--text-muted); margin-left: auto;
+        }
+
         /* ===== DETAIL PANEL ===== */
         .panel-overlay {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 100;
-            display: none;
+            background: rgba(0,0,0,0.6); z-index: 100; display: none;
         }
 
         .panel-overlay.open { display: block; }
 
         .panel {
-            position: fixed;
-            top: 0; right: 0; bottom: 0;
-            width: 560px;
-            max-width: 95vw;
-            background: var(--dark-mid);
-            border-left: 1px solid var(--border);
-            z-index: 101;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
+            position: fixed; top: 0; right: 0; bottom: 0;
+            width: 560px; max-width: 95vw;
+            background: var(--dark-mid); border-left: 1px solid var(--border);
+            z-index: 101; display: none; flex-direction: column; overflow: hidden;
         }
 
         .panel.open { display: flex; }
 
         .panel-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 20px 24px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .panel-header h2 {
-            font-size: 18px;
-            font-weight: 700;
-        }
+        .panel-header h2 { font-size: 18px; font-weight: 700; }
 
         .panel-close {
             background: none; border: none; color: var(--text-dim);
@@ -344,166 +357,131 @@
 
         .panel-close:hover { color: var(--text); }
 
-        .panel-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-        }
+        .panel-body { flex: 1; overflow-y: auto; padding: 24px; }
 
-        .panel-section {
-            margin-bottom: 24px;
-        }
+        .panel-section { margin-bottom: 24px; }
 
         .panel-section-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            margin-bottom: 12px;
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px;
         }
 
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         .detail-item label {
-            display: block;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 2px;
+            display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 2px;
         }
 
-        .detail-item span {
-            font-size: 14px;
-            color: var(--text);
-            font-weight: 500;
-        }
-
+        .detail-item span { font-size: 14px; color: var(--text); font-weight: 500; }
         .detail-item.full { grid-column: 1 / -1; }
 
-        .panel-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
         .panel select, .panel textarea {
-            width: 100%;
-            padding: 8px 12px;
-            background: var(--dark);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--text);
-            font-size: 14px;
-            font-family: inherit;
+            width: 100%; padding: 8px 12px;
+            background: var(--dark); border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--text);
+            font-size: 14px; font-family: inherit;
         }
 
-        .panel select:focus, .panel textarea:focus {
-            outline: none;
-            border-color: var(--red);
-        }
-
+        .panel select:focus, .panel textarea:focus { outline: none; border-color: var(--red); }
         .panel textarea { min-height: 80px; resize: vertical; }
 
         .panel-footer {
-            padding: 16px 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
+            padding: 16px 24px; border-top: 1px solid var(--border);
+            display: flex; gap: 8px; justify-content: flex-end;
         }
 
         /* ===== EMAIL MODAL ===== */
         .modal-overlay {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 200;
-            display: none;
-            align-items: center;
-            justify-content: center;
+            background: rgba(0,0,0,0.7); z-index: 200;
+            display: none; align-items: center; justify-content: center;
         }
 
         .modal-overlay.open { display: flex; }
 
         .modal {
-            background: var(--dark-mid);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            width: 90%;
-            max-width: 640px;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
+            background: var(--dark-mid); border: 1px solid var(--border);
+            border-radius: 12px; width: 90%; max-width: 640px;
+            max-height: 80vh; display: flex; flex-direction: column;
         }
 
         .modal-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 20px 24px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
 
         .modal-header h3 { font-size: 16px; }
 
-        .modal-body {
-            padding: 24px;
-            overflow-y: auto;
-            flex: 1;
+        .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+
+        .email-field {
+            margin-bottom: 12px;
         }
 
+        .email-field label {
+            display: block; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            color: var(--text-muted); margin-bottom: 4px;
+        }
+
+        .email-field input {
+            width: 100%; padding: 8px 12px;
+            background: var(--dark); border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--text);
+            font-size: 14px; font-family: inherit;
+        }
+
+        .email-field input:focus { outline: none; border-color: var(--red); }
+
         .email-preview {
-            background: var(--dark);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            font-size: 14px;
-            line-height: 1.7;
-            white-space: pre-wrap;
-            color: var(--text);
+            background: var(--dark); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px;
+            font-size: 14px; line-height: 1.7;
+            white-space: pre-wrap; color: var(--text);
+            min-height: 200px;
+        }
+
+        .email-preview[contenteditable]:focus {
+            outline: none; border-color: var(--red);
         }
 
         .modal-footer {
-            padding: 16px 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
+            padding: 16px 24px; border-top: 1px solid var(--border);
+            display: flex; gap: 8px; justify-content: space-between; align-items: center;
         }
 
+        .modal-footer-left { display: flex; gap: 8px; align-items: center; }
+        .modal-footer-right { display: flex; gap: 8px; align-items: center; }
+
         .copy-ok {
-            color: var(--green);
-            font-size: 13px;
-            font-weight: 600;
-            display: none;
+            color: var(--green); font-size: 13px; font-weight: 600; display: none;
         }
 
         /* ===== LOADING ===== */
-        .loading {
-            text-align: center;
-            padding: 80px 20px;
-            color: var(--text-dim);
-        }
+        .loading { text-align: center; padding: 80px 20px; color: var(--text-dim); }
 
         .spinner {
             width: 32px; height: 32px;
-            border: 3px solid var(--border);
-            border-top-color: var(--red);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            border: 3px solid var(--border); border-top-color: var(--red);
+            border-radius: 50%; animation: spin 0.8s linear infinite;
             margin: 0 auto 16px;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-dim);
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-dim); }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            background: var(--green); color: white;
+            padding: 10px 24px; border-radius: 100px;
+            font-size: 13px; font-weight: 600; z-index: 999;
+            opacity: 0; transition: opacity 0.3s;
+            pointer-events: none;
         }
+
+        .toast.show { opacity: 1; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
@@ -514,7 +492,7 @@
         @media (max-width: 600px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .main { padding: 16px; }
-            td { padding: 8px 10px; font-size: 12px; }
+            td { padding: 6px 8px; font-size: 11px; }
         }
     </style>
 </head>
@@ -524,10 +502,10 @@
 <div id="pin-screen">
     <div class="pin-box">
         <h2>Event Admin</h2>
-        <p>Zadejte PIN pro přístup k administraci</p>
-        <div class="pin-error" id="pin-error">Nesprávný PIN</div>
+        <p>Zadejte PIN pro pristup k administraci</p>
+        <div class="pin-error" id="pin-error">Nespravny PIN</div>
         <input type="password" id="pin-input" placeholder="PIN" maxlength="20" autofocus>
-        <button class="btn btn-red" style="width:100%" onclick="submitPin()">Přihlásit</button>
+        <button class="btn btn-red" style="width:100%" onclick="submitPin()">Prihlasit</button>
     </div>
 </div>
 
@@ -541,10 +519,14 @@
                 <img src="../enervit-logo-white.svg" alt="Enervit">
             </div>
             <span class="topbar-title">Event Admin</span>
+            <div class="view-toggle">
+                <button id="view-table" class="active" onclick="switchView('table')">Prehled</button>
+                <button id="view-matrix" onclick="switchView('matrix')">Rozhodovacia Matrix</button>
+            </div>
         </div>
         <div class="topbar-right">
             <button class="btn btn-ghost btn-sm" onclick="loadEvents()">Obnovit</button>
-            <button class="btn btn-ghost btn-sm" onclick="logout()">Odhlásit</button>
+            <button class="btn btn-ghost btn-sm" onclick="logout()">Odhlasit</button>
         </div>
     </div>
 
@@ -552,27 +534,30 @@
         <!-- STATS -->
         <div class="stats-grid" id="stats">
             <div class="stat-card"><div class="stat-label">Celkem</div><div class="stat-value" id="stat-total">—</div></div>
-            <div class="stat-card"><div class="stat-label">Nové</div><div class="stat-value red" id="stat-nove">—</div></div>
-            <div class="stat-card"><div class="stat-label">Schválené</div><div class="stat-value" id="stat-schvalene">—</div></div>
-            <div class="stat-card"><div class="stat-label">Zamítnuté</div><div class="stat-value" id="stat-zamietnute">—</div></div>
-            <div class="stat-card"><div class="stat-label">Do 30 dní</div><div class="stat-value" id="stat-upcoming">—</div></div>
+            <div class="stat-card"><div class="stat-label">Nove / Nerozhodnute</div><div class="stat-value red" id="stat-nove">—</div></div>
+            <div class="stat-card"><div class="stat-label">Schvalene</div><div class="stat-value" id="stat-schvalene">—</div></div>
+            <div class="stat-card"><div class="stat-label">Zamitnute</div><div class="stat-value" id="stat-zamietnute">—</div></div>
+            <div class="stat-card"><div class="stat-label">Urgentne (30 dni)</div><div class="stat-value" id="stat-upcoming">—</div></div>
         </div>
 
         <!-- FILTERS -->
         <div class="filters">
-            <button class="filter-btn active" data-filter="all">Všechny</button>
-            <button class="filter-btn" data-filter="Nové">Nové</button>
+            <button class="filter-btn active" data-filter="all">Vsechny</button>
+            <button class="filter-btn" data-filter="Nové">Nove</button>
             <button class="filter-btn" data-filter="V review">V review</button>
-            <button class="filter-btn" data-filter="Schválené">Schválené</button>
-            <button class="filter-btn" data-filter="Zamítnuté">Zamítnuté</button>
+            <button class="filter-btn" data-filter="Schválené">Schvalene</button>
+            <button class="filter-btn" data-filter="Zamítnuté">Zamitnute</button>
+            <div class="filter-separator"></div>
+            <button class="filter-btn" data-filter="urgent">Urgentne (&lt;30 dni)</button>
         </div>
 
-        <!-- TABLE -->
+        <!-- LOADING -->
         <div id="loading" class="loading">
             <div class="spinner"></div>
-            Načítám eventy z Airtable...
+            Nacitam eventy z Airtable...
         </div>
 
+        <!-- TABLE VIEW -->
         <div id="table-container" style="display:none">
             <div class="table-wrap">
                 <table>
@@ -581,11 +566,11 @@
                             <th>Stav</th>
                             <th>Score</th>
                             <th>Tier</th>
-                            <th>Název eventu</th>
+                            <th>Nazev eventu</th>
                             <th>Datum</th>
-                            <th>Město</th>
-                            <th>Disciplína</th>
-                            <th>Účastníci</th>
+                            <th>Mesto</th>
+                            <th>Disciplina</th>
+                            <th>Ucastnici</th>
                             <th>Kontakt</th>
                         </tr>
                     </thead>
@@ -594,8 +579,32 @@
             </div>
         </div>
 
+        <!-- MATRIX VIEW -->
+        <div id="matrix-container" style="display:none">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="min-width:180px">Event</th>
+                            <th>Datum</th>
+                            <th title="Pocet ucastnikov">Ucast.</th>
+                            <th title="Brand fit / Disciplina">Brand</th>
+                            <th title="Medialne pokrytie">Media</th>
+                            <th title="Rocnik / Tradicia">Rocnik</th>
+                            <th title="Pocet protiplneni">Protipln.</th>
+                            <th title="Past collab + No competitor">Bonus</th>
+                            <th>Score</th>
+                            <th>Tier</th>
+                            <th style="min-width:200px">Rozhodnutie</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matrix-body"></tbody>
+                </table>
+            </div>
+        </div>
+
         <div id="empty-state" class="empty-state" style="display:none">
-            <p>Žádné přihlášky v Airtable.</p>
+            <p>Zadne prihlasky v Airtable.</p>
         </div>
     </div>
 </div>
@@ -609,9 +618,9 @@
     </div>
     <div class="panel-body" id="panel-body"></div>
     <div class="panel-footer">
-        <button class="btn btn-ghost btn-sm" onclick="generateEmail('reject')">Email: Zamítnutí</button>
-        <button class="btn btn-ghost btn-sm" onclick="generateEmail('approve')">Email: Schválení</button>
-        <button class="btn btn-red btn-sm" id="panel-save" onclick="saveEvent()">Uložit změny</button>
+        <button class="btn btn-ghost btn-sm" onclick="generateEmail('reject')">Email: Zamitnutie</button>
+        <button class="btn btn-ghost btn-sm" onclick="generateEmail('approve')">Email: Schvalenie</button>
+        <button class="btn btn-red btn-sm" id="panel-save" onclick="saveEvent()">Ulozit zmeny</button>
     </div>
 </div>
 
@@ -623,14 +632,54 @@
             <button class="panel-close" onclick="closeEmailModal()">&times;</button>
         </div>
         <div class="modal-body">
-            <div class="email-preview" id="email-content"></div>
+            <div class="email-field">
+                <label>Komu</label>
+                <input type="text" id="email-to" readonly>
+            </div>
+            <div class="email-field">
+                <label>Predmet</label>
+                <input type="text" id="email-subject">
+            </div>
+            <div class="email-field">
+                <label>Telo emailu</label>
+                <div class="email-preview" id="email-content" contenteditable="true"></div>
+            </div>
         </div>
         <div class="modal-footer">
-            <span class="copy-ok" id="copy-ok">Zkopírováno!</span>
-            <button class="btn btn-red btn-sm" onclick="copyEmail()">Kopírovat do schránky</button>
+            <div class="modal-footer-left">
+                <span class="copy-ok" id="copy-ok">Skopirovane!</span>
+            </div>
+            <div class="modal-footer-right">
+                <button class="btn btn-ghost btn-sm" onclick="closeEmailModal()">Zavriet</button>
+                <button class="btn btn-ghost btn-sm" onclick="copyEmail()">Kopirovat</button>
+                <button class="btn btn-red btn-sm" onclick="openInMailClient()">Otvorit v maili</button>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- TIER POPOVER -->
+<div class="tier-popover" id="tier-popover" style="display:none">
+    <h4>Vyber tier</h4>
+    <div class="tier-option" onclick="selectTier('EXCLUSIVE')">
+        <div class="tier-dot" style="background:var(--text)"></div>
+        <span class="tier-name">EXCLUSIVE</span>
+        <span class="tier-desc">Individualna dohoda</span>
+    </div>
+    <div class="tier-option" onclick="selectTier('PRO')">
+        <div class="tier-dot" style="background:var(--red)"></div>
+        <span class="tier-name">PRO</span>
+        <span class="tier-desc">Silver/Gold Kit</span>
+    </div>
+    <div class="tier-option" onclick="selectTier('BASE')">
+        <div class="tier-dot" style="background:#a8a29e"></div>
+        <span class="tier-name">BASE</span>
+        <span class="tier-desc">Bronze Kit / Sampling</span>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
 const PIN_KEY = 'enervit_admin_pin';
@@ -638,7 +687,9 @@ const PIN_TTL = 72 * 60 * 60 * 1000;
 
 let allEvents = [];
 let currentFilter = 'all';
+let currentView = 'table';
 let currentEventId = null;
+let pendingApproveId = null;
 
 // ===== SCORING CONFIG =====
 const PARTICIPANT_SCORES = {
@@ -656,31 +707,33 @@ const EDITION_SCORES = {
     '4.–10. ročník': 3, '10+ let tradice': 5
 };
 
-function calcScore(fields) {
-    const pScore = PARTICIPANT_SCORES[fields['Počet účastníků']] || 2;
-    const dScore = DISCIPLINE_SCORES[fields['Disciplína']] || 2;
+function calcScoreBreakdown(fields) {
+    const p = PARTICIPANT_SCORES[fields['Počet účastníků']] || 2;
+    const d = DISCIPLINE_SCORES[fields['Disciplína']] || 2;
 
-    let mScore = 1;
+    let m = 1;
     const media = (fields['Mediální pokrytí'] || '').toLowerCase();
-    if (media.includes('tv') || media.includes('livestream')) mScore = 5;
-    else if (media.includes('national') || media.includes('celostátní')) mScore = 4;
-    else if (media.includes('socials') || media.includes('sociální')) mScore = 3;
-    else if (media.includes('regional')) mScore = 2;
+    if (media.includes('tv') || media.includes('livestream')) m = 5;
+    else if (media.includes('national') || media.includes('celostátní')) m = 4;
+    else if (media.includes('socials') || media.includes('sociální')) m = 3;
+    else if (media.includes('regional')) m = 2;
 
-    const eScore = EDITION_SCORES[fields['Ročník']] || 2;
+    const e = EDITION_SCORES[fields['Ročník']] || 2;
 
     const offerStr = fields['Protiplnění'] || '';
     const offerCount = offerStr ? offerStr.split(',').length : 0;
-    const oScore = Math.min(5, Math.max(1, Math.round(offerCount / 2)));
+    const o = Math.min(5, Math.max(1, Math.round(offerCount / 2)));
 
     let bonus = 0;
     if (fields['Předchozí spolupráce'] === 'Ano') bonus += 0.3;
     if (fields['Konkurence'] === 'Ne') bonus += 0.2;
 
-    const raw = (pScore * 0.25) + (dScore * 0.25) + (mScore * 0.15) +
-                (eScore * 0.10) + (oScore * 0.15) + (pScore * 0.10) + bonus;
+    const raw = (p * 0.25) + (d * 0.25) + (m * 0.15) +
+                (e * 0.10) + (o * 0.15) + (p * 0.10) + bonus;
 
-    return Math.min(5.0, Math.round(raw * 10) / 10);
+    const score = Math.min(5.0, Math.round(raw * 10) / 10);
+
+    return { p, d, m, e, o, bonus, score };
 }
 
 function scoreTier(score) {
@@ -695,6 +748,52 @@ function scoreClass(score) {
     if (score >= 3.0) return 'score-mid';
     if (score >= 2.0) return 'score-low';
     return 'score-reject';
+}
+
+function tierBadgeClass(tier) {
+    return { 'BASE': 'badge-base', 'PRO': 'badge-pro', 'EXCLUSIVE': 'badge-exclusive' }[tier] || 'badge-base';
+}
+
+function stavBadgeClass(stav) {
+    return {
+        'Nové': 'badge-nove', 'V review': 'badge-review',
+        'Schválené': 'badge-schvalene', 'Zamítnuté': 'badge-zamietnute'
+    }[stav] || 'badge-nove';
+}
+
+function isUrgent(dateStr) {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    const now = new Date();
+    const diff = (d - now) / (1000 * 60 * 60 * 24);
+    return diff >= 0 && diff <= 30;
+}
+
+function daysUntil(dateStr) {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    d.setHours(0,0,0,0);
+    return Math.ceil((d - now) / (1000 * 60 * 60 * 24));
+}
+
+function renderDots(value, max) {
+    max = max || 5;
+    const colorClass = `c${Math.min(5, Math.max(1, value))}`;
+    let html = '<div class="dots">';
+    for (let i = 1; i <= max; i++) {
+        html += `<div class="dot ${i <= value ? 'filled ' + colorClass : ''}"></div>`;
+    }
+    html += `<span class="dots-label">${value}</span></div>`;
+    return html;
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 // ===== PIN AUTH =====
@@ -713,7 +812,6 @@ function setPin(pin) {
 
 async function submitPin() {
     const pin = document.getElementById('pin-input').value.trim();
-
     try {
         const res = await fetch(`/api/events?pin=${encodeURIComponent(pin)}`);
         if (res.status === 401) {
@@ -721,16 +819,14 @@ async function submitPin() {
             return;
         }
         if (!res.ok) throw new Error('Server error');
-
         setPin(pin || '__nopin__');
         document.getElementById('pin-screen').style.display = 'none';
         document.getElementById('app').style.display = 'block';
-
         const data = await res.json();
         processEvents(data.records);
     } catch (err) {
         console.error(err);
-        alert('Chyba serveru. Zkuste to znovu.');
+        alert('Chyba serveru.');
     }
 }
 
@@ -743,6 +839,25 @@ function logout() {
     location.reload();
 }
 
+// ===== VIEW TOGGLE =====
+function switchView(view) {
+    currentView = view;
+    document.getElementById('view-table').classList.toggle('active', view === 'table');
+    document.getElementById('view-matrix').classList.toggle('active', view === 'matrix');
+
+    if (allEvents.length > 0) {
+        if (view === 'table') {
+            document.getElementById('table-container').style.display = 'block';
+            document.getElementById('matrix-container').style.display = 'none';
+            renderTable();
+        } else {
+            document.getElementById('table-container').style.display = 'none';
+            document.getElementById('matrix-container').style.display = 'block';
+            renderMatrix();
+        }
+    }
+}
+
 // ===== LOAD EVENTS =====
 async function loadEvents() {
     const pin = getPin();
@@ -750,6 +865,7 @@ async function loadEvents() {
 
     document.getElementById('loading').style.display = 'block';
     document.getElementById('table-container').style.display = 'none';
+    document.getElementById('matrix-container').style.display = 'none';
     document.getElementById('empty-state').style.display = 'none';
 
     try {
@@ -760,18 +876,20 @@ async function loadEvents() {
         processEvents(data.records);
     } catch (err) {
         console.error(err);
-        alert('Nepodařilo se načíst eventy.');
+        alert('Nepodarilo sa nacitat eventy.');
     }
 }
 
 function processEvents(records) {
     allEvents = records.map(r => {
         const f = r.fields;
-        const score = f['Score'] ? parseFloat(f['Score']) : calcScore(f);
+        const breakdown = calcScoreBreakdown(f);
+        const score = f['Score'] ? parseFloat(f['Score']) : breakdown.score;
         return {
             id: r.id,
             fields: f,
             score,
+            breakdown,
             stav: f['Stav'] || 'Nové',
             tier: f['Tier'] || scoreTier(score),
         };
@@ -784,20 +902,19 @@ function processEvents(records) {
     });
 
     updateStats();
-    renderTable();
-
     document.getElementById('loading').style.display = 'none';
+
     if (allEvents.length === 0) {
         document.getElementById('empty-state').style.display = 'block';
     } else {
-        document.getElementById('table-container').style.display = 'block';
+        switchView(currentView);
     }
 }
 
 // ===== STATS =====
 function updateStats() {
     document.getElementById('stat-total').textContent = allEvents.length;
-    document.getElementById('stat-nove').textContent = allEvents.filter(e => e.stav === 'Nové').length;
+    document.getElementById('stat-nove').textContent = allEvents.filter(e => e.stav === 'Nové' || e.stav === 'V review').length;
     document.getElementById('stat-schvalene').textContent = allEvents.filter(e => e.stav === 'Schválené').length;
     document.getElementById('stat-zamietnute').textContent = allEvents.filter(e => e.stav === 'Zamítnuté').length;
 
@@ -815,40 +932,40 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentFilter = btn.dataset.filter;
-        renderTable();
+        if (currentView === 'table') renderTable();
+        else renderMatrix();
     });
 });
 
-// ===== TABLE =====
+function getFilteredEvents() {
+    if (currentFilter === 'all') return allEvents;
+    if (currentFilter === 'urgent') {
+        return allEvents.filter(e => isUrgent(e.fields['Datum konání']) && e.stav !== 'Zamítnuté');
+    }
+    return allEvents.filter(e => e.stav === currentFilter);
+}
+
+// ===== TABLE VIEW =====
 function renderTable() {
     const tbody = document.getElementById('events-body');
-    const filtered = currentFilter === 'all'
-        ? allEvents
-        : allEvents.filter(e => e.stav === currentFilter);
+    const filtered = getFilteredEvents();
 
     if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-dim);padding:40px">Žádné eventy v tomto filtru</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-dim);padding:40px">Ziadne eventy v tomto filtri</td></tr>';
         return;
     }
 
     tbody.innerHTML = filtered.map(ev => {
         const f = ev.fields;
-        const stavClass = {
-            'Nové': 'badge-nove', 'V review': 'badge-review',
-            'Schválené': 'badge-schvalene', 'Zamítnuté': 'badge-zamietnute'
-        }[ev.stav] || 'badge-nove';
-
-        const tierClass = {
-            'BASE': 'badge-base', 'PRO': 'badge-pro', 'EXCLUSIVE': 'badge-exclusive'
-        }[ev.tier] || 'badge-base';
-
         const date = f['Datum konání'] || '—';
         const displayDate = date !== '—' ? new Date(date).toLocaleDateString('cs-CZ') : '—';
+        const urgent = isUrgent(date);
+        const decided = ev.stav === 'Schválené' || ev.stav === 'Zamítnuté';
 
-        return `<tr onclick="openPanel('${ev.id}')">
-            <td><span class="badge ${stavClass}">${ev.stav}</span></td>
+        return `<tr onclick="openPanel('${ev.id}')" class="${decided ? 'decided' : ''} ${urgent && !decided ? 'urgent' : ''}">
+            <td><span class="badge ${stavBadgeClass(ev.stav)}">${ev.stav}</span></td>
             <td><span class="score-badge ${scoreClass(ev.score)}">${ev.score.toFixed(1)}</span></td>
-            <td><span class="badge ${tierClass}">${ev.tier}</span></td>
+            <td><span class="badge ${tierBadgeClass(ev.tier)}">${ev.tier}</span></td>
             <td title="${f['Název eventu'] || ''}">${f['Název eventu'] || '—'}</td>
             <td>${displayDate}</td>
             <td>${f['Město'] || '—'}</td>
@@ -859,6 +976,155 @@ function renderTable() {
     }).join('');
 }
 
+// ===== MATRIX VIEW =====
+function renderMatrix() {
+    const tbody = document.getElementById('matrix-body');
+    const filtered = getFilteredEvents();
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:var(--text-dim);padding:40px">Ziadne eventy v tomto filtri</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = filtered.map(ev => {
+        const f = ev.fields;
+        const b = ev.breakdown;
+        const date = f['Datum konání'] || '—';
+        const displayDate = date !== '—' ? new Date(date).toLocaleDateString('cs-CZ') : '—';
+        const days = daysUntil(date);
+        const urgent = days !== null && days >= 0 && days <= 30;
+        const past = days !== null && days < 0;
+        const decided = ev.stav === 'Schválené' || ev.stav === 'Zamítnuté';
+
+        let dateLabel = displayDate;
+        if (past) dateLabel += ' <span style="color:var(--text-muted);font-size:10px">(prebehlo)</span>';
+        else if (days !== null && days <= 30) dateLabel += ` <span style="color:var(--orange);font-size:10px;font-weight:700">${days}d</span>`;
+
+        const bonusText = [];
+        if (f['Předchozí spolupráce'] === 'Ano') bonusText.push('Past');
+        if (f['Konkurence'] === 'Ne') bonusText.push('NoComp');
+        const bonusDisplay = bonusText.length > 0
+            ? `<span style="color:var(--green);font-size:10px;font-weight:600">+${b.bonus.toFixed(1)}</span>`
+            : '<span style="color:var(--text-muted);font-size:10px">—</span>';
+
+        let decisionHtml = '';
+        if (decided) {
+            const icon = ev.stav === 'Schválené' ? '&#10003;' : '&#10005;';
+            const color = ev.stav === 'Schválené' ? 'var(--green)' : '#ef4444';
+            decisionHtml = `
+                <span class="decision-done" style="color:${color}">${icon} ${ev.stav}</span>
+                <button class="btn-detail" onclick="event.stopPropagation();openPanel('${ev.id}')" title="Detail">&#9998;</button>
+                <button class="btn-detail" onclick="event.stopPropagation();generateEmailFor('${ev.id}','${ev.stav === 'Schválené' ? 'approve' : 'reject'}')" title="Email">&#9993;</button>
+            `;
+        } else {
+            decisionHtml = `
+                <button class="btn-approve" onclick="event.stopPropagation();startApprove('${ev.id}', this)">&#10003; Schvalit</button>
+                <button class="btn-reject" onclick="event.stopPropagation();quickReject('${ev.id}')">&#10005;</button>
+                <button class="btn-detail" onclick="event.stopPropagation();openPanel('${ev.id}')" title="Detail">&#8230;</button>
+            `;
+        }
+
+        return `<tr class="${decided ? 'decided' : ''} ${urgent && !decided ? 'urgent' : ''}" onclick="openPanel('${ev.id}')">
+            <td style="max-width:180px" title="${f['Název eventu'] || ''}">${f['Název eventu'] || '—'}</td>
+            <td>${dateLabel}</td>
+            <td>${renderDots(b.p, 5)}</td>
+            <td>${renderDots(b.d, 5)}</td>
+            <td>${renderDots(b.m, 5)}</td>
+            <td>${renderDots(b.e, 5)}</td>
+            <td>${renderDots(b.o, 5)}</td>
+            <td>${bonusDisplay}</td>
+            <td><span class="score-badge ${scoreClass(ev.score)}">${ev.score.toFixed(1)}</span></td>
+            <td><span class="badge ${tierBadgeClass(ev.tier)}">${ev.tier}</span></td>
+            <td onclick="event.stopPropagation()"><div class="decision-cell">${decisionHtml}</div></td>
+        </tr>`;
+    }).join('');
+}
+
+// ===== QUICK DECISION =====
+function startApprove(id, btnEl) {
+    pendingApproveId = id;
+    const ev = allEvents.find(e => e.id === id);
+    if (!ev) return;
+
+    const popover = document.getElementById('tier-popover');
+    const rect = btnEl.getBoundingClientRect();
+
+    popover.style.top = rect.bottom + 8 + 'px';
+    popover.style.left = Math.min(rect.left, window.innerWidth - 240) + 'px';
+    popover.style.display = 'block';
+
+    const closeHandler = (e) => {
+        if (!popover.contains(e.target) && e.target !== btnEl) {
+            popover.style.display = 'none';
+            document.removeEventListener('click', closeHandler);
+        }
+    };
+    setTimeout(() => document.addEventListener('click', closeHandler), 10);
+}
+
+async function selectTier(tier) {
+    const id = pendingApproveId;
+    if (!id) return;
+    document.getElementById('tier-popover').style.display = 'none';
+
+    const ev = allEvents.find(e => e.id === id);
+    if (!ev) return;
+
+    ev.stav = 'Schválené';
+    ev.tier = tier;
+    ev.fields['Stav'] = 'Schválené';
+
+    await saveEventToAirtable(id, { Stav: 'Schválené' });
+
+    updateStats();
+    if (currentView === 'matrix') renderMatrix();
+    else renderTable();
+
+    showToast(`${ev.fields['Název eventu']} schvaleny ako ${tier}`);
+
+    setTimeout(() => generateEmailFor(id, 'approve'), 600);
+}
+
+async function quickReject(id) {
+    const ev = allEvents.find(e => e.id === id);
+    if (!ev) return;
+
+    if (!confirm(`Zamietnuť event "${ev.fields['Název eventu']}"?`)) return;
+
+    ev.stav = 'Zamítnuté';
+    ev.fields['Stav'] = 'Zamítnuté';
+
+    await saveEventToAirtable(id, { Stav: 'Zamítnuté' });
+
+    updateStats();
+    if (currentView === 'matrix') renderMatrix();
+    else renderTable();
+
+    showToast(`${ev.fields['Název eventu']} zamietnuty`);
+
+    setTimeout(() => generateEmailFor(id, 'reject'), 600);
+}
+
+async function saveEventToAirtable(recordId, fields) {
+    const pin = getPin();
+    if (!pin) return logout();
+
+    try {
+        const res = await fetch('/api/update-event', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin, recordId, fields })
+        });
+        if (res.status === 401) return logout();
+        if (!res.ok) {
+            const err = await res.json();
+            console.error('Save error:', err);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 // ===== DETAIL PANEL =====
 function openPanel(id) {
     currentEventId = id;
@@ -866,41 +1132,58 @@ function openPanel(id) {
     if (!ev) return;
 
     const f = ev.fields;
+    const b = ev.breakdown;
     document.getElementById('panel-title').textContent = f['Název eventu'] || 'Detail';
 
     const date = f['Datum konání'] ? new Date(f['Datum konání']).toLocaleDateString('cs-CZ') : '—';
+    const days = daysUntil(f['Datum konání']);
+    let urgencyLabel = '';
+    if (days !== null && days < 0) urgencyLabel = '<span style="color:var(--text-muted)">(prebehlo)</span>';
+    else if (days !== null && days <= 30) urgencyLabel = `<span style="color:var(--orange);font-weight:700">(za ${days} dni!)</span>`;
 
     document.getElementById('panel-body').innerHTML = `
         <div class="panel-section">
+            <div class="panel-section-title">Scoring breakdown — ${ev.score.toFixed(1)} / 5.0</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+                <div><span style="font-size:10px;color:var(--text-muted)">Ucastnici</span>${renderDots(b.p, 5)}</div>
+                <div><span style="font-size:10px;color:var(--text-muted)">Brand fit</span>${renderDots(b.d, 5)}</div>
+                <div><span style="font-size:10px;color:var(--text-muted)">Media</span>${renderDots(b.m, 5)}</div>
+                <div><span style="font-size:10px;color:var(--text-muted)">Rocnik</span>${renderDots(b.e, 5)}</div>
+                <div><span style="font-size:10px;color:var(--text-muted)">Protiplneni</span>${renderDots(b.o, 5)}</div>
+                <div><span style="font-size:10px;color:var(--text-muted)">Bonus</span><span style="font-size:13px;font-weight:700;color:var(--green)">+${b.bonus.toFixed(1)}</span></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
             <div class="panel-section-title">Event info</div>
             <div class="detail-grid">
-                <div class="detail-item"><label>Datum</label><span>${date}</span></div>
-                <div class="detail-item"><label>Město</label><span>${f['Město'] || '—'}</span></div>
-                <div class="detail-item"><label>Disciplína</label><span>${f['Disciplína'] || '—'}</span></div>
-                <div class="detail-item"><label>Ročník</label><span>${f['Ročník'] || '—'}</span></div>
-                <div class="detail-item"><label>Účastníci</label><span>${f['Počet účastníků'] || '—'}</span></div>
+                <div class="detail-item"><label>Datum</label><span>${date} ${urgencyLabel}</span></div>
+                <div class="detail-item"><label>Mesto</label><span>${f['Město'] || '—'}</span></div>
+                <div class="detail-item"><label>Disciplina</label><span>${f['Disciplína'] || '—'}</span></div>
+                <div class="detail-item"><label>Rocnik</label><span>${f['Ročník'] || '—'}</span></div>
+                <div class="detail-item"><label>Ucastnici</label><span>${f['Počet účastníků'] || '—'}</span></div>
                 <div class="detail-item"><label>Social reach</label><span>${f['Social reach'] || '—'}</span></div>
-                <div class="detail-item full"><label>Web</label><span>${f['Web'] || '—'}</span></div>
-                <div class="detail-item full"><label>Mediální pokrytí</label><span>${f['Mediální pokrytí'] || '—'}</span></div>
+                <div class="detail-item full"><label>Web</label><span>${f['Web'] ? `<a href="${f['Web']}" target="_blank" style="color:var(--blue)">${f['Web']}</a>` : '—'}</span></div>
+                <div class="detail-item full"><label>Medialne pokrytie</label><span>${f['Mediální pokrytí'] || '—'}</span></div>
             </div>
         </div>
 
         <div class="panel-section">
-            <div class="panel-section-title">Potřeby a protiplnění</div>
+            <div class="panel-section-title">Potreby a protiplnenia</div>
             <div class="detail-grid">
-                <div class="detail-item full"><label>Co potřebují</label><span>${f['Potřeby'] || '—'}</span></div>
-                <div class="detail-item full"><label>Co nabízejí</label><span>${f['Protiplnění'] || '—'}</span></div>
-                <div class="detail-item full"><label>Protiplnění jiné</label><span>${f['Protiplnění jiné'] || '—'}</span></div>
-                <div class="detail-item"><label>Prostor pro stánek</label><span>${f['Prostor pro stánek'] || '—'}</span></div>
-                <div class="detail-item"><label>Obsluha stánku</label><span>${f['Obsluha stánku'] || '—'}</span></div>
+                <div class="detail-item full"><label>Co potrebuju</label><span>${f['Potřeby'] || '—'}</span></div>
+                <div class="detail-item full"><label>Co ponukaju</label><span>${f['Protiplnění'] || '—'}</span></div>
+                <div class="detail-item full"><label>Protiplnenia ine</label><span>${f['Protiplnění jiné'] || '—'}</span></div>
+                <div class="detail-item"><label>Prostor pre stanok</label><span>${f['Prostor pro stánek'] || '—'}</span></div>
+                <div class="detail-item"><label>Obsluha stanku</label><span>${f['Obsluha stánku'] || '—'}</span></div>
             </div>
         </div>
 
         <div class="panel-section">
-            <div class="panel-section-title">Historie</div>
+            <div class="panel-section-title">Historia</div>
             <div class="detail-grid">
-                <div class="detail-item"><label>Předchozí spolupráce</label><span>${f['Předchozí spolupráce'] || '—'}</span></div>
-                <div class="detail-item"><label>Konkurence</label><span>${f['Konkurence'] || '—'}</span></div>
+                <div class="detail-item"><label>Predchadzajuca spolupraca</label><span>${f['Předchozí spolupráce'] || '—'}</span></div>
+                <div class="detail-item"><label>Konkurencia</label><span style="color:${f['Konkurence'] === 'Ano' ? '#ef4444' : 'inherit'}">${f['Konkurence'] || '—'}</span></div>
                 <div class="detail-item full"><label>Detaily</label><span>${f['Detaily spolupráce'] || '—'}</span></div>
             </div>
         </div>
@@ -908,29 +1191,25 @@ function openPanel(id) {
         <div class="panel-section">
             <div class="panel-section-title">Kontakt</div>
             <div class="detail-grid">
-                <div class="detail-item"><label>Jméno</label><span>${f['Kontakt jméno'] || '—'}</span></div>
-                <div class="detail-item"><label>Email</label><span>${f['Email'] || '—'}</span></div>
+                <div class="detail-item"><label>Meno</label><span>${f['Kontakt jméno'] || '—'}</span></div>
+                <div class="detail-item"><label>Email</label><span>${f['Email'] ? `<a href="mailto:${f['Email']}" style="color:var(--blue)">${f['Email']}</a>` : '—'}</span></div>
                 <div class="detail-item"><label>Telefon</label><span>${f['Telefon'] || '—'}</span></div>
-                <div class="detail-item"><label>Organizace</label><span>${f['Organizace'] || '—'}</span></div>
+                <div class="detail-item"><label>Organizacia</label><span>${f['Organizace'] || '—'}</span></div>
                 <div class="detail-item full"><label>Adresa</label><span>${f['Adresa'] || '—'}</span></div>
-                <div class="detail-item full"><label>Poznámky</label><span>${f['Poznámky'] || '—'}</span></div>
+                <div class="detail-item full"><label>Poznamky</label><span>${f['Poznámky'] || '—'}</span></div>
             </div>
         </div>
 
         <div class="panel-section">
-            <div class="panel-section-title">Auto-score: ${ev.score.toFixed(1)} — navrhovaný tier: ${scoreTier(ev.score)}</div>
-        </div>
-
-        <div class="panel-section">
-            <div class="panel-section-title">Akce</div>
+            <div class="panel-section-title">Rozhodnutie</div>
             <div class="detail-grid">
                 <div class="detail-item">
                     <label>Stav</label>
                     <select id="panel-stav">
-                        <option value="Nové" ${ev.stav === 'Nové' ? 'selected' : ''}>Nové</option>
+                        <option value="Nové" ${ev.stav === 'Nové' ? 'selected' : ''}>Nove</option>
                         <option value="V review" ${ev.stav === 'V review' ? 'selected' : ''}>V review</option>
-                        <option value="Schválené" ${ev.stav === 'Schválené' ? 'selected' : ''}>Schválené</option>
-                        <option value="Zamítnuté" ${ev.stav === 'Zamítnuté' ? 'selected' : ''}>Zamítnuté</option>
+                        <option value="Schválené" ${ev.stav === 'Schválené' ? 'selected' : ''}>Schvalene</option>
+                        <option value="Zamítnuté" ${ev.stav === 'Zamítnuté' ? 'selected' : ''}>Zamitnute</option>
                     </select>
                 </div>
                 <div class="detail-item">
@@ -942,8 +1221,8 @@ function openPanel(id) {
                     </select>
                 </div>
                 <div class="detail-item full">
-                    <label>Poznámka (interní)</label>
-                    <textarea id="panel-poznamky" placeholder="Interní poznámka...">${f['Poznamky'] || ''}</textarea>
+                    <label>Interna poznamka</label>
+                    <textarea id="panel-poznamky" placeholder="Interna poznamka...">${f['Poznamky'] || ''}</textarea>
                 </div>
             </div>
         </div>
@@ -968,139 +1247,150 @@ async function saveEvent() {
     const tier = document.getElementById('panel-tier').value;
     const poznamky = document.getElementById('panel-poznamky').value;
     const ev = allEvents.find(e => e.id === currentEventId);
-    const score = ev ? ev.score : 0;
 
     const saveBtn = document.getElementById('panel-save');
     saveBtn.disabled = true;
-    saveBtn.textContent = 'Ukládám...';
+    saveBtn.textContent = 'Ukladam...';
 
     try {
-        const res = await fetch('/api/update-event', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                pin,
-                recordId: currentEventId,
-                fields: { Stav: stav, Tier: tier, Score: String(score), Poznamky: poznamky }
-            })
-        });
-
-        if (res.status === 401) return logout();
-        if (!res.ok) {
-            const err = await res.json();
-            console.error('Save error:', err);
-            alert('Chyba při ukládání: ' + (err.details?.error?.message || 'neznámá chyba'));
-            return;
-        }
+        await saveEventToAirtable(currentEventId, { Stav: stav });
 
         if (ev) {
             ev.stav = stav;
             ev.tier = tier;
             ev.fields['Stav'] = stav;
-            ev.fields['Tier'] = tier;
-            ev.fields['Score'] = String(score);
-            ev.fields['Poznamky'] = poznamky;
         }
 
         updateStats();
-        renderTable();
+        if (currentView === 'matrix') renderMatrix();
+        else renderTable();
+
         closePanel();
+        showToast('Ulozene');
+
+        if (stav === 'Schválené' || stav === 'Zamítnuté') {
+            const emailType = stav === 'Schválené' ? 'approve' : 'reject';
+            setTimeout(() => generateEmailFor(currentEventId || ev.id, emailType), 400);
+        }
     } catch (err) {
         console.error(err);
-        alert('Chyba sítě.');
+        alert('Chyba pri ukladani.');
     } finally {
         saveBtn.disabled = false;
-        saveBtn.textContent = 'Uložit změny';
+        saveBtn.textContent = 'Ulozit zmeny';
     }
 }
 
 // ===== EMAIL GENERATOR =====
-function generateEmail(type) {
-    if (!currentEventId) return;
-    const ev = allEvents.find(e => e.id === currentEventId);
+function generateEmailFor(id, type) {
+    const ev = allEvents.find(e => e.id === id);
     if (!ev) return;
 
     const f = ev.fields;
-    const name = f['Kontakt jméno'] || '[JMÉNO]';
-    const eventName = f['Název eventu'] || '[NÁZEV EVENTU]';
-    const tier = document.getElementById('panel-tier')?.value || ev.tier;
+    const contactName = f['Kontakt jméno'] || '';
+    const eventName = f['Název eventu'] || '[NAZEV EVENTU]';
+    const email = f['Email'] || '';
+    const tier = ev.tier;
+
+    const firstName = contactName.split(' ')[0] || '';
+    let greeting = 'Dobry den';
+    if (firstName && firstName.length > 1) {
+        greeting = `Dobry den`;
+    }
 
     const tierDescriptions = {
-        'BASE': `Co to znamená:
-- Slevy na nákup produktů Enervit pro váš event
-- Vzorky gelů a iontových nápojů pro účastníky
-- Brandingové materiály (bannery, vlajky)
-- Možnost komisního prodeje`,
-        'PRO': `Co to znamená:
-- Iontový nápoj na občerstvovací stanice zdarma
-- Vzorky gelů a novinek pro účastníky
-- Ceny do tomboly (produktové balíčky)
-- Stánky a brandingové materiály
-- Možnost komisního prodeje (15 % provize pro vás)`,
-        'EXCLUSIVE': `Co to znamená:
-- Partnerství na míru — individuální dohoda
-- Produkty zdarma pro event
-- Kompletní nutričný servis
-- Plné zázemí (stánky, bannery, kelímky)
-- Společná PR a mediální spolupráce`
+        'EXCLUSIVE': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT EXCLUSIVE.
+
+Co to znamena:
+- Partnerstvi na miru — individualni dohoda
+- Produkty zdarma pro event (iontak, gely, tycinky)
+- Kompletni nutricni servis na obcerstvovacich stanicich
+- Plne zazemi (stanky, bannery, kelimky)
+- Spolecna PR a medialni spoluprace
+- Moznost komisniho prodeje (15 % provize)`,
+
+        'PRO': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT PRO.
+
+Co to znamena:
+- Iontovy napoj Enervit na obcerstvovaci stanice zdarma
+- Vzorky gelu a novinek pro ucastniky
+- Ceny do tomboly (produktove balicky)
+- Brandingove materialy (bannery, vlajky)
+- Moznost komisniho prodeje (15 % provize pro vas)`,
+
+        'BASE': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT BASE.
+
+Co to znamena:
+- Vzorky gelu a iontovych napoju pro ucastniky
+- Brandingove materialy (bannery)
+- Slevy na nakup produktu Enervit pro vas event
+- Moznost komisniho prodeje`
     };
 
-    let content = '';
-    let title = '';
+    let subject = '';
+    let body = '';
 
     if (type === 'approve') {
-        title = 'Email: Schválení';
-        content = `Předmět: Váš event ${eventName} byl zařazen do programu Enervit
+        subject = `Spoluprace Enervit x ${eventName} — potvrzeni`;
+        body = `${greeting},
 
-Dobrý den,
-
-děkujeme za přihlášení eventu ${eventName} do programu Enervit.
-
-Na základě posouzení jsme vašemu eventu přidělili úroveň spolupráce: ENERVIT ${tier}.
+dekujeme za prihlaseni eventu ${eventName} do programu Enervit Event Partner.
 
 ${tierDescriptions[tier] || tierDescriptions['BASE']}
 
-Další kroky:
-1. Potvrďte zájem odpovědí na tento email
-2. Dohodneme detaily (dodací adresa, termíny, rozsah)
-3. Kit/produkty doručíme 5 dní před eventem
+Dalsi kroky:
+1. Potvrdte zajem odpovedi na tento email
+2. Dohodneme detaily (dodaci adresa, terminy, rozsah)
+3. Kit/produkty dorucime 5-7 dni pred eventem
 
-Těšíme se na spolupráci!
+Tesime se na spolupraci!
 
-S pozdravem,
-Team VITAR Sport
-team@vitarsport.cz | enervit.cz`;
+Dakujem
+Juraj`;
     } else {
-        title = 'Email: Zamítnutí';
-        content = `Předmět: K vaší žádosti o spolupráci na eventu ${eventName}
+        subject = `K vasi zadosti o spolupraci — ${eventName}`;
+        body = `${greeting},
 
-Dobrý den,
+dekujeme za zajem o spolupraci s Enervit na eventu ${eventName}.
 
-děkujeme za zájem o spolupráci s Enervit na eventu ${eventName}.
+Bohuzel pro sezonu 2026 mame omezenou kapacitu a vas event jsme tentokrat do programu nezaradili.
 
-Bohužel pro sezónu 2026 máme omezenou kapacitu a váš event jsme tentokrát do programu nezařadili.
+Radi bychom vam nabidli alespon slevovy kod ENERVITEVENT15 (15% sleva na enervit.cz) pro vase ucastniky — muzete ho sirit ve svych komunikacnich kanalech.
 
-Rádi bychom vám nabídli alespoň slevový kód ENERVITEVENT15 (15% sleva na enervit.cz) pro vaše účastníky.
+Prihlasky do programu na sezonu 2027 otevreme na podzim 2026 na event.enervit.online.
 
-Přihlášky do programu na sezónu 2027 otevřeme na podzim 2026.
-
-S pozdravem,
-Team VITAR Sport
-team@vitarsport.cz | enervit.cz`;
+Dakujem
+Juraj`;
     }
 
-    document.getElementById('email-modal-title').textContent = title;
-    document.getElementById('email-content').textContent = content;
+    document.getElementById('email-to').value = email;
+    document.getElementById('email-subject').value = subject;
+    document.getElementById('email-content').textContent = body;
+    document.getElementById('email-modal-title').textContent = type === 'approve' ? 'Email: Schvalenie' : 'Email: Zamitnutie';
     document.getElementById('copy-ok').style.display = 'none';
     document.getElementById('email-modal').classList.add('open');
 }
 
+function generateEmail(type) {
+    if (!currentEventId) return;
+    generateEmailFor(currentEventId, type);
+}
+
 function copyEmail() {
-    const text = document.getElementById('email-content').textContent;
+    const subject = document.getElementById('email-subject').value;
+    const body = document.getElementById('email-content').textContent;
+    const text = `Predmet: ${subject}\n\n${body}`;
     navigator.clipboard.writeText(text).then(() => {
         document.getElementById('copy-ok').style.display = 'inline';
         setTimeout(() => { document.getElementById('copy-ok').style.display = 'none'; }, 2000);
     });
+}
+
+function openInMailClient() {
+    const to = document.getElementById('email-to').value;
+    const subject = encodeURIComponent(document.getElementById('email-subject').value);
+    const body = encodeURIComponent(document.getElementById('email-content').textContent);
+    window.open(`mailto:${to}?subject=${subject}&body=${body}`, '_blank');
 }
 
 function closeEmailModal() {
@@ -1112,6 +1402,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
         closeEmailModal();
         closePanel();
+        document.getElementById('tier-popover').style.display = 'none';
     }
 });
 
@@ -1123,7 +1414,6 @@ document.addEventListener('keydown', e => {
         document.getElementById('app').style.display = 'block';
         loadEvents();
     } else {
-        // Try without PIN first (PIN might be disabled on server)
         try {
             const res = await fetch('/api/events?pin=');
             if (res.ok) {
