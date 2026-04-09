@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     }
 
     const pin = req.query.pin;
-    if (!pin || pin !== ADMIN_PIN) {
+    if (ADMIN_PIN && pin !== ADMIN_PIN) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 

@@ -713,7 +713,6 @@ function setPin(pin) {
 
 async function submitPin() {
     const pin = document.getElementById('pin-input').value.trim();
-    if (!pin) return;
 
     try {
         const res = await fetch(`/api/events?pin=${encodeURIComponent(pin)}`);
@@ -723,7 +722,7 @@ async function submitPin() {
         }
         if (!res.ok) throw new Error('Server error');
 
-        setPin(pin);
+        setPin(pin || '__nopin__');
         document.getElementById('pin-screen').style.display = 'none';
         document.getElementById('app').style.display = 'block';
 
@@ -1117,12 +1116,24 @@ document.addEventListener('keydown', e => {
 });
 
 // ===== INIT =====
-(function init() {
+(async function init() {
     const pin = getPin();
     if (pin) {
         document.getElementById('pin-screen').style.display = 'none';
         document.getElementById('app').style.display = 'block';
         loadEvents();
+    } else {
+        // Try without PIN first (PIN might be disabled on server)
+        try {
+            const res = await fetch('/api/events?pin=');
+            if (res.ok) {
+                setPin('__nopin__');
+                document.getElementById('pin-screen').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                const data = await res.json();
+                processEvents(data.records);
+            }
+        } catch {}
     }
 })();
 </script>
