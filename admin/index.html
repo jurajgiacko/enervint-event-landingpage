@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Admin | Enervit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e40521;
+            --red-dark: #b8041a;
+            --dark: #0f0f0f;
+            --dark-mid: #1a1a1a;
+            --surface: #1e1e1e;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.15);
+            --text: rgba(255,255,255,0.88);
+            --text-dim: rgba(255,255,255,0.5);
+            --text-muted: rgba(255,255,255,0.3);
+            --green: #22c55e;
+            --yellow: #eab308;
+            --orange: #f97316;
+            --blue: #3b82f6;
+            --radius: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== PIN SCREEN ===== */
+        #pin-screen {
+            position: fixed; inset: 0;
+            background: var(--dark);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+
+        .pin-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+        }
+
+        .pin-box h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pin-box p {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .pin-box input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-size: 18px;
+            font-family: inherit;
+            text-align: center;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+
+        .pin-box input:focus {
+            outline: none;
+            border-color: var(--red);
+        }
+
+        .pin-error {
+            color: var(--red);
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s;
+        }
+
+        .btn-red { background: var(--red); color: white; }
+        .btn-red:hover { background: var(--red-dark); }
+        .btn-red:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
+        .btn-sm { padding: 6px 14px; font-size: 12px; }
+
+        /* ===== LAYOUT ===== */
+        #app { display: none; }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-logo {
+            background: var(--red);
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            height: 28px;
+        }
+
+        .topbar-logo img { height: 14px; }
+
+        .topbar-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .stat-value.red { color: var(--red); }
+
+        /* ===== FILTERS ===== */
+        .filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-dim);
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+
+        .filter-btn:hover { border-color: var(--border-hover); color: var(--text); }
+        .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
+
+        /* ===== TABLE ===== */
+        .table-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead th {
+            background: rgba(255,255,255,0.03);
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        thead th:hover { color: var(--text-dim); }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        tbody tr:hover { background: rgba(255,255,255,0.02); }
+        tbody tr:last-child { border-bottom: none; }
+
+        td {
+            padding: 10px 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        /* ===== BADGES ===== */
+        .badge {
+            display: inline-flex;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-nove { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .badge-review { background: rgba(59,130,246,0.15); color: var(--blue); }
+        .badge-schvalene { background: rgba(34,197,94,0.15); color: var(--green); }
+        .badge-zamietnute { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+        .badge-base { background: rgba(168,162,158,0.15); color: #a8a29e; }
+        .badge-pro { background: rgba(228,5,33,0.12); color: var(--red); }
+        .badge-exclusive { background: rgba(255,255,255,0.08); color: var(--text); }
+
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .score-high { background: rgba(34,197,94,0.15); color: var(--green); }
+        .score-mid { background: rgba(59,130,246,0.15); color: var(--blue); }
+        .score-low { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .score-reject { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+        /* ===== DETAIL PANEL ===== */
+        .panel-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            display: none;
+        }
+
+        .panel-overlay.open { display: block; }
+
+        .panel {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 560px;
+            max-width: 95vw;
+            background: var(--dark-mid);
+            border-left: 1px solid var(--border);
+            z-index: 101;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel.open { display: flex; }
+
+        .panel-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .panel-close {
+            background: none; border: none; color: var(--text-dim);
+            font-size: 24px; cursor: pointer; padding: 4px;
+        }
+
+        .panel-close:hover { color: var(--text); }
+
+        .panel-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .panel-section {
+            margin-bottom: 24px;
+        }
+
+        .panel-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .detail-item label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .detail-item span {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .detail-item.full { grid-column: 1 / -1; }
+
+        .panel-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .panel select, .panel textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .panel select:focus, .panel textarea:focus {
+            outline: none;
+            border-color: var(--red);
+        }
+
+        .panel textarea { min-height: 80px; resize: vertical; }
+
+        .panel-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* ===== EMAIL MODAL ===== */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: var(--dark-mid);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 640px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 { font-size: 16px; }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .email-preview {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            color: var(--text);
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .copy-ok {
+            color: var(--green);
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-dim);
+        }
+
+        .spinner {
+            width: 32px; height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--red);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-dim);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+            .panel { width: 100%; }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .main { padding: 16px; }
+            td { padding: 8px 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PIN SCREEN -->
+<div id="pin-screen">
+    <div class="pin-box">
+        <h2>Event Admin</h2>
+        <p>Zadejte PIN pro přístup k administraci</p>
+        <div class="pin-error" id="pin-error">Nesprávný PIN</div>
+        <input type="password" id="pin-input" placeholder="PIN" maxlength="20" autofocus>
+        <button class="btn btn-red" style="width:100%" onclick="submitPin()">Přihlásit</button>
+    </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-logo">
+                <img src="../enervit-logo-white.svg" alt="Enervit">
+            </div>
+            <span class="topbar-title">Event Admin</span>
+        </div>
+        <div class="topbar-right">
+            <button class="btn btn-ghost btn-sm" onclick="loadEvents()">Obnovit</button>
+            <button class="btn btn-ghost btn-sm" onclick="logout()">Odhlásit</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- STATS -->
+        <div class="stats-grid" id="stats">
+            <div class="stat-card"><div class="stat-label">Celkem</div><div class="stat-value" id="stat-total">—</div></div>
+            <div class="stat-card"><div class="stat-label">Nové</div><div class="stat-value red" id="stat-nove">—</div></div>
+            <div class="stat-card"><div class="stat-label">Schválené</div><div class="stat-value" id="stat-schvalene">—</div></div>
+            <div class="stat-card"><div class="stat-label">Zamítnuté</div><div class="stat-value" id="stat-zamietnute">—</div></div>
+            <div class="stat-card"><div class="stat-label">Do 30 dní</div><div class="stat-value" id="stat-upcoming">—</div></div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Všechny</button>
+            <button class="filter-btn" data-filter="Nové">Nové</button>
+            <button class="filter-btn" data-filter="V review">V review</button>
+            <button class="filter-btn" data-filter="Schválené">Schválené</button>
+            <button class="filter-btn" data-filter="Zamítnuté">Zamítnuté</button>
+        </div>
+
+        <!-- TABLE -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            Načítám eventy z Airtable...
+        </div>
+
+        <div id="table-container" style="display:none">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stav</th>
+                            <th>Score</th>
+                            <th>Tier</th>
+                            <th>Název eventu</th>
+                            <th>Datum</th>
+                            <th>Město</th>
+                            <th>Disciplína</th>
+                            <th>Účastníci</th>
+                            <th>Kontakt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="empty-state" class="empty-state" style="display:none">
+            <p>Žádné přihlášky v Airtable.</p>
+        </div>
+    </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+    <div class="panel-header">
+        <h2 id="panel-title">Detail eventu</h2>
+        <button class="panel-close" onclick="closePanel()">&times;</button>
+    </div>
+    <div class="panel-body" id="panel-body"></div>
+    <div class="panel-footer">
+        <button class="btn btn-ghost btn-sm" onclick="generateEmail('reject')">Email: Zamítnutí</button>
+        <button class="btn btn-ghost btn-sm" onclick="generateEmail('approve')">Email: Schválení</button>
+        <button class="btn btn-red btn-sm" id="panel-save" onclick="saveEvent()">Uložit změny</button>
+    </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="modal-overlay" id="email-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="email-modal-title">Email</h3>
+            <button class="panel-close" onclick="closeEmailModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="email-preview" id="email-content"></div>
+        </div>
+        <div class="modal-footer">
+            <span class="copy-ok" id="copy-ok">Zkopírováno!</span>
+            <button class="btn btn-red btn-sm" onclick="copyEmail()">Kopírovat do schránky</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const PIN_KEY = 'enervit_admin_pin';
+const PIN_TTL = 72 * 60 * 60 * 1000;
+
+let allEvents = [];
+let currentFilter = 'all';
+let currentEventId = null;
+
+// ===== SCORING CONFIG =====
+const PARTICIPANT_SCORES = {
+    'Do 200': 1, '200–500': 2, '500–1 500': 3, '1 500–3 000': 4, '3 000+': 5
+};
+
+const DISCIPLINE_SCORES = {
+    'Běh / Trail': 5, 'Silniční cyklistika': 5, 'MTB / Gravel': 5,
+    'Triatlon': 5, 'Běžecké lyžování': 5, 'Orientační běh': 4,
+    'Veletrh / Expo': 3, 'Jiné': 2
+};
+
+const EDITION_SCORES = {
+    '1. ročník (premiéra)': 1, '2.–3. ročník': 2,
+    '4.–10. ročník': 3, '10+ let tradice': 5
+};
+
+function calcScore(fields) {
+    const pScore = PARTICIPANT_SCORES[fields['Počet účastníků']] || 2;
+    const dScore = DISCIPLINE_SCORES[fields['Disciplína']] || 2;
+
+    let mScore = 1;
+    const media = (fields['Mediální pokrytí'] || '').toLowerCase();
+    if (media.includes('tv') || media.includes('livestream')) mScore = 5;
+    else if (media.includes('national') || media.includes('celostátní')) mScore = 4;
+    else if (media.includes('socials') || media.includes('sociální')) mScore = 3;
+    else if (media.includes('regional')) mScore = 2;
+
+    const eScore = EDITION_SCORES[fields['Ročník']] || 2;
+
+    const offerStr = fields['Protiplnění'] || '';
+    const offerCount = offerStr ? offerStr.split(',').length : 0;
+    const oScore = Math.min(5, Math.max(1, Math.round(offerCount / 2)));
+
+    let bonus = 0;
+    if (fields['Předchozí spolupráce'] === 'Ano') bonus += 0.3;
+    if (fields['Konkurence'] === 'Ne') bonus += 0.2;
+
+    const raw = (pScore * 0.25) + (dScore * 0.25) + (mScore * 0.15) +
+                (eScore * 0.10) + (oScore * 0.15) + (pScore * 0.10) + bonus;
+
+    return Math.min(5.0, Math.round(raw * 10) / 10);
+}
+
+function scoreTier(score) {
+    if (score >= 4.0) return 'EXCLUSIVE';
+    if (score >= 3.0) return 'PRO';
+    if (score >= 2.0) return 'BASE';
+    return 'ODMÍTNUTÍ';
+}
+
+function scoreClass(score) {
+    if (score >= 4.0) return 'score-high';
+    if (score >= 3.0) return 'score-mid';
+    if (score >= 2.0) return 'score-low';
+    return 'score-reject';
+}
+
+// ===== PIN AUTH =====
+function getPin() {
+    try {
+        const stored = JSON.parse(localStorage.getItem(PIN_KEY));
+        if (stored && Date.now() - stored.ts < PIN_TTL) return stored.pin;
+        localStorage.removeItem(PIN_KEY);
+    } catch {}
+    return null;
+}
+
+function setPin(pin) {
+    localStorage.setItem(PIN_KEY, JSON.stringify({ pin, ts: Date.now() }));
+}
+
+async function submitPin() {
+    const pin = document.getElementById('pin-input').value.trim();
+    if (!pin) return;
+
+    try {
+        const res = await fetch(`/api/events?pin=${encodeURIComponent(pin)}`);
+        if (res.status === 401) {
+            document.getElementById('pin-error').style.display = 'block';
+            return;
+        }
+        if (!res.ok) throw new Error('Server error');
+
+        setPin(pin);
+        document.getElementById('pin-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+
+        const data = await res.json();
+        processEvents(data.records);
+    } catch (err) {
+        console.error(err);
+        alert('Chyba serveru. Zkuste to znovu.');
+    }
+}
+
+document.getElementById('pin-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitPin();
+});
+
+function logout() {
+    localStorage.removeItem(PIN_KEY);
+    location.reload();
+}
+
+// ===== LOAD EVENTS =====
+async function loadEvents() {
+    const pin = getPin();
+    if (!pin) return location.reload();
+
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('table-container').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'none';
+
+    try {
+        const res = await fetch(`/api/events?pin=${encodeURIComponent(pin)}`);
+        if (res.status === 401) return logout();
+        if (!res.ok) throw new Error('Server error');
+        const data = await res.json();
+        processEvents(data.records);
+    } catch (err) {
+        console.error(err);
+        alert('Nepodařilo se načíst eventy.');
+    }
+}
+
+function processEvents(records) {
+    allEvents = records.map(r => {
+        const f = r.fields;
+        const score = f['Score'] ? parseFloat(f['Score']) : calcScore(f);
+        return {
+            id: r.id,
+            fields: f,
+            score,
+            stav: f['Stav'] || 'Nové',
+            tier: f['Tier'] || scoreTier(score),
+        };
+    });
+
+    allEvents.sort((a, b) => {
+        const da = a.fields['Datum konání'] || '9999';
+        const db = b.fields['Datum konání'] || '9999';
+        return da.localeCompare(db);
+    });
+
+    updateStats();
+    renderTable();
+
+    document.getElementById('loading').style.display = 'none';
+    if (allEvents.length === 0) {
+        document.getElementById('empty-state').style.display = 'block';
+    } else {
+        document.getElementById('table-container').style.display = 'block';
+    }
+}
+
+// ===== STATS =====
+function updateStats() {
+    document.getElementById('stat-total').textContent = allEvents.length;
+    document.getElementById('stat-nove').textContent = allEvents.filter(e => e.stav === 'Nové').length;
+    document.getElementById('stat-schvalene').textContent = allEvents.filter(e => e.stav === 'Schválené').length;
+    document.getElementById('stat-zamietnute').textContent = allEvents.filter(e => e.stav === 'Zamítnuté').length;
+
+    const in30 = new Date(); in30.setDate(in30.getDate() + 30);
+    const today = new Date();
+    document.getElementById('stat-upcoming').textContent = allEvents.filter(e => {
+        const d = new Date(e.fields['Datum konání']);
+        return d >= today && d <= in30;
+    }).length;
+}
+
+// ===== FILTERS =====
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderTable();
+    });
+});
+
+// ===== TABLE =====
+function renderTable() {
+    const tbody = document.getElementById('events-body');
+    const filtered = currentFilter === 'all'
+        ? allEvents
+        : allEvents.filter(e => e.stav === currentFilter);
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-dim);padding:40px">Žádné eventy v tomto filtru</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = filtered.map(ev => {
+        const f = ev.fields;
+        const stavClass = {
+            'Nové': 'badge-nove', 'V review': 'badge-review',
+            'Schválené': 'badge-schvalene', 'Zamítnuté': 'badge-zamietnute'
+        }[ev.stav] || 'badge-nove';
+
+        const tierClass = {
+            'BASE': 'badge-base', 'PRO': 'badge-pro', 'EXCLUSIVE': 'badge-exclusive'
+        }[ev.tier] || 'badge-base';
+
+        const date = f['Datum konání'] || '—';
+        const displayDate = date !== '—' ? new Date(date).toLocaleDateString('cs-CZ') : '—';
+
+        return `<tr onclick="openPanel('${ev.id}')">
+            <td><span class="badge ${stavClass}">${ev.stav}</span></td>
+            <td><span class="score-badge ${scoreClass(ev.score)}">${ev.score.toFixed(1)}</span></td>
+            <td><span class="badge ${tierClass}">${ev.tier}</span></td>
+            <td title="${f['Název eventu'] || ''}">${f['Název eventu'] || '—'}</td>
+            <td>${displayDate}</td>
+            <td>${f['Město'] || '—'}</td>
+            <td>${f['Disciplína'] || '—'}</td>
+            <td>${f['Počet účastníků'] || '—'}</td>
+            <td>${f['Kontakt jméno'] || '—'}</td>
+        </tr>`;
+    }).join('');
+}
+
+// ===== DETAIL PANEL =====
+function openPanel(id) {
+    currentEventId = id;
+    const ev = allEvents.find(e => e.id === id);
+    if (!ev) return;
+
+    const f = ev.fields;
+    document.getElementById('panel-title').textContent = f['Název eventu'] || 'Detail';
+
+    const date = f['Datum konání'] ? new Date(f['Datum konání']).toLocaleDateString('cs-CZ') : '—';
+
+    document.getElementById('panel-body').innerHTML = `
+        <div class="panel-section">
+            <div class="panel-section-title">Event info</div>
+            <div class="detail-grid">
+                <div class="detail-item"><label>Datum</label><span>${date}</span></div>
+                <div class="detail-item"><label>Město</label><span>${f['Město'] || '—'}</span></div>
+                <div class="detail-item"><label>Disciplína</label><span>${f['Disciplína'] || '—'}</span></div>
+                <div class="detail-item"><label>Ročník</label><span>${f['Ročník'] || '—'}</span></div>
+                <div class="detail-item"><label>Účastníci</label><span>${f['Počet účastníků'] || '—'}</span></div>
+                <div class="detail-item"><label>Social reach</label><span>${f['Social reach'] || '—'}</span></div>
+                <div class="detail-item full"><label>Web</label><span>${f['Web'] || '—'}</span></div>
+                <div class="detail-item full"><label>Mediální pokrytí</label><span>${f['Mediální pokrytí'] || '—'}</span></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-section-title">Potřeby a protiplnění</div>
+            <div class="detail-grid">
+                <div class="detail-item full"><label>Co potřebují</label><span>${f['Potřeby'] || '—'}</span></div>
+                <div class="detail-item full"><label>Co nabízejí</label><span>${f['Protiplnění'] || '—'}</span></div>
+                <div class="detail-item full"><label>Protiplnění jiné</label><span>${f['Protiplnění jiné'] || '—'}</span></div>
+                <div class="detail-item"><label>Prostor pro stánek</label><span>${f['Prostor pro stánek'] || '—'}</span></div>
+                <div class="detail-item"><label>Obsluha stánku</label><span>${f['Obsluha stánku'] || '—'}</span></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-section-title">Historie</div>
+            <div class="detail-grid">
+                <div class="detail-item"><label>Předchozí spolupráce</label><span>${f['Předchozí spolupráce'] || '—'}</span></div>
+                <div class="detail-item"><label>Konkurence</label><span>${f['Konkurence'] || '—'}</span></div>
+                <div class="detail-item full"><label>Detaily</label><span>${f['Detaily spolupráce'] || '—'}</span></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-section-title">Kontakt</div>
+            <div class="detail-grid">
+                <div class="detail-item"><label>Jméno</label><span>${f['Kontakt jméno'] || '—'}</span></div>
+                <div class="detail-item"><label>Email</label><span>${f['Email'] || '—'}</span></div>
+                <div class="detail-item"><label>Telefon</label><span>${f['Telefon'] || '—'}</span></div>
+                <div class="detail-item"><label>Organizace</label><span>${f['Organizace'] || '—'}</span></div>
+                <div class="detail-item full"><label>Adresa</label><span>${f['Adresa'] || '—'}</span></div>
+                <div class="detail-item full"><label>Poznámky</label><span>${f['Poznámky'] || '—'}</span></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-section-title">Auto-score: ${ev.score.toFixed(1)} — navrhovaný tier: ${scoreTier(ev.score)}</div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-section-title">Akce</div>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>Stav</label>
+                    <select id="panel-stav">
+                        <option value="Nové" ${ev.stav === 'Nové' ? 'selected' : ''}>Nové</option>
+                        <option value="V review" ${ev.stav === 'V review' ? 'selected' : ''}>V review</option>
+                        <option value="Schválené" ${ev.stav === 'Schválené' ? 'selected' : ''}>Schválené</option>
+                        <option value="Zamítnuté" ${ev.stav === 'Zamítnuté' ? 'selected' : ''}>Zamítnuté</option>
+                    </select>
+                </div>
+                <div class="detail-item">
+                    <label>Tier</label>
+                    <select id="panel-tier">
+                        <option value="BASE" ${ev.tier === 'BASE' ? 'selected' : ''}>BASE</option>
+                        <option value="PRO" ${ev.tier === 'PRO' ? 'selected' : ''}>PRO</option>
+                        <option value="EXCLUSIVE" ${ev.tier === 'EXCLUSIVE' ? 'selected' : ''}>EXCLUSIVE</option>
+                    </select>
+                </div>
+                <div class="detail-item full">
+                    <label>Poznámka (interní)</label>
+                    <textarea id="panel-poznamky" placeholder="Interní poznámka...">${f['Poznamky'] || ''}</textarea>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('panel').classList.add('open');
+    document.getElementById('panel-overlay').classList.add('open');
+}
+
+function closePanel() {
+    document.getElementById('panel').classList.remove('open');
+    document.getElementById('panel-overlay').classList.remove('open');
+    currentEventId = null;
+}
+
+async function saveEvent() {
+    if (!currentEventId) return;
+    const pin = getPin();
+    if (!pin) return logout();
+
+    const stav = document.getElementById('panel-stav').value;
+    const tier = document.getElementById('panel-tier').value;
+    const poznamky = document.getElementById('panel-poznamky').value;
+    const ev = allEvents.find(e => e.id === currentEventId);
+    const score = ev ? ev.score : 0;
+
+    const saveBtn = document.getElementById('panel-save');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Ukládám...';
+
+    try {
+        const res = await fetch('/api/update-event', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                pin,
+                recordId: currentEventId,
+                fields: { Stav: stav, Tier: tier, Score: String(score), Poznamky: poznamky }
+            })
+        });
+
+        if (res.status === 401) return logout();
+        if (!res.ok) {
+            const err = await res.json();
+            console.error('Save error:', err);
+            alert('Chyba při ukládání: ' + (err.details?.error?.message || 'neznámá chyba'));
+            return;
+        }
+
+        if (ev) {
+            ev.stav = stav;
+            ev.tier = tier;
+            ev.fields['Stav'] = stav;
+            ev.fields['Tier'] = tier;
+            ev.fields['Score'] = String(score);
+            ev.fields['Poznamky'] = poznamky;
+        }
+
+        updateStats();
+        renderTable();
+        closePanel();
+    } catch (err) {
+        console.error(err);
+        alert('Chyba sítě.');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Uložit změny';
+    }
+}
+
+// ===== EMAIL GENERATOR =====
+function generateEmail(type) {
+    if (!currentEventId) return;
+    const ev = allEvents.find(e => e.id === currentEventId);
+    if (!ev) return;
+
+    const f = ev.fields;
+    const name = f['Kontakt jméno'] || '[JMÉNO]';
+    const eventName = f['Název eventu'] || '[NÁZEV EVENTU]';
+    const tier = document.getElementById('panel-tier')?.value || ev.tier;
+
+    const tierDescriptions = {
+        'BASE': `Co to znamená:
+- Slevy na nákup produktů Enervit pro váš event
+- Vzorky gelů a iontových nápojů pro účastníky
+- Brandingové materiály (bannery, vlajky)
+- Možnost komisního prodeje`,
+        'PRO': `Co to znamená:
+- Iontový nápoj na občerstvovací stanice zdarma
+- Vzorky gelů a novinek pro účastníky
+- Ceny do tomboly (produktové balíčky)
+- Stánky a brandingové materiály
+- Možnost komisního prodeje (15 % provize pro vás)`,
+        'EXCLUSIVE': `Co to znamená:
+- Partnerství na míru — individuální dohoda
+- Produkty zdarma pro event
+- Kompletní nutričný servis
+- Plné zázemí (stánky, bannery, kelímky)
+- Společná PR a mediální spolupráce`
+    };
+
+    let content = '';
+    let title = '';
+
+    if (type === 'approve') {
+        title = 'Email: Schválení';
+        content = `Předmět: Váš event ${eventName} byl zařazen do programu Enervit
+
+Dobrý den,
+
+děkujeme za přihlášení eventu ${eventName} do programu Enervit.
+
+Na základě posouzení jsme vašemu eventu přidělili úroveň spolupráce: ENERVIT ${tier}.
+
+${tierDescriptions[tier] || tierDescriptions['BASE']}
+
+Další kroky:
+1. Potvrďte zájem odpovědí na tento email
+2. Dohodneme detaily (dodací adresa, termíny, rozsah)
+3. Kit/produkty doručíme 5 dní před eventem
+
+Těšíme se na spolupráci!
+
+S pozdravem,
+Team VITAR Sport
+team@vitarsport.cz | enervit.cz`;
+    } else {
+        title = 'Email: Zamítnutí';
+        content = `Předmět: K vaší žádosti o spolupráci na eventu ${eventName}
+
+Dobrý den,
+
+děkujeme za zájem o spolupráci s Enervit na eventu ${eventName}.
+
+Bohužel pro sezónu 2026 máme omezenou kapacitu a váš event jsme tentokrát do programu nezařadili.
+
+Rádi bychom vám nabídli alespoň slevový kód ENERVITEVENT15 (15% sleva na enervit.cz) pro vaše účastníky.
+
+Přihlášky do programu na sezónu 2027 otevřeme na podzim 2026.
+
+S pozdravem,
+Team VITAR Sport
+team@vitarsport.cz | enervit.cz`;
+    }
+
+    document.getElementById('email-modal-title').textContent = title;
+    document.getElementById('email-content').textContent = content;
+    document.getElementById('copy-ok').style.display = 'none';
+    document.getElementById('email-modal').classList.add('open');
+}
+
+function copyEmail() {
+    const text = document.getElementById('email-content').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        document.getElementById('copy-ok').style.display = 'inline';
+        setTimeout(() => { document.getElementById('copy-ok').style.display = 'none'; }, 2000);
+    });
+}
+
+function closeEmailModal() {
+    document.getElementById('email-modal').classList.remove('open');
+}
+
+// Close modals on Escape
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        closeEmailModal();
+        closePanel();
+    }
+});
+
+// ===== INIT =====
+(function init() {
+    const pin = getPin();
+    if (pin) {
+        document.getElementById('pin-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        loadEvents();
+    }
+})();
+</script>
+
+</body>
+</html>
