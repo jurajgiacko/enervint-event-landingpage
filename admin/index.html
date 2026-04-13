@@ -277,7 +277,7 @@
         <div class="stats-grid">
             <div class="stat-card"><div class="stat-label">Celkem</div><div class="stat-value" id="stat-total">—</div></div>
             <div class="stat-card"><div class="stat-label">Nerozhodnute</div><div class="stat-value red" id="stat-nove">—</div></div>
-            <div class="stat-card"><div class="stat-label">Schvalene</div><div class="stat-value" id="stat-schvalene">—</div></div>
+            <div class="stat-card"><div class="stat-label">Hotovo / Zamiet.</div><div class="stat-value" id="stat-done">—</div></div>
             <div class="stat-card"><div class="stat-label">V procese</div><div class="stat-value" id="stat-process">—</div></div>
             <div class="stat-card"><div class="stat-label">Urgentne (30d)</div><div class="stat-value" id="stat-upcoming">—</div></div>
         </div>
@@ -565,9 +565,9 @@ function processEvents(records) {
 function updateStats() {
     document.getElementById('stat-total').textContent = allEvents.length;
     document.getElementById('stat-nove').textContent = allEvents.filter(e => { const s = getEffectiveStatus(e); return s === 'Nové' || s === 'V review'; }).length;
-    document.getElementById('stat-schvalene').textContent = allEvents.filter(e => ['Schválené', 'Zamítnuté'].includes(e.stav)).length;
-    const processStatuses = ['Email odoslaný', 'Potvrdené', 'Materiál pripravený', 'Materiál odoslaný'];
+    const processStatuses = ['Schválené', 'Email odoslaný', 'Potvrdené', 'Materiál pripravený', 'Materiál odoslaný'];
     document.getElementById('stat-process').textContent = allEvents.filter(e => processStatuses.includes(getEffectiveStatus(e))).length;
+    document.getElementById('stat-done').textContent = allEvents.filter(e => { const s = getEffectiveStatus(e); return s === 'Hotovo' || s === 'Zamítnuté'; }).length;
     const in30 = new Date(); in30.setDate(in30.getDate() + 30); const today = new Date();
     document.getElementById('stat-upcoming').textContent = allEvents.filter(e => { const d = new Date(e.fields['Datum konání']); return d >= today && d <= in30; }).length;
 }
