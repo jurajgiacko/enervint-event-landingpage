@@ -1040,10 +1040,14 @@ function generateEmailFor(id, type) {
     const email = f['Email'] || '';
     const tier = ev.tier;
 
+    const wantsKomis = (f['Potřeby'] || '').toLowerCase().includes('komis');
+    const komisLine = wantsKomis ? '\n- Moznost komisniho prodeje (15 % provize)' : '';
+    const komisLineBase = wantsKomis ? '\n- Moznost komisniho prodeje' : '';
+
     const tierDesc = {
-        'EXCLUSIVE': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT EXCLUSIVE.\n\nCo to znamena:\n- Partnerstvi na miru — individualni dohoda\n- Produkty zdarma (iontak, gely, tycinky)\n- Kompletni nutricni servis\n- Plne zazemi (stanky, bannery, kelimky)\n- Spolecna PR a medialni spoluprace\n- Moznost komisniho prodeje (15 % provize)`,
-        'PRO': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT PRO.\n\nCo to znamena:\n- Iontovy napoj na obcerstvovaci stanice zdarma\n- Vzorky gelu a novinek pro ucastniky\n- Ceny do tomboly (produktove balicky)\n- Brandingove materialy (bannery, vlajky)\n- Moznost komisniho prodeje (15 % provize)`,
-        'BASE': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT BASE.\n\nCo to znamena:\n- Vzorky gelu a iontovych napoju\n- Brandingove materialy (bannery)\n- Slevy na nakup produktu Enervit\n- Moznost komisniho prodeje`
+        'EXCLUSIVE': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT EXCLUSIVE.\n\nCo to znamena:\n- Partnerstvi na miru — individualni dohoda\n- Produkty zdarma (iontak, gely, tycinky)\n- Kompletni nutricni servis\n- Plne zazemi (stanky, bannery, kelimky)\n- Spolecna PR a medialni spoluprace${komisLine}`,
+        'PRO': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT PRO.\n\nCo to znamena:\n- Iontovy napoj na obcerstvovaci stanice zdarma\n- Vzorky gelu a novinek pro ucastniky\n- Ceny do tomboly (produktove balicky)\n- Brandingove materialy (bannery, vlajky)${komisLine}`,
+        'BASE': `Na zaklade posouzeni jsme vasemu eventu pridelili uroven spoluprace: ENERVIT BASE.\n\nCo to znamena:\n- Vzorky gelu a iontovych napoju\n- Brandingove materialy (bannery)\n- Slevy na nakup produktu Enervit${komisLineBase}`
     };
 
     let subject, body;
