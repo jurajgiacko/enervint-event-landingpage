@@ -1049,10 +1049,10 @@ function generateEmailFor(id, type) {
     let subject, body;
     if (type === 'approve') {
         subject = `Spoluprace Enervit x ${eventName} — potvrzeni`;
-        body = `Dobry den,\n\ndekujeme za prihlaseni eventu ${eventName} do programu Enervit Event Partner.\n\n${tierDesc[tier] || tierDesc['BASE']}\n\nDalsi kroky:\n1. Potvrdte zajem odpovedi na tento email\n2. Dohodneme detaily (dodaci adresa, terminy, rozsah)\n3. Kit/produkty dorucime 5-7 dni pred eventem\n\nTesime se na spolupraci!\n\nDakujem\nJuraj`;
+        body = `Dobry den,\n\ndekujeme za prihlaseni eventu ${eventName} do programu Enervit Event Partner.\n\n${tierDesc[tier] || tierDesc['BASE']}\n\nDalsi kroky:\n1. Potvrdte zajem odpovedi na tento email\n2. Dohodneme detaily (dodaci adresa, terminy, rozsah)\n3. Kit/produkty dorucime 5-7 dni pred eventem\n\nTesime se na spolupraci!`;
     } else {
         subject = `K vasi zadosti o spolupraci — ${eventName}`;
-        body = `Dobry den,\n\ndekujeme za zajem o spolupraci s Enervit na eventu ${eventName}.\n\nBohuzel pro sezonu 2026 mame omezenou kapacitu a vas event jsme tentokrat do programu nezaradili.\n\nRadi bychom vam nabidli alespon slevovy kod ENERVITEVENT15 (15% sleva na enervit.cz) pro vase ucastniky.\n\nPrihlasky na sezonu 2027 otevreme na podzim 2026 na event.enervit.online.\n\nDakujem\nJuraj`;
+        body = `Dobry den,\n\ndekujeme za zajem o spolupraci s Enervit na eventu ${eventName}.\n\nBohuzel pro sezonu 2026 mame omezenou kapacitu a vas event jsme tentokrat do programu nezaradili.\n\nRadi bychom vam nabidli alespon slevovy kod ENERVITEVENT15 (15% sleva na enervit.cz) pro vase ucastniky.\n\nPrihlasky na sezonu 2027 otevreme na podzim 2026 na event.enervit.online.`;
     }
 
     document.getElementById('email-to').value = email;
