@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Missing recordId or fields' });
     }
 
-    const allowedFields = ['Stav', 'Tier', 'Score', 'Poznamky', 'Pipeline', 'CRM_Log'];
+    const allowedFields = ['Stav', 'Tier', 'Score', 'Poznamky', 'Pipeline', 'CRM_Log', 'Material'];
     const sanitized = {};
     for (const [key, value] of Object.entries(fields)) {
         if (allowedFields.includes(key)) {

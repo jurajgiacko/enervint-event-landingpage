@@ -202,6 +202,28 @@
         .modal-footer-right { display: flex; gap: 8px; align-items: center; }
         .copy-ok { color: var(--green); font-size: 13px; font-weight: 600; display: none; }
 
+        /* MATERIAL INPUTS */
+        .mat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .mat-grid .mat-item { display: flex; align-items: center; gap: 8px; }
+        .mat-grid .mat-item label { font-size: 11px; color: var(--text-muted); min-width: 80px; white-space: nowrap; }
+        .mat-grid .mat-item input[type=number] { width: 80px; padding: 6px 8px; background: var(--dark); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 13px; font-family: inherit; text-align: right; }
+        .mat-grid .mat-item input[type=number]:focus { outline: none; border-color: var(--red); }
+        .mat-grid .mat-item input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--red); }
+        .mat-grid .mat-item input[type=date] { padding: 6px 8px; background: var(--dark); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 12px; font-family: inherit; }
+        .mat-grid .mat-item input[type=date]:focus { outline: none; border-color: var(--red); }
+        .mat-grid.full { grid-template-columns: 1fr; }
+        .mat-save-row { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+        /* MATERIAL VIEW */
+        .mat-view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .mat-view-header h3 { font-size: 14px; font-weight: 700; }
+        .mat-totals-row td { font-weight: 800 !important; background: rgba(228,5,33,0.05) !important; border-top: 2px solid var(--red) !important; }
+        .ship-badge { display: inline-flex; padding: 2px 8px; border-radius: 100px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .ship-nepripravene { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .ship-pripravene { background: rgba(59,130,246,0.15); color: var(--blue); }
+        .ship-odoslane { background: rgba(249,115,22,0.15); color: var(--orange); }
+        .ship-dorucene { background: rgba(34,197,94,0.15); color: var(--green); }
+
         /* LOADING & TOAST */
         .loading { text-align: center; padding: 80px 20px; color: var(--text-dim); }
         .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--red); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
@@ -236,6 +258,7 @@
                 <button id="view-table" class="active" onclick="switchView('table')">Prehled</button>
                 <button id="view-matrix" onclick="switchView('matrix')">Matrix</button>
                 <button id="view-pipeline" onclick="switchView('pipeline')">Pipeline</button>
+                <button id="view-material" onclick="switchView('material')">Material</button>
             </div>
         </div>
         <div class="topbar-right">
@@ -247,7 +270,7 @@
     <div class="main">
         <div class="setup-banner" id="setup-banner">
             V Airtable chybaju polia pre plnu funkcionalitu. Vytvorte ich manualne:
-            <code>Pipeline</code> (Single line text) a <code>CRM_Log</code> (Long text).
+            <code>Pipeline</code> (Single line text), <code>CRM_Log</code> (Long text) a <code>Material</code> (Long text).
             <span class="dismiss" onclick="this.parentElement.style.display='none'">&#10005;</span>
         </div>
 
@@ -293,6 +316,8 @@
         </div>
 
         <div id="pipeline-container" style="display:none"></div>
+
+        <div id="material-container" style="display:none"></div>
 
         <div id="empty-state" class="empty-state" style="display:none"><p>Zadne eventy.</p></div>
     </div>
@@ -375,7 +400,7 @@ let currentFilter = 'all';
 let currentView = 'table';
 let currentEventId = null;
 let pendingApproveId = null;
-let fieldsAvailable = { Pipeline: true, CRM_Log: true };
+let fieldsAvailable = { Pipeline: true, CRM_Log: true, Material: true };
 
 // ===== SCORING =====
 const PARTICIPANT_SCORES = { 'Do 200': 1, '200–500': 2, '500–1 500': 3, '1 500–3 000': 4, '3 000+': 5 };
@@ -493,17 +518,19 @@ function logout() { localStorage.removeItem(PIN_KEY); location.reload(); }
 // ===== VIEW TOGGLE =====
 function switchView(view) {
     currentView = view;
-    ['table', 'matrix', 'pipeline'].forEach(v => {
+    ['table', 'matrix', 'pipeline', 'material'].forEach(v => {
         document.getElementById('view-' + v).classList.toggle('active', v === view);
     });
-    document.getElementById('filters-bar').style.display = view === 'pipeline' ? 'none' : 'flex';
+    document.getElementById('filters-bar').style.display = (view === 'pipeline' || view === 'material') ? 'none' : 'flex';
     if (allEvents.length > 0) {
         document.getElementById('table-container').style.display = view === 'table' ? 'block' : 'none';
         document.getElementById('matrix-container').style.display = view === 'matrix' ? 'block' : 'none';
         document.getElementById('pipeline-container').style.display = view === 'pipeline' ? 'block' : 'none';
+        document.getElementById('material-container').style.display = view === 'material' ? 'block' : 'none';
         if (view === 'table') renderTable();
         else if (view === 'matrix') renderMatrix();
-        else renderPipeline();
+        else if (view === 'pipeline') renderPipeline();
+        else if (view === 'material') renderMaterialView();
     }
 }
 
@@ -511,7 +538,7 @@ function switchView(view) {
 async function loadEvents() {
     const pin = getPin(); if (!pin) return location.reload();
     document.getElementById('loading').style.display = 'block';
-    ['table-container', 'matrix-container', 'pipeline-container', 'empty-state'].forEach(id => document.getElementById(id).style.display = 'none');
+    ['table-container', 'matrix-container', 'pipeline-container', 'material-container', 'empty-state'].forEach(id => document.getElementById(id).style.display = 'none');
     try {
         const res = await fetch(`/api/events?pin=${encodeURIComponent(pin)}`);
         if (res.status === 401) return logout();
@@ -789,6 +816,7 @@ async function saveEventToAirtable(recordId, fields) {
     const cleanFields = { ...fields };
     if (!fieldsAvailable.Pipeline) delete cleanFields.Pipeline;
     if (!fieldsAvailable.CRM_Log) delete cleanFields.CRM_Log;
+    if (!fieldsAvailable.Material) delete cleanFields.Material;
     if (Object.keys(cleanFields).length === 0) return { ok: true };
 
     try {
@@ -804,6 +832,7 @@ async function saveEventToAirtable(recordId, fields) {
             if (type === 'UNKNOWN_FIELD_NAME') {
                 if (msg.includes('Pipeline')) { fieldsAvailable.Pipeline = false; delete cleanFields.Pipeline; }
                 if (msg.includes('CRM_Log')) { fieldsAvailable.CRM_Log = false; delete cleanFields.CRM_Log; }
+                if (msg.includes('Material')) { fieldsAvailable.Material = false; delete cleanFields.Material; }
                 document.getElementById('setup-banner').style.display = 'block';
                 if (Object.keys(cleanFields).length > 0) {
                     return saveEventToAirtable(recordId, cleanFields);
@@ -922,6 +951,8 @@ function openPanel(id) {
             </div>
             <div class="crm-timeline" id="crm-timeline">${renderCrmTimeline(ev)}</div>
         </div>
+
+        ${renderMaterialPanel(ev)}
     `;
 
     document.getElementById('panel').classList.add('open');
@@ -971,10 +1002,16 @@ async function saveEvent() {
     const saveBtn = document.getElementById('panel-save');
     saveBtn.disabled = true; saveBtn.textContent = 'Ukladam...';
 
+    if (document.getElementById('mat-kit')) {
+        const mat = collectMaterialFromForm();
+        ev.fields['Material'] = JSON.stringify(mat);
+    }
+
     const fields = {};
     if (basicStatus) fields.Stav = basicStatus;
     if (fieldsAvailable.Pipeline) fields.Pipeline = newStatus;
     if (fieldsAvailable.CRM_Log) fields.CRM_Log = ev.fields['CRM_Log'];
+    if (fieldsAvailable.Material && ev.fields['Material']) fields.Material = ev.fields['Material'];
     await saveEventToAirtable(ev.id, fields);
 
     saveBtn.disabled = false; saveBtn.textContent = 'Ulozit';
@@ -991,7 +1028,8 @@ async function saveEvent() {
 function renderCurrentView() {
     if (currentView === 'table') renderTable();
     else if (currentView === 'matrix') renderMatrix();
-    else renderPipeline();
+    else if (currentView === 'pipeline') renderPipeline();
+    else if (currentView === 'material') renderMaterialView();
 }
 
 // ===== EMAIL =====
@@ -1076,6 +1114,256 @@ async function logEmailAction() {
 }
 
 function closeEmailModal() { document.getElementById('email-modal').classList.remove('open'); }
+
+// ===== MATERIAL / INVENTORY =====
+const KIT_DEFAULTS = {
+    'Bronze': { iontak_kg: 5, gely_ks: 0, tycinky_ks: 0, qr_karty: 100, banner: false, stan: false, display: false, kelimky: 0, komisny_box: false },
+    'Silver': { iontak_kg: 10, gely_ks: 50, tycinky_ks: 0, qr_karty: 200, banner: true, stan: false, display: false, kelimky: 500, komisny_box: true },
+    'Gold':   { iontak_kg: 15, gely_ks: 100, tycinky_ks: 0, qr_karty: 500, banner: true, stan: true, display: true, kelimky: 1000, komisny_box: true },
+};
+
+const TIER_TO_KIT = { 'BASE': 'Bronze', 'PRO': 'Silver', 'EXCLUSIVE': 'Gold' };
+const SHIP_STATUSES = ['Nepripravene', 'Pripravene', 'Odoslane', 'Dorucene'];
+
+function getMaterial(ev) {
+    try { return JSON.parse(ev.fields['Material'] || 'null') || null; }
+    catch { return null; }
+}
+
+function getOrDefaultMaterial(ev) {
+    const existing = getMaterial(ev);
+    if (existing) return existing;
+    const kit = TIER_TO_KIT[ev.tier] || 'Bronze';
+    const d = KIT_DEFAULTS[kit];
+    return {
+        kit,
+        products: { iontak_kg: d.iontak_kg, gely_ks: d.gely_ks, tycinky_ks: d.tycinky_ks, qr_karty: d.qr_karty },
+        materials: { banner: d.banner, stan: d.stan, display: d.display, kelimky: d.kelimky, komisny_box: d.komisny_box },
+        shipping: { address: ev.fields['Adresa'] || '', required_date: '', status: 'Nepripravene', tracking: '', note: '' }
+    };
+}
+
+function renderMaterialPanel(ev) {
+    const m = getOrDefaultMaterial(ev);
+    const shipOptions = SHIP_STATUSES.map(s => `<option value="${s}" ${m.shipping.status === s ? 'selected' : ''}>${s}</option>`).join('');
+    const kitOptions = ['Bronze', 'Silver', 'Gold'].map(k => `<option value="${k}" ${m.kit === k ? 'selected' : ''}>${k}</option>`).join('');
+
+    return `
+        <div class="panel-section">
+            <div class="panel-section-title">Material / Kit</div>
+            <div class="mat-grid" style="margin-bottom:12px">
+                <div class="mat-item"><label>Kit tier</label><select id="mat-kit" onchange="applyKitDefaults()">${kitOptions}</select></div>
+            </div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:8px">Produkty</div>
+            <div class="mat-grid">
+                <div class="mat-item"><label>Iontak (kg)</label><input type="number" id="mat-iontak" value="${m.products.iontak_kg}" min="0"></div>
+                <div class="mat-item"><label>Gely (ks)</label><input type="number" id="mat-gely" value="${m.products.gely_ks}" min="0"></div>
+                <div class="mat-item"><label>Tycinky (ks)</label><input type="number" id="mat-tycinky" value="${m.products.tycinky_ks}" min="0"></div>
+                <div class="mat-item"><label>QR karty (ks)</label><input type="number" id="mat-qr" value="${m.products.qr_karty}" min="0"></div>
+            </div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin:12px 0 8px">Materialy</div>
+            <div class="mat-grid">
+                <div class="mat-item"><label>Banner roll-up</label><input type="checkbox" id="mat-banner" ${m.materials.banner ? 'checked' : ''}></div>
+                <div class="mat-item"><label>Stan 3x3</label><input type="checkbox" id="mat-stan" ${m.materials.stan ? 'checked' : ''}></div>
+                <div class="mat-item"><label>Display stojan</label><input type="checkbox" id="mat-display" ${m.materials.display ? 'checked' : ''}></div>
+                <div class="mat-item"><label>Komisny box</label><input type="checkbox" id="mat-komisny" ${m.materials.komisny_box ? 'checked' : ''}></div>
+                <div class="mat-item"><label>Kelimky (ks)</label><input type="number" id="mat-kelimky" value="${m.materials.kelimky}" min="0"></div>
+            </div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin:12px 0 8px">Dorucenie</div>
+            <div class="mat-grid full">
+                <div class="mat-item"><label>Adresa</label><input type="text" id="mat-address" value="${m.shipping.address}" style="flex:1"></div>
+            </div>
+            <div class="mat-grid" style="margin-top:8px">
+                <div class="mat-item"><label>Datum</label><input type="date" id="mat-date" value="${m.shipping.required_date}"></div>
+                <div class="mat-item"><label>Stav</label><select id="mat-ship-status">${shipOptions}</select></div>
+                <div class="mat-item"><label>Tracking</label><input type="text" id="mat-tracking" value="${m.shipping.tracking}" style="width:120px" placeholder="napr. PPL123"></div>
+            </div>
+            <div class="mat-grid full" style="margin-top:8px">
+                <div class="mat-item"><label>Poznamka</label><input type="text" id="mat-note" value="${m.shipping.note}" style="flex:1" placeholder="Poznamka k doruceniu..."></div>
+            </div>
+            <div class="mat-save-row">
+                <button class="btn btn-red btn-sm" onclick="saveMaterial()">Ulozit material</button>
+            </div>
+        </div>
+    `;
+}
+
+function applyKitDefaults() {
+    const kit = document.getElementById('mat-kit').value;
+    const d = KIT_DEFAULTS[kit];
+    if (!d) return;
+    document.getElementById('mat-iontak').value = d.iontak_kg;
+    document.getElementById('mat-gely').value = d.gely_ks;
+    document.getElementById('mat-tycinky').value = d.tycinky_ks;
+    document.getElementById('mat-qr').value = d.qr_karty;
+    document.getElementById('mat-banner').checked = d.banner;
+    document.getElementById('mat-stan').checked = d.stan;
+    document.getElementById('mat-display').checked = d.display;
+    document.getElementById('mat-kelimky').value = d.kelimky;
+    document.getElementById('mat-komisny').checked = d.komisny_box;
+}
+
+function collectMaterialFromForm() {
+    return {
+        kit: document.getElementById('mat-kit').value,
+        products: {
+            iontak_kg: parseInt(document.getElementById('mat-iontak').value) || 0,
+            gely_ks: parseInt(document.getElementById('mat-gely').value) || 0,
+            tycinky_ks: parseInt(document.getElementById('mat-tycinky').value) || 0,
+            qr_karty: parseInt(document.getElementById('mat-qr').value) || 0,
+        },
+        materials: {
+            banner: document.getElementById('mat-banner').checked,
+            stan: document.getElementById('mat-stan').checked,
+            display: document.getElementById('mat-display').checked,
+            kelimky: parseInt(document.getElementById('mat-kelimky').value) || 0,
+            komisny_box: document.getElementById('mat-komisny').checked,
+        },
+        shipping: {
+            address: document.getElementById('mat-address').value,
+            required_date: document.getElementById('mat-date').value,
+            status: document.getElementById('mat-ship-status').value,
+            tracking: document.getElementById('mat-tracking').value,
+            note: document.getElementById('mat-note').value,
+        }
+    };
+}
+
+async function saveMaterial() {
+    if (!currentEventId) return;
+    const ev = allEvents.find(e => e.id === currentEventId);
+    if (!ev) return;
+    const mat = collectMaterialFromForm();
+    ev.fields['Material'] = JSON.stringify(mat);
+
+    if (fieldsAvailable.Material) {
+        await saveEventToAirtable(ev.id, { Material: ev.fields['Material'] });
+    }
+    showToast('Material ulozeny');
+}
+
+// ===== MATERIAL VIEW =====
+function renderMaterialView() {
+    const container = document.getElementById('material-container');
+    const approved = allEvents.filter(e => {
+        const s = getEffectiveStatus(e);
+        return !['Nové', 'V review', 'Zamítnuté'].includes(s);
+    });
+
+    let totals = { iontak: 0, gely: 0, tycinky: 0, qr: 0, banner: 0, stan: 0, display: 0, kelimky: 0, komisny: 0 };
+
+    const rows = approved.map(ev => {
+        const f = ev.fields;
+        const m = getOrDefaultMaterial(ev);
+        const p = m.products;
+        const mt = m.materials;
+        const sh = m.shipping;
+
+        totals.iontak += p.iontak_kg;
+        totals.gely += p.gely_ks;
+        totals.tycinky += p.tycinky_ks;
+        totals.qr += p.qr_karty;
+        totals.banner += mt.banner ? 1 : 0;
+        totals.stan += mt.stan ? 1 : 0;
+        totals.display += mt.display ? 1 : 0;
+        totals.kelimky += mt.kelimky;
+        totals.komisny += mt.komisny_box ? 1 : 0;
+
+        const shipClass = { 'Nepripravene': 'ship-nepripravene', 'Pripravene': 'ship-pripravene', 'Odoslane': 'ship-odoslane', 'Dorucene': 'ship-dorucene' }[sh.status] || 'ship-nepripravene';
+
+        return `<tr onclick="openPanel('${ev.id}')" style="cursor:pointer">
+            <td title="${f['Název eventu'] || ''}">${f['Název eventu'] || '—'}</td>
+            <td>${fmtDate(f['Datum konání'])}</td>
+            <td><span class="badge ${tierBadgeClass(ev.tier)}">${ev.tier}</span></td>
+            <td>${m.kit}</td>
+            <td style="text-align:right">${p.iontak_kg}</td>
+            <td style="text-align:right">${p.gely_ks}</td>
+            <td style="text-align:right">${p.tycinky_ks}</td>
+            <td style="text-align:center">${mt.banner ? '1' : '—'}</td>
+            <td style="text-align:center">${mt.stan ? '1' : '—'}</td>
+            <td style="text-align:right">${mt.kelimky || '—'}</td>
+            <td style="text-align:center">${mt.komisny_box ? '1' : '—'}</td>
+            <td><span class="ship-badge ${shipClass}">${sh.status}</span></td>
+        </tr>`;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="mat-view-header">
+            <h3>Material & Inventar — ${approved.length} eventov</h3>
+            <button class="btn btn-ghost btn-sm" onclick="exportCSV()">Export CSV</button>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr>
+                    <th>Event</th><th>Datum</th><th>Tier</th><th>Kit</th>
+                    <th style="text-align:right">Iontak (kg)</th><th style="text-align:right">Gely</th><th style="text-align:right">Tycinky</th>
+                    <th style="text-align:center">Banner</th><th style="text-align:center">Stan</th><th style="text-align:right">Kelimky</th><th style="text-align:center">Komisny</th>
+                    <th>Dorucenie</th>
+                </tr></thead>
+                <tbody>${rows}
+                    <tr class="mat-totals-row">
+                        <td><strong>TOTAL</strong></td><td></td><td></td><td></td>
+                        <td style="text-align:right"><strong>${totals.iontak}</strong></td>
+                        <td style="text-align:right"><strong>${totals.gely}</strong></td>
+                        <td style="text-align:right"><strong>${totals.tycinky}</strong></td>
+                        <td style="text-align:center"><strong>${totals.banner}</strong></td>
+                        <td style="text-align:center"><strong>${totals.stan}</strong></td>
+                        <td style="text-align:right"><strong>${totals.kelimky}</strong></td>
+                        <td style="text-align:center"><strong>${totals.komisny}</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+// ===== CSV EXPORT =====
+function exportCSV() {
+    const approved = allEvents.filter(e => {
+        const s = getEffectiveStatus(e);
+        return !['Nové', 'V review', 'Zamítnuté'].includes(s);
+    });
+
+    const headers = ['Event', 'Datum', 'Tier', 'Kit', 'Iontak_kg', 'Gely_ks', 'Tycinky_ks', 'QR_karty', 'Banner', 'Stan', 'Display', 'Kelimky', 'Komisny_box', 'Adresa', 'Datum_dorucenia', 'Stav_dorucenia', 'Tracking'];
+    const rows = [headers.join(';')];
+
+    let totals = { iontak: 0, gely: 0, tycinky: 0, qr: 0, banner: 0, stan: 0, display: 0, kelimky: 0, komisny: 0 };
+
+    approved.forEach(ev => {
+        const f = ev.fields;
+        const m = getOrDefaultMaterial(ev);
+        const p = m.products; const mt = m.materials; const sh = m.shipping;
+
+        totals.iontak += p.iontak_kg; totals.gely += p.gely_ks; totals.tycinky += p.tycinky_ks;
+        totals.qr += p.qr_karty; totals.banner += mt.banner ? 1 : 0; totals.stan += mt.stan ? 1 : 0;
+        totals.display += mt.display ? 1 : 0; totals.kelimky += mt.kelimky; totals.komisny += mt.komisny_box ? 1 : 0;
+
+        const esc = (v) => `"${String(v || '').replace(/"/g, '""')}"`;
+        rows.push([
+            esc(f['Název eventu']), fmtDate(f['Datum konání']), ev.tier, m.kit,
+            p.iontak_kg, p.gely_ks, p.tycinky_ks, p.qr_karty,
+            mt.banner ? 1 : 0, mt.stan ? 1 : 0, mt.display ? 1 : 0, mt.kelimky, mt.komisny_box ? 1 : 0,
+            esc(sh.address), sh.required_date, sh.status, esc(sh.tracking)
+        ].join(';'));
+    });
+
+    rows.push(['TOTAL', '', '', '',
+        totals.iontak, totals.gely, totals.tycinky, totals.qr,
+        totals.banner, totals.stan, totals.display, totals.kelimky, totals.komisny,
+        '', '', '', ''
+    ].join(';'));
+
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `enervit-material-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV exportovany');
+}
 
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeEmailModal(); closePanel(); document.getElementById('tier-popover').style.display = 'none'; }
