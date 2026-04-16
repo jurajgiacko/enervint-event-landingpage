@@ -625,6 +625,7 @@ function renderMatrix() {
         const decided = !['Nové', 'V review'].includes(effStatus);
         let dateLabel = fmtDate(f['Datum konání']);
         if (past) dateLabel += ' <span style="color:var(--text-muted);font-size:10px">(min.)</span>';
+        else if (days !== null && days < 14 && days >= 0) dateLabel += ` <span style="color:#ef4444;font-size:10px;font-weight:700" title="Menej ako 14 dni — nestihne sa kit!">${days}d ⚠</span>`;
         else if (days !== null && days <= 30 && days >= 0) dateLabel += ` <span style="color:var(--orange);font-size:10px;font-weight:700">${days}d</span>`;
         const bonusHtml = b.bonus > 0 ? `<span style="color:var(--green);font-size:10px;font-weight:600">+${b.bonus.toFixed(1)}</span>` : '<span style="color:var(--text-muted);font-size:10px">—</span>';
         let decHtml;
@@ -755,7 +756,21 @@ async function handlePipelineDrop(eventId, newStatus) {
 }
 
 // ===== QUICK DECISIONS =====
+function checkDeadlineWarning(ev) {
+    const days = daysUntil(ev.fields['Datum konání']);
+    if (days !== null && days >= 0 && days < 14) {
+        return `⚠️ POZOR: Event "${ev.fields['Název eventu']}" je za ${days} dni!\n\nMinimalna doba na pripravu a odoslanie kitu je 10-15 pracovnych dni.\n\nNaozaj chces pokracovat?`;
+    }
+    return null;
+}
+
 function startApprove(id, btnEl) {
+    const ev = allEvents.find(e => e.id === id);
+    if (ev) {
+        const warning = checkDeadlineWarning(ev);
+        if (warning && !confirm(warning)) return;
+    }
+
     pendingApproveId = id;
     const popover = document.getElementById('tier-popover');
     const rect = btnEl.getBoundingClientRect();
@@ -995,6 +1010,11 @@ async function saveEvent() {
     const newStatus = document.getElementById('panel-status').value;
     const newTier = document.getElementById('panel-tier').value;
     const oldStatus = getEffectiveStatus(ev);
+
+    if (newStatus === 'Schválené' && oldStatus !== 'Schválené') {
+        const warning = checkDeadlineWarning(ev);
+        if (warning && !confirm(warning)) return;
+    }
 
     if (oldStatus !== newStatus) {
         addLogEntry(ev, 'status_change', `${oldStatus} → ${newStatus}`);
