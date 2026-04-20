@@ -801,7 +801,7 @@ async function selectTier(tier) {
 
     addLogEntry(ev, 'status_change', `${oldStatus} → Schválené (${tier})`);
 
-    const fields = { Stav: 'Schválené' };
+    const fields = { Stav: 'Schválené', Tier: tier, Score: String(ev.score) };
     if (fieldsAvailable.Pipeline) fields.Pipeline = 'Schválené';
     if (fieldsAvailable.CRM_Log) fields.CRM_Log = ev.fields['CRM_Log'];
     await saveEventToAirtable(id, fields);
@@ -1035,6 +1035,8 @@ async function saveEvent() {
 
     const fields = {};
     if (basicStatus) fields.Stav = basicStatus;
+    fields.Tier = newTier;
+    fields.Score = String(ev.score);
     if (fieldsAvailable.Pipeline) fields.Pipeline = newStatus;
     if (fieldsAvailable.CRM_Log) fields.CRM_Log = ev.fields['CRM_Log'];
     if (fieldsAvailable.Material && ev.fields['Material']) fields.Material = ev.fields['Material'];
