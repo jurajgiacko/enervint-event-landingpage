@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Event Admin | Enervit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -400,7 +403,7 @@ let currentFilter = 'all';
 let currentView = 'table';
 let currentEventId = null;
 let pendingApproveId = null;
-let fieldsAvailable = { Pipeline: true, CRM_Log: true, Material: true };
+let fieldsAvailable = { Pipeline: true, CRM_Log: true, Material: true, Tier: true, Score: true };
 
 // ===== SCORING =====
 const PARTICIPANT_SCORES = { 'Do 200': 1, '200–500': 2, '500–1 500': 3, '1 500–3 000': 4, '3 000+': 5 };
@@ -743,6 +746,8 @@ async function handlePipelineDrop(eventId, newStatus) {
     const fields = {};
     if (fieldsAvailable.Pipeline) fields.Pipeline = newStatus;
     if (basicStatus) fields.Stav = basicStatus;
+    fields.Tier = ev.tier;
+    fields.Score = String(ev.score);
     if (fieldsAvailable.CRM_Log) fields.CRM_Log = ev.fields['CRM_Log'];
 
     const result = await saveEventToAirtable(ev.id, fields);
@@ -798,6 +803,8 @@ async function selectTier(tier) {
     ev.stav = 'Schválené'; ev.tier = tier;
     ev.fields['Stav'] = 'Schválené';
     ev.fields['Pipeline'] = 'Schválené';
+    ev.fields['Tier'] = tier;
+    ev.fields['Score'] = String(ev.score);
 
     addLogEntry(ev, 'status_change', `${oldStatus} → Schválené (${tier})`);
 
@@ -838,6 +845,8 @@ async function saveEventToAirtable(recordId, fields) {
     if (!fieldsAvailable.Pipeline) delete cleanFields.Pipeline;
     if (!fieldsAvailable.CRM_Log) delete cleanFields.CRM_Log;
     if (!fieldsAvailable.Material) delete cleanFields.Material;
+    if (!fieldsAvailable.Tier) delete cleanFields.Tier;
+    if (!fieldsAvailable.Score) delete cleanFields.Score;
     if (Object.keys(cleanFields).length === 0) return { ok: true };
 
     try {
@@ -854,6 +863,8 @@ async function saveEventToAirtable(recordId, fields) {
                 if (msg.includes('Pipeline')) { fieldsAvailable.Pipeline = false; delete cleanFields.Pipeline; }
                 if (msg.includes('CRM_Log')) { fieldsAvailable.CRM_Log = false; delete cleanFields.CRM_Log; }
                 if (msg.includes('Material')) { fieldsAvailable.Material = false; delete cleanFields.Material; }
+                if (msg.includes('Tier')) { fieldsAvailable.Tier = false; delete cleanFields.Tier; }
+                if (msg.includes('Score')) { fieldsAvailable.Score = false; delete cleanFields.Score; }
                 document.getElementById('setup-banner').style.display = 'block';
                 if (Object.keys(cleanFields).length > 0) {
                     return saveEventToAirtable(recordId, cleanFields);
@@ -1021,6 +1032,8 @@ async function saveEvent() {
     }
 
     ev.tier = newTier;
+    ev.fields['Tier'] = newTier;
+    ev.fields['Score'] = String(ev.score);
     ev.fields['Pipeline'] = newStatus;
     const basicStatus = STATUS_TO_BASIC[newStatus];
     if (basicStatus) { ev.stav = basicStatus; ev.fields['Stav'] = basicStatus; }
