@@ -957,6 +957,14 @@ function openPanel(id) {
             </div>
         </div>
 
+        <div class="panel-section" id="sb-section">
+            <div class="panel-section-title" style="display:flex;justify-content:space-between;align-items:center">
+                SupportBox
+                <button onclick="checkSupportBox('${ev.id}')" style="font-size:11px;padding:3px 10px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer">&#128269; Overit</button>
+            </div>
+            <div id="sb-status" style="padding:8px 0;font-size:13px;color:var(--text-dim)">Klikni "Overit" pre kontrolu komunikacie v SupportBoxe</div>
+        </div>
+
         <div class="panel-section">
             <div class="panel-section-title">Rozhodnutie</div>
             <div class="detail-grid">
@@ -995,6 +1003,57 @@ function closePanel() {
     document.getElementById('panel').classList.remove('open');
     document.getElementById('panel-overlay').classList.remove('open');
     currentEventId = null;
+}
+
+async function checkSupportBox(eventId) {
+    const ev = allEvents.find(e => e.id === eventId); if (!ev) return;
+    const email = ev.fields['Email'];
+    const el = document.getElementById('sb-status');
+    if (!email) { el.innerHTML = '<span style="color:var(--orange)">Chyba kontaktny email</span>'; return; }
+
+    el.innerHTML = '<span style="color:var(--text-muted)">Kontrolujem...</span>';
+
+    try {
+        const pin = getPin();
+        const res = await fetch(`/api/supportbox?pin=${encodeURIComponent(pin)}&email=${encodeURIComponent(email)}`);
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            el.innerHTML = `<span style="color:var(--orange)">Chyba: ${err.error || res.status}</span>`;
+            return;
+        }
+        const data = await res.json();
+
+        if (data.ticketCount === 0) {
+            el.innerHTML = '<span style="color:var(--text-dim)">&#10060; Ziadny ticket — este sme nekomunikovali</span>';
+            return;
+        }
+
+        let html = '';
+        if (data.replied) {
+            html += `<div style="color:var(--green);font-weight:600;margin-bottom:6px">&#9989; Organizator odpovedal</div>`;
+        } else {
+            html += `<div style="color:var(--yellow);font-weight:600;margin-bottom:6px">&#9203; Caka na odpoved organizatora</div>`;
+        }
+        html += `<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">${data.ticketCount} ticket(ov), ${data.totalMessages} sprav celkovo</div>`;
+
+        for (const conv of data.conversations.slice(0, 5)) {
+            const isReply = conv.hasTheirReply;
+            const icon = isReply ? '&#9993;' : '&#10148;';
+            const color = isReply ? 'var(--green)' : 'var(--text-dim)';
+            const date = conv.lastMessageAt.substring(0, 16).replace(' ', ' ');
+            const subj = conv.subject.length > 50 ? conv.subject.substring(0, 50) + '...' : conv.subject;
+            html += `<div style="padding:4px 0;border-top:1px solid var(--border);font-size:12px">
+                <span style="color:${color}">${icon}</span>
+                <span style="color:var(--text)">${subj || '(bez predmetu)'}</span>
+                <span style="color:var(--text-muted);float:right">${date} · ${conv.messageCount} spr.</span>
+            </div>`;
+        }
+
+        el.innerHTML = html;
+    } catch (err) {
+        console.error('SupportBox check error:', err);
+        el.innerHTML = '<span style="color:var(--orange)">Chyba pri kontrole SupportBoxu</span>';
+    }
 }
 
 async function addCrmNote() {
