@@ -463,21 +463,21 @@
         }
 
         .tier-card.featured {
-            border-color: var(--enervit-red);
-            box-shadow: 0 0 0 1px var(--enervit-red), 0 8px 24px rgba(228, 5, 33, 0.1);
+            border-color: var(--gray-300);
+            box-shadow: none;
         }
 
         .tier-card.featured:hover {
-            box-shadow: 0 0 0 1px var(--enervit-red), 0 12px 32px rgba(228, 5, 33, 0.15);
+            box-shadow: var(--shadow-lg);
         }
 
         .tier-card.featured::before {
-            content: 'Nejoblíbenější';
+            content: 'Obsazeno 2026';
             position: absolute;
             top: -11px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--enervit-red);
+            background: var(--gray-600);
             color: white;
             padding: 4px 14px;
             border-radius: 100px;
@@ -486,6 +486,47 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
             white-space: nowrap;
+        }
+
+        .tier-card.closed {
+            border-color: var(--gray-300);
+            position: relative;
+        }
+
+        .tier-card.closed::before {
+            content: 'Obsazeno 2026';
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gray-600);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+
+        .tier-2027-banner {
+            margin-top: 32px;
+            padding: 20px 28px;
+            background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
+            border-radius: var(--radius);
+            text-align: center;
+            color: white;
+        }
+
+        .tier-2027-banner p {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .tier-2027-banner strong {
+            color: var(--enervit-red-light);
         }
 
         .tier-badge {
@@ -1099,10 +1140,10 @@
                 <div>
                     <div class="hero-badge">
                         <span class="hero-badge-dot"></span>
-                        Sezóna 2026 — kapacita omezená
+                        Sezóna 2026 — PRO a EXCLUSIVE obsazeny
                     </div>
                     <h1>Přihlaste svůj event<br>do programu <span class="accent">Enervit</span></h1>
-                    <p class="hero-sub">Vybíráme sportovní akce, které podpoříme prémiovou italskou výživou. Produkty, branding i komisní prodej — přihlaste se a my posoudíme shodu.</p>
+                    <p class="hero-sub">Vybíráme sportovní akce, které podpoříme prémiovou italskou výživou. Programy PRO a EXCLUSIVE jsou na rok 2026 obsazeny — přihlášky do BASE přijímáme průběžně. Registrace na 2027 brzy.</p>
                     <div class="cta-row">
                         <a href="#formular" class="btn-primary">Přihlásit event</a>
                         <a href="#jak-to-funguje" class="btn-ghost">Jak to funguje?</a>
@@ -1159,6 +1200,18 @@
                 <span class="ref-name">ČSOS</span>
                 <span class="ref-detail">Orientační běh</span>
             </div>
+            <div class="ref-item">
+                <span class="ref-name">Trutnovská 10</span>
+                <span class="ref-detail">Běh</span>
+            </div>
+            <div class="ref-item">
+                <span class="ref-name">Vokolo Príglu</span>
+                <span class="ref-detail">MTB / Trail</span>
+            </div>
+            <div class="ref-item">
+                <span class="ref-name">Kraslický šlíp</span>
+                <span class="ref-detail">Běh</span>
+            </div>
         </div>
     </div>
 </section>
@@ -1176,46 +1229,57 @@
             <div class="tier-card">
                 <div class="tier-badge">Base</div>
                 <h3>ENERVIT BASE</h3>
-                <div class="tier-for">Pro vybrané eventy od 200 účastníků</div>
-                <p class="tier-desc">Zvýhodněný nákup produktů Enervit, vzorky pro účastníky a brandingové materiály pro váš event.</p>
+                <div class="tier-for">Závody do 500 účastníků</div>
+                <p class="tier-desc">PR a mediální spolupráce, vzdělávací obsah, brandingové materiály a zvýhodněný nákup produktů.</p>
                 <ul class="tier-features">
-                    <li><span class="check">✓</span> Slevy na nákup produktů Enervit</li>
-                    <li><span class="check">✓</span> Vzorky gelů a iontových nápojů</li>
-                    <li><span class="check">✓</span> Bannery, vlajky a brandingové materiály</li>
-                    <li><span class="check">✓</span> Stánky na občerstvovací stanice</li>
-                    <li><span class="check">✓</span> Možnost komisního prodeje</li>
+                    <li><span class="check">✓</span> PR a mediální spolupráce (šablona)</li>
+                    <li><span class="check">✓</span> Vzdělávací HUB</li>
+                    <li><span class="check">✓</span> Občerstvovací stanice s brandingem (bannery)</li>
+                    <li><span class="check">✓</span> Organizační sleva 40 % na produkty</li>
+                    <li><span class="check">✓</span> Prodej balíčků v rámci registrace</li>
+                    <li><span class="check">✓</span> Zvýhodněný nákup pro závodníky na e-shopu</li>
+                    <li><span class="check">✓</span> Ceny pro vítěze v dospělých kategoriích formou slevového voucheru</li>
                 </ul>
             </div>
 
             <div class="tier-card featured">
                 <div class="tier-badge">Pro</div>
                 <h3>ENERVIT PRO</h3>
-                <div class="tier-for">Pro vybrané eventy od 500 účastníků</div>
-                <p class="tier-desc">Iontový nápoj na občerstvovačky zdarma, sampling gelů a novinek pro účastníky, ceny do tomboly a kompletní zázemí.</p>
-                <ul class="tier-features">
-                    <li><span class="check">✓</span> Iontový nápoj na občerstvovací stanice zdarma</li>
-                    <li><span class="check">✓</span> Rozdávačky gelů a novinek pro účastníky</li>
-                    <li><span class="check">✓</span> Ceny do tomboly (produktové balíčky)</li>
-                    <li><span class="check">✓</span> Stánky na občerstvovací stanice</li>
-                    <li><span class="check">✓</span> Možnost komisního prodeje</li>
-                    <li><span class="check">✓</span> Brandingové materiály a bannery</li>
+                <div class="tier-for">Obsazeno na rok 2026</div>
+                <p class="tier-desc" style="opacity:0.6">Registrace na sezónu 2027 otevřeme na podzim 2026.</p>
+                <ul class="tier-features" style="opacity:0.5">
+                    <li><span class="check">✓</span> PR a mediální spolupráce</li>
+                    <li><span class="check">✓</span> Vzdělávací HUB</li>
+                    <li><span class="check">✓</span> Občerstvovací stanice s brandingem (bannery, křídla, vlajky, stánek)</li>
+                    <li><span class="check">✓</span> Produkty na občerstvovací stanice (Isotonic Drink 10 kg a Carbo Tablets)</li>
+                    <li><span class="check">✓</span> Organizační sleva 40 % na další produkty</li>
+                    <li><span class="check">✓</span> Prodej balíčků v rámci registrace</li>
+                    <li><span class="check">✓</span> Komisní prodej / zvýhodněný nákup pro závodníky na e-shopu</li>
+                    <li><span class="check">✓</span> Ceny pro 1. místo v dospělých kategoriích</li>
+                    <li><span class="check">✓</span> Ceny pro 2. a 3. místo v dospělých kategoriích formou slevového voucheru</li>
                 </ul>
             </div>
 
-            <div class="tier-card">
+            <div class="tier-card closed">
                 <div class="tier-badge">Exclusive</div>
                 <h3>ENERVIT EXCLUSIVE</h3>
-                <div class="tier-for">Na pozvání — TOP eventy nad 1 500 účastníků</div>
-                <p class="tier-desc">Partnerství na míru nebo plný support. Produkty zdarma, kompletní zázemí a individuální dohoda.</p>
-                <ul class="tier-features">
-                    <li><span class="check">✓</span> Produkty zdarma pro event</li>
-                    <li><span class="check">✓</span> Kompletní nutričný servis na míru</li>
-                    <li><span class="check">✓</span> Plné zázemí (stánky, bannery, kelímky)</li>
-                    <li><span class="check">✓</span> Společná PR a mediální spolupráce</li>
-                    <li><span class="check">✓</span> Exkluzivita v kategorii sportovní výživa</li>
-                    <li><span class="check">✓</span> Individuální smlouva — dohodneme se</li>
+                <div class="tier-for">Obsazeno na rok 2026 — na pozvání</div>
+                <p class="tier-desc" style="opacity:0.6">Individuální smlouva pro TOP eventy. Registrace na 2027 brzy.</p>
+                <ul class="tier-features" style="opacity:0.5">
+                    <li><span class="check">✓</span> Vysoká úroveň PR a mediální spolupráce</li>
+                    <li><span class="check">✓</span> Prodejní stánek — interní a externí tým Enervit</li>
+                    <li><span class="check">✓</span> Občerstvovací stanice se stánky a brandingem</li>
+                    <li><span class="check">✓</span> Produkty na občerstvovací stanice</li>
+                    <li><span class="check">✓</span> Ceny pro vítěze</li>
+                    <li><span class="check">✓</span> Balíček do tomboly</li>
+                    <li><span class="check">✓</span> Produktové vklady</li>
+                    <li><span class="check">✓</span> Prodej balíčků v rámci registrace</li>
                 </ul>
             </div>
+        </div>
+
+        <div class="tier-2027-banner">
+            <p>Programy <strong>ENERVIT PRO</strong> a <strong>ENERVIT EXCLUSIVE</strong> jsou na sezónu 2026 obsazeny.<br>Registraci na sezónu <strong>2027</strong> spustíme na podzim 2026. Přihlaste svůj event do programu <strong>BASE</strong> — přijímáme průběžně.</p>
         </div>
     </div>
 </section>
@@ -1302,9 +1366,9 @@
 <section class="form-section" id="formular">
     <div class="container">
         <div class="section-header">
-            <div class="badge">Přihláška</div>
-            <h2>Přihlaste svůj event do výběru</h2>
-            <p>Vyplnění trvá cca 4 minuty. Posoudíme, zda je váš event vhodný pro program Enervit.</p>
+            <div class="badge">Přihláška — BASE</div>
+            <h2>Přihlaste svůj event do programu BASE</h2>
+            <p>Vyplnění trvá cca 4 minuty. Programy PRO a EXCLUSIVE jsou na sezónu 2026 obsazeny — registrace na 2027 bude na podzim.</p>
         </div>
 
         <div class="form-container">
@@ -1598,7 +1662,7 @@
                     <span class="faq-toggle">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>ENERVIT BASE je bezplatný. U ENERVIT PRO fungujeme na komisním modelu — vy prodáváte, 15 % z tržby si necháváte. ENERVIT EXCLUSIVE má individuální podmínky.</p>
+                    <p>ENERVIT BASE funguje na principu organizační slevy 40 % — produkty nakupujete za zvýhodněnou cenu. U ENERVIT PRO dodáváme produkty na občerstvovací stanice zdarma + komisní model prodeje. ENERVIT EXCLUSIVE má individuální podmínky na míru.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -1644,9 +1708,9 @@
 <!-- CTA BAND -->
 <section class="cta-band">
     <div class="container">
-        <h2>Připraveni přihlásit svůj event?</h2>
-        <p>Vyplnění formuláře trvá 4 minuty. Odpovíme do 72 hodin.</p>
-        <a href="#formular" class="btn-white">Přihlásit event</a>
+        <h2>Připraveni přihlásit svůj event do BASE?</h2>
+        <p>Vyplnění formuláře trvá 4 minuty. Odpovíme do 72 hodin. PRO a EXCLUSIVE otevíráme na 2027.</p>
+        <a href="#formular" class="btn-white">Přihlásit event do BASE</a>
     </div>
 </section>
 
