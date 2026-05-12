@@ -142,13 +142,37 @@
         .pipeline-card .pc-tier { font-size: 9px; }
 
         /* TIER POPOVER */
-        .tier-popover { position: fixed; z-index: 300; background: var(--dark-mid); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 220px; box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+        .tier-popover { position: fixed; z-index: 300; background: var(--dark-mid); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 280px; box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
         .tier-popover h4 { font-size: 12px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
         .tier-option { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: background 0.1s; margin-bottom: 4px; }
         .tier-option:hover { background: rgba(255,255,255,0.05); }
         .tier-option .tier-dot { width: 10px; height: 10px; border-radius: 50%; }
         .tier-option .tier-name { font-size: 13px; font-weight: 600; color: var(--text); }
-        .tier-option .tier-desc { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+        .tier-option .tier-desc { font-size: 11px; color: var(--text-muted); margin-left: auto; text-align: right; }
+
+        /* TAHAK (Mantinely 2026 cheatsheet — overlay) */
+        .tahak-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text-dim); cursor: pointer; transition: all 0.15s; font-family: inherit; }
+        .tahak-btn:hover { color: var(--text); border-color: var(--border-hover); background: var(--dark-mid); }
+        .tahak-btn .tb-icon { font-size: 14px; }
+        .tahak-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 250; display: none; align-items: flex-start; justify-content: center; padding: 60px 20px 20px; overflow-y: auto; }
+        .tahak-overlay.open { display: flex; }
+        .tahak-modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; max-width: 780px; width: 100%; box-shadow: 0 24px 64px rgba(0,0,0,0.6); }
+        .tahak-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .tahak-modal h2 { font-size: 18px; font-weight: 700; }
+        .tahak-modal h2 .th-meta { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-left: 10px; }
+        .tahak-close { background: transparent; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; padding: 4px 10px; line-height: 1; }
+        .tahak-close:hover { color: var(--text); }
+        .tahak-section { margin-bottom: 18px; }
+        .tahak-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 10px; }
+        .tahak-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .budget-tier-card { background: var(--dark-mid); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+        .budget-tier-card .bt-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .budget-tier-card .bt-cap { font-size: 20px; font-weight: 700; color: var(--text); }
+        .budget-tier-card .bt-cap-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .budget-rules { padding: 12px 14px; background: var(--dark-mid); border: 1px solid var(--border); border-radius: 8px; font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+        .budget-rules strong { color: var(--text); }
+        .budget-rules .esc { color: var(--orange); font-weight: 700; }
+        .budget-rules code { background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px; font-size: 11px; color: var(--text-dim); }
 
         /* DETAIL PANEL */
         .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; display: none; }
@@ -265,6 +289,7 @@
             </div>
         </div>
         <div class="topbar-right">
+            <button class="tahak-btn" onclick="openTahak()" title="Mantinely & budget cheatsheet"><span class="tb-icon">&#128221;</span> Tahak</button>
             <button class="btn btn-ghost btn-sm" onclick="loadEvents()">Obnovit</button>
             <button class="btn btn-ghost btn-sm" onclick="logout()">Odhlasit</button>
         </div>
@@ -364,12 +389,54 @@
     </div>
 </div>
 
+<!-- TAHAK (Mantinely 2026 cheatsheet overlay) -->
+<div class="tahak-overlay" id="tahak-overlay" onclick="if(event.target===this)closeTahak()">
+    <div class="tahak-modal">
+        <div class="tahak-modal-header">
+            <h2>Tahak — Mantinely 2026 <span class="th-meta">sezonny cap 10-12K EUR Italia (mimo Jizerska, Road Classics, Vyssi Brod, Praha Expo, Kosice)</span></h2>
+            <button class="tahak-close" onclick="closeTahak()">&times;</button>
+        </div>
+
+        <div class="tahak-section">
+            <div class="tahak-section-title">Tier capy / event</div>
+            <div class="tahak-tiers">
+                <div class="budget-tier-card">
+                    <div class="bt-name" style="color:#a8a29e">BASE / Bronze</div>
+                    <div class="bt-cap">≤ 300 EUR</div>
+                    <div class="bt-cap-sub">~21 000 CZK final</div>
+                </div>
+                <div class="budget-tier-card">
+                    <div class="bt-name" style="color:var(--red)">PRO / Silver</div>
+                    <div class="bt-cap">≤ 700 EUR</div>
+                    <div class="bt-cap-sub">~49 000 CZK final</div>
+                </div>
+                <div class="budget-tier-card">
+                    <div class="bt-name" style="color:var(--text)">EXCLUSIVE / Gold</div>
+                    <div class="bt-cap">≤ 1 500 EUR</div>
+                    <div class="bt-cap-sub">~105 000 CZK · vzdy Juraj OK</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tahak-section">
+            <div class="tahak-section-title">Pravidla</div>
+            <div class="budget-rules">
+                <strong>Organizatorska zlava (TVRDY STROP):</strong> Schvaleni = <strong>40 %</strong> z final ceny. Odmietnuti / mimo formular = <strong>25 %</strong>. Bez limitu sumy, cely rok. <em>Viac sa neda nikdy.</em> Ponukni v kazdom emaile.<br>
+                <strong>Kelimky (60410)</strong> — davame ak su skladom (overit Pohoda pred slubom).<br>
+                <strong>Auto-cut z kazdej ziadosti:</strong> duplicitne typy gelov · specialty (Magnesium, Instant Sport, Iron, PurePro, R2) · viac ako 1 gel/osoba.<br>
+                <strong class="esc">Eskaluj Jurajovi:</strong> ziadost &gt;700 EUR Italia · Tier 1/TV/medzinarodne · komisny predaj · konkurent v ponuke · event &lt; 14 dni · cumulative spend &gt; 8K EUR.<br>
+                <strong>Konverzia:</strong> 1 EUR Italia ≈ 32 CZK nasa cena s landingom ≈ 57 CZK final na faktache. Pricelist EUR: <code>Tools/vitar-sport-analytics/enervit_pricelist.js</code>. Full mantinely: <code>VERONIKA-MANTINELY-2026.md</code>.
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- TIER POPOVER -->
 <div class="tier-popover" id="tier-popover" style="display:none">
-    <h4>Vyber tier</h4>
-    <div class="tier-option" onclick="selectTier('EXCLUSIVE')"><div class="tier-dot" style="background:var(--text)"></div><span class="tier-name">EXCLUSIVE</span><span class="tier-desc">Individualna dohoda</span></div>
-    <div class="tier-option" onclick="selectTier('PRO')"><div class="tier-dot" style="background:var(--red)"></div><span class="tier-name">PRO</span><span class="tier-desc">Silver/Gold Kit</span></div>
-    <div class="tier-option" onclick="selectTier('BASE')"><div class="tier-dot" style="background:#a8a29e"></div><span class="tier-name">BASE</span><span class="tier-desc">Bronze Kit / Sampling</span></div>
+    <h4>Vyber tier (budget cap / event)</h4>
+    <div class="tier-option" onclick="selectTier('EXCLUSIVE')"><div class="tier-dot" style="background:var(--text)"></div><span class="tier-name">EXCLUSIVE</span><span class="tier-desc">≤1 500 EUR<br>~105K CZK · Juraj OK</span></div>
+    <div class="tier-option" onclick="selectTier('PRO')"><div class="tier-dot" style="background:var(--red)"></div><span class="tier-name">PRO</span><span class="tier-desc">≤700 EUR<br>~49K CZK</span></div>
+    <div class="tier-option" onclick="selectTier('BASE')"><div class="tier-dot" style="background:#a8a29e"></div><span class="tier-name">BASE</span><span class="tier-desc">≤300 EUR<br>~21K CZK</span></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -391,6 +458,27 @@ const PIPELINE_STATUSES = [
 ];
 
 const BASIC_STATUSES = ['Nové', 'V review', 'Schválené', 'Zamítnuté'];
+
+// Mantinely 2026 — tier budget caps (Italia EUR nakup / CZK final na faktache)
+const TIER_BUDGET_HINTS = {
+    'BASE':      'Cap: ≤ 300 EUR Italia / ~21 000 CZK final',
+    'PRO':       'Cap: ≤ 700 EUR Italia / ~49 000 CZK final',
+    'EXCLUSIVE': 'Cap: ≤ 1 500 EUR Italia / ~105 000 CZK final — vzdy Jurajov OK',
+    'ODMÍTNUTÍ': 'Bez balicka — poslat slevovy kod cez email'
+};
+
+function openTahak() {
+    document.getElementById('tahak-overlay').classList.add('open');
+}
+function closeTahak() {
+    document.getElementById('tahak-overlay').classList.remove('open');
+}
+
+function updateTierBudgetHint() {
+    const sel = document.getElementById('panel-tier');
+    const hint = document.getElementById('tier-budget-hint');
+    if (sel && hint) hint.textContent = TIER_BUDGET_HINTS[sel.value] || '';
+}
 
 const STATUS_TO_BASIC = {
     'Nové': 'Nové', 'V review': 'V review', 'Schválené': 'Schválené', 'Zamítnuté': 'Zamítnuté',
@@ -974,11 +1062,12 @@ function openPanel(id) {
                 </div>
                 <div class="detail-item">
                     <label>Tier</label>
-                    <select id="panel-tier">
+                    <select id="panel-tier" onchange="updateTierBudgetHint()">
                         <option value="BASE" ${ev.tier === 'BASE' ? 'selected' : ''}>BASE</option>
                         <option value="PRO" ${ev.tier === 'PRO' ? 'selected' : ''}>PRO</option>
                         <option value="EXCLUSIVE" ${ev.tier === 'EXCLUSIVE' ? 'selected' : ''}>EXCLUSIVE</option>
                     </select>
+                    <div id="tier-budget-hint" style="font-size:11px;color:var(--text-muted);margin-top:6px;line-height:1.4">${TIER_BUDGET_HINTS[ev.tier] || ''}</div>
                 </div>
             </div>
         </div>
@@ -1470,7 +1559,7 @@ function exportCSV() {
 }
 
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeEmailModal(); closePanel(); document.getElementById('tier-popover').style.display = 'none'; }
+    if (e.key === 'Escape') { closeEmailModal(); closePanel(); closeTahak(); document.getElementById('tier-popover').style.display = 'none'; }
 });
 
 // ===== INIT =====
