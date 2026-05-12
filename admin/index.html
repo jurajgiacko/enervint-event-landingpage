@@ -150,29 +150,54 @@
         .tier-option .tier-name { font-size: 13px; font-weight: 600; color: var(--text); }
         .tier-option .tier-desc { font-size: 11px; color: var(--text-muted); margin-left: auto; text-align: right; }
 
-        /* TAHAK (Mantinely 2026 cheatsheet — overlay) */
-        .tahak-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text-dim); cursor: pointer; transition: all 0.15s; font-family: inherit; }
-        .tahak-btn:hover { color: var(--text); border-color: var(--border-hover); background: var(--dark-mid); }
-        .tahak-btn .tb-icon { font-size: 14px; }
-        .tahak-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 250; display: none; align-items: flex-start; justify-content: center; padding: 60px 20px 20px; overflow-y: auto; }
-        .tahak-overlay.open { display: flex; }
-        .tahak-modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; max-width: 780px; width: 100%; box-shadow: 0 24px 64px rgba(0,0,0,0.6); }
-        .tahak-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-        .tahak-modal h2 { font-size: 18px; font-weight: 700; }
-        .tahak-modal h2 .th-meta { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-left: 10px; }
-        .tahak-close { background: transparent; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; padding: 4px 10px; line-height: 1; }
-        .tahak-close:hover { color: var(--text); }
-        .tahak-section { margin-bottom: 18px; }
-        .tahak-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 10px; }
-        .tahak-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .budget-tier-card { background: var(--dark-mid); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
-        .budget-tier-card .bt-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-        .budget-tier-card .bt-cap { font-size: 20px; font-weight: 700; color: var(--text); }
-        .budget-tier-card .bt-cap-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-        .budget-rules { padding: 12px 14px; background: var(--dark-mid); border: 1px solid var(--border); border-radius: 8px; font-size: 12px; color: var(--text-dim); line-height: 1.7; }
-        .budget-rules strong { color: var(--text); }
-        .budget-rules .esc { color: var(--orange); font-weight: 700; }
-        .budget-rules code { background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px; font-size: 11px; color: var(--text-dim); }
+        /* MANTINELY PAGE (Veronika reference / tahak) */
+        .mant-page { max-width: 1100px; margin: 0 auto; }
+        .mant-hero { background: linear-gradient(135deg, var(--surface), var(--dark-mid)); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 24px; }
+        .mant-hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+        .mant-hero p { font-size: 14px; color: var(--text-dim); line-height: 1.6; max-width: 760px; }
+        .mant-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 18px; }
+        .mant-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: baseline; gap: 10px; }
+        .mant-section h2 .mant-num { color: var(--red); font-size: 13px; font-weight: 700; }
+        .mant-section h3 { font-size: 14px; font-weight: 700; margin: 18px 0 10px; color: var(--text-dim); }
+        .mant-section h4 { font-size: 13px; font-weight: 700; margin: 14px 0 8px; }
+        .mant-section .mant-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+        .mant-section p { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 10px; }
+        .mant-section p strong { color: var(--text); }
+        .mant-section ul, .mant-section ol { padding-left: 22px; font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+        .mant-section ul li, .mant-section ol li { margin-bottom: 4px; }
+        .mant-section ul li strong { color: var(--text); }
+        .mant-section code { background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px; font-size: 12px; color: var(--text-dim); font-family: ui-monospace, monospace; }
+        .mant-section a { color: var(--red); text-decoration: none; }
+        .mant-section a:hover { text-decoration: underline; }
+        .mant-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+        .mant-tier-card { background: var(--dark-mid); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+        .mant-tier-card .mt-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+        .mant-tier-card .mt-cap { font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+        .mant-tier-card .mt-cap-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+        .mant-tier-card .mt-score { font-size: 12px; color: var(--text-dim); border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+        .mant-tier-card .mt-score strong { color: var(--text); }
+        .mant-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+        .mant-table th { text-align: left; padding: 10px 14px; background: var(--dark-mid); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); }
+        .mant-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
+        .mant-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+        .mant-table tr:last-child td { border-bottom: none; }
+        .mant-table tr.total-row td { font-weight: 700; color: var(--text); background: rgba(255,255,255,0.02); }
+        .mant-callout { background: rgba(228,5,33,0.06); border: 1px solid rgba(228,5,33,0.2); border-radius: 10px; padding: 16px 20px; margin: 16px 0; font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+        .mant-callout.green { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.2); }
+        .mant-callout.yellow { background: rgba(234,179,8,0.06); border-color: rgba(234,179,8,0.2); }
+        .mant-callout.orange { background: rgba(249,115,22,0.06); border-color: rgba(249,115,22,0.2); }
+        .mant-callout strong { color: var(--text); }
+        .mant-callout-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+        .mant-callout-title.red { color: var(--red); }
+        .mant-callout-title.green { color: var(--green); }
+        .mant-callout-title.yellow { color: var(--yellow); }
+        .mant-callout-title.orange { color: var(--orange); }
+        .mant-email-template { background: var(--dark); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 12px 0; font-family: ui-monospace, monospace; font-size: 12.5px; line-height: 1.7; color: var(--text-dim); white-space: pre-wrap; }
+        .mant-toc { background: var(--dark-mid); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 18px; }
+        .mant-toc h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 10px; }
+        .mant-toc ol { padding-left: 22px; font-size: 13px; line-height: 1.9; }
+        .mant-toc a { color: var(--text-dim); text-decoration: none; }
+        .mant-toc a:hover { color: var(--red); }
 
         /* DETAIL PANEL */
         .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; display: none; }
@@ -286,10 +311,10 @@
                 <button id="view-matrix" onclick="switchView('matrix')">Matrix</button>
                 <button id="view-pipeline" onclick="switchView('pipeline')">Pipeline</button>
                 <button id="view-material" onclick="switchView('material')">Material</button>
+                <button id="view-mantinely" onclick="switchView('mantinely')">Mantinely</button>
             </div>
         </div>
         <div class="topbar-right">
-            <button class="tahak-btn" onclick="openTahak()" title="Mantinely & budget cheatsheet"><span class="tb-icon">&#128221;</span> Tahak</button>
             <button class="btn btn-ghost btn-sm" onclick="loadEvents()">Obnovit</button>
             <button class="btn btn-ghost btn-sm" onclick="logout()">Odhlasit</button>
         </div>
@@ -347,6 +372,8 @@
 
         <div id="material-container" style="display:none"></div>
 
+        <div id="mantinely-container" style="display:none"></div>
+
         <div id="empty-state" class="empty-state" style="display:none"><p>Zadne eventy.</p></div>
     </div>
 </div>
@@ -389,54 +416,12 @@
     </div>
 </div>
 
-<!-- TAHAK (Mantinely 2026 cheatsheet overlay) -->
-<div class="tahak-overlay" id="tahak-overlay" onclick="if(event.target===this)closeTahak()">
-    <div class="tahak-modal">
-        <div class="tahak-modal-header">
-            <h2>Tahak — Mantinely 2026 <span class="th-meta">sezonny cap 10-12K EUR Italia (mimo Jizerska, Road Classics, Praha Expo, Kosice)</span></h2>
-            <button class="tahak-close" onclick="closeTahak()">&times;</button>
-        </div>
-
-        <div class="tahak-section">
-            <div class="tahak-section-title">Tier capy / event</div>
-            <div class="tahak-tiers">
-                <div class="budget-tier-card">
-                    <div class="bt-name" style="color:#a8a29e">BASE / Bronze</div>
-                    <div class="bt-cap">≤ 300 EUR</div>
-                    <div class="bt-cap-sub">~21 000 CZK final</div>
-                </div>
-                <div class="budget-tier-card">
-                    <div class="bt-name" style="color:var(--red)">PRO / Silver</div>
-                    <div class="bt-cap">≤ 700 EUR</div>
-                    <div class="bt-cap-sub">~49 000 CZK final</div>
-                </div>
-                <div class="budget-tier-card">
-                    <div class="bt-name" style="color:var(--text)">EXCLUSIVE / Gold</div>
-                    <div class="bt-cap">≤ 1 500 EUR</div>
-                    <div class="bt-cap-sub">~105 000 CZK · vzdy Juraj OK</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tahak-section">
-            <div class="tahak-section-title">Pravidla</div>
-            <div class="budget-rules">
-                <strong>Organizatorska zlava (TVRDY STROP):</strong> Schvaleni = <strong>40 %</strong> z final ceny. Odmietnuti / mimo formular = <strong>25 %</strong>. Bez limitu sumy, cely rok. <em>Viac sa neda nikdy.</em> Ponukni v kazdom emaile.<br>
-                <strong>Kelimky (60410)</strong> — davame ak su skladom (overit Pohoda pred slubom).<br>
-                <strong>Auto-cut z kazdej ziadosti:</strong> duplicitne typy gelov · specialty (Magnesium, Instant Sport, Iron, PurePro, R2) · viac ako 1 gel/osoba.<br>
-                <strong class="esc">Eskaluj Jurajovi:</strong> ziadost &gt;700 EUR Italia · Tier 1/TV/medzinarodne · komisny predaj · konkurent v ponuke · event &lt; 14 dni · cumulative spend &gt; 8K EUR.<br>
-                <strong>Konverzia:</strong> 1 EUR Italia ≈ 32 CZK nasa cena s landingom ≈ 57 CZK final na faktache. Pricelist EUR: <code>Tools/vitar-sport-analytics/enervit_pricelist.js</code>. Full mantinely: <code>VERONIKA-MANTINELY-2026.md</code>.
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- TIER POPOVER -->
 <div class="tier-popover" id="tier-popover" style="display:none">
     <h4>Vyber tier (budget cap / event)</h4>
-    <div class="tier-option" onclick="selectTier('EXCLUSIVE')"><div class="tier-dot" style="background:var(--text)"></div><span class="tier-name">EXCLUSIVE</span><span class="tier-desc">≤1 500 EUR<br>~105K CZK · Juraj OK</span></div>
-    <div class="tier-option" onclick="selectTier('PRO')"><div class="tier-dot" style="background:var(--red)"></div><span class="tier-name">PRO</span><span class="tier-desc">≤700 EUR<br>~49K CZK</span></div>
-    <div class="tier-option" onclick="selectTier('BASE')"><div class="tier-dot" style="background:#a8a29e"></div><span class="tier-name">BASE</span><span class="tier-desc">≤300 EUR<br>~21K CZK</span></div>
+    <div class="tier-option" onclick="selectTier('EXCLUSIVE')"><div class="tier-dot" style="background:var(--text)"></div><span class="tier-name">EXCLUSIVE</span><span class="tier-desc">≤105K CZK<br>~1 500 EUR · Juraj OK</span></div>
+    <div class="tier-option" onclick="selectTier('PRO')"><div class="tier-dot" style="background:var(--red)"></div><span class="tier-name">PRO</span><span class="tier-desc">≤49K CZK<br>~700 EUR</span></div>
+    <div class="tier-option" onclick="selectTier('BASE')"><div class="tier-dot" style="background:#a8a29e"></div><span class="tier-name">BASE</span><span class="tier-desc">≤21K CZK<br>~300 EUR</span></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -459,20 +444,13 @@ const PIPELINE_STATUSES = [
 
 const BASIC_STATUSES = ['Nové', 'V review', 'Schválené', 'Zamítnuté'];
 
-// Mantinely 2026 — tier budget caps (Italia EUR nakup / CZK final na faktache)
+// Mantinely 2026 — tier budget caps (predajne ceny CZK pre Veroniku / EUR Italia pre interny tracking)
 const TIER_BUDGET_HINTS = {
-    'BASE':      'Cap: ≤ 300 EUR Italia / ~21 000 CZK final',
-    'PRO':       'Cap: ≤ 700 EUR Italia / ~49 000 CZK final',
-    'EXCLUSIVE': 'Cap: ≤ 1 500 EUR Italia / ~105 000 CZK final — vzdy Jurajov OK',
-    'ODMÍTNUTÍ': 'Bez balicka — poslat slevovy kod cez email'
+    'BASE':      'Cap: ≤ 21 000 CZK predajne / ~300 EUR Italia',
+    'PRO':       'Cap: ≤ 49 000 CZK predajne / ~700 EUR Italia',
+    'EXCLUSIVE': 'Cap: ≤ 105 000 CZK predajne / ~1 500 EUR Italia — vzdy Jurajov OK',
+    'ODMÍTNUTÍ': 'Bez balicka — poslat slevovy kod (25% zlava) cez email'
 };
-
-function openTahak() {
-    document.getElementById('tahak-overlay').classList.add('open');
-}
-function closeTahak() {
-    document.getElementById('tahak-overlay').classList.remove('open');
-}
 
 function updateTierBudgetHint() {
     const sel = document.getElementById('panel-tier');
@@ -609,15 +587,25 @@ function logout() { localStorage.removeItem(PIN_KEY); location.reload(); }
 // ===== VIEW TOGGLE =====
 function switchView(view) {
     currentView = view;
-    ['table', 'matrix', 'pipeline', 'material'].forEach(v => {
-        document.getElementById('view-' + v).classList.toggle('active', v === view);
+    ['table', 'matrix', 'pipeline', 'material', 'mantinely'].forEach(v => {
+        const btn = document.getElementById('view-' + v);
+        if (btn) btn.classList.toggle('active', v === view);
     });
-    document.getElementById('filters-bar').style.display = (view === 'pipeline' || view === 'material') ? 'none' : 'flex';
+    const isFunctionalView = (view === 'table' || view === 'matrix');
+    document.getElementById('filters-bar').style.display = isFunctionalView ? 'flex' : 'none';
+    document.getElementById('table-container').style.display = view === 'table' ? 'block' : 'none';
+    document.getElementById('matrix-container').style.display = view === 'matrix' ? 'block' : 'none';
+    document.getElementById('pipeline-container').style.display = view === 'pipeline' ? 'block' : 'none';
+    document.getElementById('material-container').style.display = view === 'material' ? 'block' : 'none';
+    document.getElementById('mantinely-container').style.display = view === 'mantinely' ? 'block' : 'none';
+    // Hide stats grid on mantinely view (irrelevant)
+    const statsGrid = document.querySelector('.stats-grid');
+    if (statsGrid) statsGrid.style.display = view === 'mantinely' ? 'none' : 'grid';
+    if (view === 'mantinely') {
+        renderMantinely();
+        return;
+    }
     if (allEvents.length > 0) {
-        document.getElementById('table-container').style.display = view === 'table' ? 'block' : 'none';
-        document.getElementById('matrix-container').style.display = view === 'matrix' ? 'block' : 'none';
-        document.getElementById('pipeline-container').style.display = view === 'pipeline' ? 'block' : 'none';
-        document.getElementById('material-container').style.display = view === 'material' ? 'block' : 'none';
         if (view === 'table') renderTable();
         else if (view === 'matrix') renderMatrix();
         else if (view === 'pipeline') renderPipeline();
@@ -629,7 +617,7 @@ function switchView(view) {
 async function loadEvents() {
     const pin = getPin(); if (!pin) return location.reload();
     document.getElementById('loading').style.display = 'block';
-    ['table-container', 'matrix-container', 'pipeline-container', 'material-container', 'empty-state'].forEach(id => document.getElementById(id).style.display = 'none');
+    ['table-container', 'matrix-container', 'pipeline-container', 'material-container', 'mantinely-container', 'empty-state'].forEach(id => document.getElementById(id).style.display = 'none');
     try {
         const res = await fetch(`/api/events?pin=${encodeURIComponent(pin)}`);
         if (res.status === 401) return logout();
@@ -1436,6 +1424,384 @@ async function saveMaterial() {
 }
 
 // ===== MATERIAL VIEW =====
+function renderMantinely() {
+    const container = document.getElementById('mantinely-container');
+    container.innerHTML = `
+<div class="mant-page">
+
+    <div class="mant-hero">
+        <h1>Mantinely & Budget 2026</h1>
+        <p>Operativny tahak pre Veroniku — vsetko co potrebujes vediet aby si dokazala spracovat prihlasky organizatorov sama, bez Juraja. Sumy v <strong>predajnych cenach CZK</strong> (na faktach organizatorom). Doplnkovy zdroj: <code>VitarSport2026/Projects/event-season-2026/VERONIKA-MANTINELY-2026.md</code>.</p>
+    </div>
+
+    <div class="mant-toc">
+        <h3>Obsah</h3>
+        <ol>
+            <li><a href="#m-budget">Sezonny budget — co musis vediet</a></li>
+            <li><a href="#m-tiers">Tier capy / event</a></li>
+            <li><a href="#m-default-balicky">Defaultne balicky per tier</a></li>
+            <li><a href="#m-zlavy">Organizatorska zlava (40 % / 25 %)</a></li>
+            <li><a href="#m-cuts">Co cut-nes z kazdej ziadosti</a></li>
+            <li><a href="#m-workflow">Workflow: od ziadosti po material</a></li>
+            <li><a href="#m-email">Email sablona — redukovany balicek</a></li>
+            <li><a href="#m-eskalacia">Kedy eskalujes Jurajovi</a></li>
+            <li><a href="#m-pripady">Konkretne aktualne pripady</a></li>
+            <li><a href="#m-heuristiky">Pravidla praveho palca</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. BUDGET -->
+    <div class="mant-section" id="m-budget">
+        <h2><span class="mant-num">01</span> Sezonny budget — co musis vediet</h2>
+        <p>Tvoj framework je v <strong>predajnych cenach CZK</strong> — to su ceny ktore vidite na faktach organizatorom, v Pohode, v CRM komunikacii. EUR Italia nakupne ceny si Juraj sleduje interne, ty s nimi nepracujes.</p>
+
+        <div class="mant-callout green">
+            <div class="mant-callout-title green">Sezonny cap 2026</div>
+            <strong>~600 000 – 700 000 CZK predajne ceny</strong> za rok (ekvivalent Jurajovho stropu 10–12K EUR Italia nakupnych).
+        </div>
+
+        <h3>Co sa NEPOCITA do tohto budgetu (A eventy, samostatne zmluvy — riadi Juraj)</h3>
+        <ul>
+            <li><strong>Jizerska 50</strong> — vlastna zmluva</li>
+            <li><strong>Road Classics</strong> (vsetky 3 zavody: Palava, Vysocina, Jested) — RAUL zmluva</li>
+            <li><strong>Prague Half Marathon Expo + Prague Marathon Expo</strong></li>
+            <li><strong>Kosice Maraton</strong> — TBD format</li>
+        </ul>
+
+        <div class="mant-callout yellow">
+            <div class="mant-callout-title yellow">Pozn. — OB Svetovy pohar Vyssi Brod (5.8.)</div>
+            <strong>POCITA SA</strong> do bezneho event-support budgetu pre material kit. CSOS partnerstvo riesi branding/sponzoring, nie material — tier je PRO alebo EXCLUSIVE.
+        </div>
+
+        <h3>Tvoj running tracker</h3>
+        <p>Po kazdom approvenom evente zapis predajnu hodnotu kitu do dashboardu (sekcia Material → cena). Sleduj cumulative sumu. <strong>Ked sa blizis k 450 000 CZK cumulative</strong>, eskaluj Jurajovi pred dalsimi schvalami velkych balickov.</p>
+    </div>
+
+    <!-- 2. TIERS -->
+    <div class="mant-section" id="m-tiers">
+        <h2><span class="mant-num">02</span> Tier capy / event (predajne ceny CZK)</h2>
+        <p class="mant-sub">Toto su <strong>tvrde limity</strong> per event. Cokolvek nad limit znamena bud cut na strop (sekcia 5), alebo eskalaciu Jurajovi (sekcia 8).</p>
+
+        <div class="mant-tiers">
+            <div class="mant-tier-card">
+                <div class="mt-name" style="color:#a8a29e">BASE / Bronze</div>
+                <div class="mt-cap">≤ 21 000 CZK</div>
+                <div class="mt-cap-sub">predajne ceny / event</div>
+                <div class="mt-score">Score <strong>2.0 – 2.9</strong> · Sampling + male ceny</div>
+            </div>
+            <div class="mant-tier-card">
+                <div class="mt-name" style="color:var(--red)">PRO / Silver</div>
+                <div class="mt-cap">≤ 49 000 CZK</div>
+                <div class="mt-cap-sub">predajne ceny / event</div>
+                <div class="mt-score">Score <strong>3.0 – 3.9</strong> · Sampling + tombola + ceny</div>
+            </div>
+            <div class="mant-tier-card">
+                <div class="mt-name" style="color:var(--text)">EXCLUSIVE / Gold</div>
+                <div class="mt-cap">≤ 105 000 CZK</div>
+                <div class="mt-cap-sub">predajne ceny · vzdy Jurajov OK</div>
+                <div class="mt-score">Score <strong>4.0 – 5.0</strong> · Top eventy, individualne</div>
+            </div>
+        </div>
+
+        <p><strong>Co znamenaju score range?</strong> Auto-scoring v Matrix view ti navrhne tier podla 6 kriterii (pocet ucastnikov, brand fit, medialny dosah, rocnik, protiplnenia, bonus). Skore 1.0–5.0 → tier sa priradi automaticky. Eventy pod 2.0 score = Odmietnutie (sampling/balicek nedavame, ale dame zlavu — viz sekcia 4).</p>
+    </div>
+
+    <!-- 3. DEFAULT BALICKY -->
+    <div class="mant-section" id="m-default-balicky">
+        <h2><span class="mant-num">03</span> Defaultne balicky per tier</h2>
+        <p class="mant-sub">Ked organizator nic specificke nepise, posli mu defaultny balicek pre jeho tier. Z toho mas startovaci bod — vsetko ostatne sa upravuje podla potrieb eventu.</p>
+
+        <h3>BASE Bronze balicek (~16 000 CZK predajne)</h3>
+        <table class="mant-table">
+            <thead><tr><th>Polozka</th><th class="num">Mn.</th><th class="num">Predajna/ks</th><th class="num">Total CZK</th><th>Pouzitie</th></tr></thead>
+            <tbody>
+                <tr><td>Isotonic Sport doza 420g (90945/90946)</td><td class="num">12 ks (5kg)</td><td class="num">~299</td><td class="num">~3 600</td><td>Stanice</td></tr>
+                <tr><td>Gel 25ml mix (96529/96599)</td><td class="num">200 ks</td><td class="num">~52</td><td class="num">~10 360</td><td>Startovne balicky</td></tr>
+                <tr><td>Comp Bar 30g (99106)</td><td class="num">50 ks</td><td class="num">~43</td><td class="num">~2 143</td><td>Ceny / tombola</td></tr>
+                <tr><td>Power Crunchy 40g (99148)</td><td class="num">10 ks</td><td class="num">~48</td><td class="num">~482</td><td>Ceny</td></tr>
+                <tr><td>QR karta 10% zlava na eshop</td><td class="num">200 ks</td><td class="num">0</td><td class="num">0</td><td>Startovne</td></tr>
+                <tr class="total-row"><td colspan="3">TOTAL predajne ceny</td><td class="num">~16 600</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <h3>PRO Silver balicek (~42 000 CZK predajne)</h3>
+        <table class="mant-table">
+            <thead><tr><th>Polozka</th><th class="num">Mn.</th><th class="num">Predajna/ks</th><th class="num">Total CZK</th><th>Pouzitie</th></tr></thead>
+            <tbody>
+                <tr><td>Isotonic G Sport 10kg (98031)</td><td class="num">2 ks</td><td class="num">~4 000</td><td class="num">~7 998</td><td>Obcerstvovacie stanice</td></tr>
+                <tr><td>Gel kofein 25ml (96533)</td><td class="num">300-400 ks</td><td class="num">~52</td><td class="num">~16 000-20 700</td><td>Startovne balicky</td></tr>
+                <tr><td>GT Sport 100×4 tab (98127)</td><td class="num">2 ks</td><td class="num">~2 437</td><td class="num">~4 874</td><td>Stanice / VIP</td></tr>
+                <tr><td>Comp Bar 30g mix (99106/99116/99117)</td><td class="num">100-150 ks</td><td class="num">~43</td><td class="num">~4 286-6 429</td><td>Tombola + ceny</td></tr>
+                <tr><td>Carbo Bar C2:1 45g (99193)</td><td class="num">5 ks</td><td class="num">~60</td><td class="num">~299</td><td>Top 3 absolutne</td></tr>
+                <tr><td>Power Crunchy 40g (99148)</td><td class="num">20 ks</td><td class="num">~48</td><td class="num">~964</td><td>Ceny</td></tr>
+                <tr><td>R1 After Sport 10×15g (99415)</td><td class="num">1 ks</td><td class="num">~303</td><td class="num">~303</td><td>Hlavna cena</td></tr>
+                <tr><td>PRE Sport 45g (90524)</td><td class="num">20 ks</td><td class="num">~50</td><td class="num">~1 000</td><td>Ceny / sampling</td></tr>
+                <tr><td>Lahev 500ml (90821)</td><td class="num">10 ks</td><td class="num">~65</td><td class="num">~653</td><td>Top finishers</td></tr>
+                <tr><td>QR karta 10% zlava na eshop</td><td class="num">500 ks</td><td class="num">0</td><td class="num">0</td><td>Startovne</td></tr>
+                <tr class="total-row"><td colspan="3">TOTAL predajne ceny</td><td class="num">~42 000</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <h3>EXCLUSIVE Gold balicek (~85 000–95 000 CZK predajne)</h3>
+        <div class="mant-callout orange">
+            <div class="mant-callout-title orange">Pozor</div>
+            Tento tier <strong>vzdy konzultuj s Jurajom pred odpovedou organizatorovi.</strong> Sumy idu k individualnym dohodam. Sablonu pouzi len ako referenciu.
+        </div>
+        <table class="mant-table">
+            <thead><tr><th>Polozka</th><th class="num">Mn.</th><th class="num">Predajna/ks</th><th class="num">Total CZK</th><th>Pouzitie</th></tr></thead>
+            <tbody>
+                <tr><td>Isotonic G Sport 10kg (98031)</td><td class="num">3 ks</td><td class="num">~4 000</td><td class="num">~12 000</td><td>Stanice</td></tr>
+                <tr><td>Gel 25ml mix (96533/96579/96529)</td><td class="num">800-1000 ks</td><td class="num">~52</td><td class="num">~41 400-51 800</td><td>Startovne + sampling</td></tr>
+                <tr><td>Comp Bar 30g mix</td><td class="num">300 ks</td><td class="num">~43</td><td class="num">~12 857</td><td>Tombola + ceny</td></tr>
+                <tr><td>Carbo Bar C2:1 45g (99193)</td><td class="num">20 ks</td><td class="num">~60</td><td class="num">~1 200</td><td>Top vitazi</td></tr>
+                <tr><td>R1 After Sport (99415)</td><td class="num">3 ks</td><td class="num">~303</td><td class="num">~908</td><td>Top 3</td></tr>
+                <tr><td>Performance Bar 30+30g</td><td class="num">100 ks</td><td class="num">~59</td><td class="num">~5 900</td><td>Ceny</td></tr>
+                <tr><td>Lahev 500ml (90821)</td><td class="num">30 ks</td><td class="num">~65</td><td class="num">~1 959</td><td>VIP + finishers</td></tr>
+                <tr><td>Kelimky 200ml (60410) — ak skladom</td><td class="num">3-7 tis. ks</td><td class="num">~1.65</td><td class="num">~5 000-11 500</td><td>Obcerstvovacie stanice</td></tr>
+                <tr><td>Banner + stan + brand</td><td class="num">—</td><td class="num">—</td><td class="num">riesi sa zvlast</td><td>Marketingove materialy</td></tr>
+                <tr class="total-row"><td colspan="3">TOTAL predajne ceny</td><td class="num">~85 000-95 000</td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 4. ZLAVY -->
+    <div class="mant-section" id="m-zlavy">
+        <h2><span class="mant-num">04</span> Organizatorska zlava — TVRDY STROP</h2>
+        <p class="mant-sub">Kazdy organizator ma narok na zlavu na vsetky produkty Enervit, podla statusu jeho prihlasky. Pouziva sa <strong>v kazdom emaile</strong> — je to standardna sucast komunikacie.</p>
+
+        <table class="mant-table">
+            <thead><tr><th>Status prihlasky</th><th class="num">Zlava</th><th>Strop</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Schvalene</strong> (BASE / PRO / EXCLUSIVE)</td><td class="num"><strong>40 %</strong></td><td>z predajnej ceny — TVRDY, nikdy viac</td></tr>
+                <tr><td><strong>Odmietnute</strong> alebo mimo formular</td><td class="num"><strong>25 %</strong></td><td>z predajnej ceny — TVRDY, nikdy viac</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Zakladne pravidla</h3>
+        <ul>
+            <li><strong>Bez sumovych limitov</strong> — plati pre cely event aj cely rok</li>
+            <li><strong>Bez schvalenia Jurajom</strong> — uplatnujes sama vzdy</li>
+            <li><strong>Vyssia zlava sa NEDA</strong> — to je strop. Aj ked organizator tlaci, drz sa. NIKDY neslubuj viac.</li>
+            <li>Z Jurajovho event-support budgetu to NEjde von (organizator plati 60 % alebo 75 % z predajnej ceny)</li>
+        </ul>
+
+        <h3>Kedy to ponukat (vzdy)</h3>
+        <ul>
+            <li>V kazdom emaile organizatorovi (sucast standardnej sablony)</li>
+            <li>Ked cut-nes nieco z balicka</li>
+            <li>Ked chcu specialty produkty (Magnesium, PurePro, R2 Recovery)</li>
+            <li>Ked chcu vacsie mnozstvo nez tier cap</li>
+            <li>Pri odmietnuti — namiesto "zial nie" daj "pre Vas event zlava 25 % na vsetko"</li>
+        </ul>
+
+        <h3>Vzorove formulacie</h3>
+        <div class="mant-callout green">
+            <div class="mant-callout-title green">Schvalenemu organizatorovi (40 %)</div>
+            <em>"Ako schvaleny organizator mate u nas standardne <strong>40 % zlavu z final ceny na vsetky produkty Enervit</strong>. Plati pre cely event aj cely rok bez limitu — ak chcete co dokupit, povedz a posleme cenovu ponuku."</em>
+        </div>
+        <div class="mant-callout yellow">
+            <div class="mant-callout-title yellow">Odmietnutemu organizatorovi (25 %)</div>
+            <em>"Tento rok nemozeme zaradit Vas event do nasho event support programu. Ako organizator vsak mate <strong>25 % zlavu z final ceny na vsetky produkty Enervit</strong> — plati pre cely event aj cely rok. Ak chcete co objednat, daj vediet."</em>
+        </div>
+    </div>
+
+    <!-- 5. CUTS -->
+    <div class="mant-section" id="m-cuts">
+        <h2><span class="mant-num">05</span> Co cut-nes z kazdej ziadosti</h2>
+        <p class="mant-sub">Organizatori casto posielaju zoznamy ktore presahuju tier cap (typicky 2-5x). Pred tym nez im odpisete, prejdi zoznam a aplikuj tieto pravidla. Vacsina cut-ov nepotrebuje Jurajov OK.</p>
+
+        <h3>Cut 1 — Duplicitne typy gelov</h3>
+        <p>Ked organizator ziada 3+ typy gelov (napr. kofein + cola + citron + tropic), daj iba <strong>1-2 typy</strong>. Najlepsie kofein (univerzalna preferencia) + jeden ovocny pre tych co nepiju kofein. Sampling = 1 gel/osoba, nie 3.</p>
+        <p>Typicka uspora: <strong>10 000-25 000 CZK predajne</strong>.</p>
+
+        <h3>Cut 2 — Specialty produkty mimo endurance core</h3>
+        <p>Tieto produkty NEdavame ako mass-event sampling — su to specialty/niche produkty s nizkym fit-om pre masove eventy:</p>
+        <ul>
+            <li><strong>Magnesium Sport (90790)</strong> — specialty, nie eventova spotreba</li>
+            <li><strong>Instant Sport drink sacek 16g (90933)</strong> — duplicita s Isotonic dozami</li>
+            <li><strong>Iron / Vitamin C / Multivitamins</strong> — supplements, nie eventove</li>
+            <li><strong>PurePro produkty</strong> — premium line, nedavame zdarma</li>
+            <li><strong>R2 / R2 Recovery Kyowa</strong> — len Gold tier eventy</li>
+            <li><strong>Creatine Sport</strong> — nie eventova spotreba</li>
+        </ul>
+        <p>Tieto si organizator moze dokupit za 40 % zlavu (sekcia 4).</p>
+
+        <h3>Cut 3 — Nadmerne pocty</h3>
+        <ul>
+            <li>Sampling viac ako <strong>1 gel/osoba</strong> → zniz na 1 gel/osoba</li>
+            <li>Comp Bar viac ako <strong>200 ks</strong> na PRO event → zniz</li>
+            <li>Lahev viac ako <strong>10 ks</strong> na Silver / <strong>30 ks</strong> na Gold → zniz</li>
+            <li>Isotonic 10kg viac ako <strong>2 ks</strong> na PRO / <strong>3 ks</strong> na Gold → zniz</li>
+        </ul>
+
+        <h3>Kelimky (kod 60410) — NIE JE AUTO-CUT</h3>
+        <div class="mant-callout">
+            <div class="mant-callout-title red">Doležité</div>
+            Kelimky <strong>davame</strong> ak su skladom. Pred slubom organizatorovi <strong>skontroluj Pohoda stav.</strong> Ak nie su skladom → "tento rok nemame skladom, riesite vo svojej rezii, alebo si vasim 40 % zlavou dokupite". Ich predajna cena je nizka (~1.65 CZK/ks) — nezaberaju velke miesto v budgete.
+        </div>
+    </div>
+
+    <!-- 6. WORKFLOW -->
+    <div class="mant-section" id="m-workflow">
+        <h2><span class="mant-num">06</span> Workflow: od ziadosti po material</h2>
+        <p class="mant-sub">Konkretny krok-za-krokom postup ked dostanes bill of materials od organizatora.</p>
+
+        <h3>Krok 1 — Spocitaj predajnu hodnotu</h3>
+        <p>Otvor zoznam. Vacsinou je uz v CZK predajnych cenach (faktura formatu). Ak nie, prepocitas si predajnu hodnotu (Pohoda cennik). Vysledok je jedno cislo: <strong>celkova predajna hodnota CZK</strong>.</p>
+
+        <h3>Krok 2 — Porovnaj s tier capom</h3>
+        <ul>
+            <li><strong>V ramci capu</strong> (BASE ≤21K / PRO ≤49K / EXCL ≤105K) → uprav male veci → poslat</li>
+            <li><strong>Do +30 % nad cap</strong> → cut podla sekcie 5 + posli s redukciou (sablona v sekcii 7)</li>
+            <li><strong>Nad +30 % nad cap</strong> alebo Gold tier → <strong>ESKALUJ JURAJOVI</strong></li>
+        </ul>
+
+        <h3>Krok 3 — Zaeviduj rozhodnutie</h3>
+        <ul>
+            <li><strong>Material section</strong> v detail panely: presne mnozstva + CZK predajna hodnota</li>
+            <li><strong>CRM log:</strong> "Redukovany zoznam z X CZK na Y CZK, dovody: duplicity/specialty/kelimky nedostupne"</li>
+            <li><strong>Pipeline status:</strong> presun na "Email odoslany"</li>
+        </ul>
+
+        <h3>Krok 4 — Posli email (sablona v sekcii 7)</h3>
+        <p>Dashboard automaticky vygeneruje email po stlaceni "Schvalit" v Matrix view. Skopiruj, uprav podla potrieb, posli cez SupportBox.</p>
+    </div>
+
+    <!-- 7. EMAIL TEMPLATE -->
+    <div class="mant-section" id="m-email">
+        <h2><span class="mant-num">07</span> Email sablona — redukovany balicek</h2>
+        <p class="mant-sub">Pouzi keb si cut-la nieco z ich zoznamu. Doplnaj [HRANATE_ZATVORKY] podla konkretneho eventu.</p>
+
+        <div class="mant-email-template">Ahojte,
+
+dakujem za zaslany zoznam materialu na [NAZOV EVENTU] 2026.
+
+Enervit globalne zmenil eventovu politiku — mame jasne tier limity pre material support (Bronze / Silver / Gold). Vas event sme zaradili do tier [BRONZE/SILVER/GOLD] vzhladom na pocty ucastnikov a charakter. Strop materialu pre [TIER] tier je cca [21/49/105] tisic CZK v cenach faktury (bez DPH).
+
+Vas zoznam predstavuje hodnotu cca [X] CZK bez DPH — co je [Y%] nad nasim [TIER] stropom. Aby sme stihli zostat v rozpocte ale zaroven Vam dodali to najdolezitejsie, navrhujem redukovany balicek:
+
+[TABULKA polozka / mnozstvo / pouzitie]
+
+Co sme vyradili a preco:
+- Duplicitne typy gelov: jeden typ pre sampling staci
+- Specialty produkty (Magnesium, Instant Sport): nie su masove eventove
+- [DALSIE CUTY]
+
+[KELIMKY VARIANT 1 — skladom:]
+Kelimky 200ml dodame podla povodneho zoznamu — mame ich skladom.
+
+[KELIMKY VARIANT 2 — nie su skladom:]
+Kelimky 200ml tento rok zial nemame na sklade — riesite si vo vlastnej rezii (viete si ich u nas zakupit za 40 % organizatorsku zlavu).
+
+ORGANIZATORSKA ZLAVA 40 %:
+Ako organizator mate u nas standardne 40 % zlavu z final ceny na vsetky produkty Enervit — plati pre cely event aj cely rok bez limitu. Ak chcete co dokupit (specialty produkty, vacsie mnozstva, kelimky ak by nam nestacili), povedz co a kolko, posleme cenovu ponuku.
+
+Material dorucime do [DATUM 5 DNI PRED EVENTOM] na adresu, ktoru nam potvrdite. Komisny predaj zatial nespustame — informujeme ked bude live.
+
+Ak preferujete iny mix v ramci tej istej hodnoty, daj vediet a upravime.
+
+Dakujem
+Veronika</div>
+    </div>
+
+    <!-- 8. ESKALACIA -->
+    <div class="mant-section" id="m-eskalacia">
+        <h2><span class="mant-num">08</span> Kedy eskalujes Jurajovi</h2>
+
+        <h3>Okamzita eskalacia (zavolaj / napis hned)</h3>
+        <div class="mant-callout">
+            <div class="mant-callout-title red">Tieto situacie idu na Juraja</div>
+            <ul>
+                <li>Tier <strong>EXCLUSIVE / Gold</strong> balicek (akakolvek hodnota nad 49 000 CZK predajne)</li>
+                <li>Ziadost nad <strong>+30 % tier cap</strong></li>
+                <li><strong>Tier 1 / svetove eventy, TV livestream, mezinarodne</strong> (Moraviaman, OB SP, Maraton Praha)</li>
+                <li><strong>Komisny predaj</strong> — KAZDA ziadost (nespustame zatial)</li>
+                <li><strong>Barter / zapocet / cash deal</strong></li>
+                <li><strong>Konkurent v ponuke</strong> (Nutrend, GU, SiS) — strategicke rozhodnutie</li>
+                <li>Event <strong>&lt; 14 dni do konania</strong> (14-dnove pravidlo)</li>
+            </ul>
+        </div>
+
+        <h3>NEeskalujes (mas pevne pravidla)</h3>
+        <div class="mant-callout green">
+            <ul>
+                <li><strong>Zlava nad 40 % / nad 25 %</strong> — odpovedaj ze to nejde, je to strop. NIKDY neslubuj viac.</li>
+                <li><strong>Standardne BASE / PRO balicky v ramci capu</strong> — auto-approve s default sablony</li>
+                <li><strong>Cut-y podla sekcie 5</strong> (duplicity, specialty, nadmerne pocty)</li>
+                <li><strong>Standardne emaily, urgentne odpovede do 48h</strong></li>
+            </ul>
+        </div>
+
+        <h3>Tyzdenny check-in s Jurajom</h3>
+        <ul>
+            <li>Cumulative season spend &gt; <strong>450 000 CZK predajne</strong></li>
+            <li>Backlog "Nove" prihlasok &gt; 5</li>
+            <li>Akekolvek konflikty / staznosti od organizatorov</li>
+        </ul>
+    </div>
+
+    <!-- 9. PRIPADY -->
+    <div class="mant-section" id="m-pripady">
+        <h2><span class="mant-num">09</span> Konkretne aktualne pripady (referenc)</h2>
+        <p class="mant-sub">Tieto pripady mas k dispozicii ako precedensy. Ked podobny pripad pride znova, vies sa o ne oprieti.</p>
+
+        <h3>MTB Podralsko (7.6.2026) — PRO upper</h3>
+        <table class="mant-table">
+            <tbody>
+                <tr><td><strong>Ich ask</strong></td><td>89 423 CZK predajne (bez DPH)</td></tr>
+                <tr><td><strong>Tier</strong></td><td>PRO (score 3.8)</td></tr>
+                <tr><td><strong>Cap</strong></td><td>49 000 CZK predajne</td></tr>
+                <tr><td><strong>Nas navrh</strong></td><td>51 500 CZK predajne (s kelimky ak skladom) alebo 45 100 CZK bez kelimkov</td></tr>
+                <tr><td><strong>Cut-y</strong></td><td>gel cola 384 ks, gel citron bulk 200 ks, Magnesium 2 ks, Instant Sport 20 ks</td></tr>
+                <tr><td><strong>Status</strong></td><td>Draft emailu pripraveny — <code>DRAFT-EMAIL-PODRALSKO-2026-05-12.md</code></td></tr>
+            </tbody>
+        </table>
+
+        <h3>VOKOLO priglu (10.10.2026) — EXCLUSIVE</h3>
+        <table class="mant-table">
+            <tbody>
+                <tr><td><strong>Tier</strong></td><td>EXCLUSIVE (score 4.5)</td></tr>
+                <tr><td><strong>Cap</strong></td><td>105 000 CZK predajne (s Juraj OK)</td></tr>
+                <tr><td><strong>Status</strong></td><td>Tier v Airtable este zle (PRO) — Juraj opravi</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Ostrava City Marathon (6.9.2026) — EXCLUSIVE</h3>
+        <table class="mant-table">
+            <tbody>
+                <tr><td><strong>Tier</strong></td><td>EXCLUSIVE (score 4.4)</td></tr>
+                <tr><td><strong>Cap</strong></td><td>105 000 CZK predajne (s Juraj OK)</td></tr>
+                <tr><td><strong>Status</strong></td><td>Tier v Airtable este zle (BASE) — Juraj opravi</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 10. HEURISTIKY -->
+    <div class="mant-section" id="m-heuristiky">
+        <h2><span class="mant-num">10</span> Pravidla praveho palca (rychle heuristiky)</h2>
+        <p class="mant-sub">Ked si nie si ista co spravit, prejdi tieto rychle pravidla.</p>
+
+        <table class="mant-table">
+            <thead><tr><th>Situacia</th><th>Co spravit</th></tr></thead>
+            <tbody>
+                <tr><td>Organizator poslal zoznam → spocitam si predajnu hodnotu</td><td>&lt; 21K CZK → BRONZE auto-approve</td></tr>
+                <tr><td></td><td>21K–49K CZK → SILVER auto-approve s upravami</td></tr>
+                <tr><td></td><td>&gt; 49K CZK a tier nie je EXCLUSIVE → cut na 49K</td></tr>
+                <tr><td></td><td>&gt; 49K CZK a tier je EXCLUSIVE → eskalovat Jurajovi</td></tr>
+                <tr><td>Event do 14 dni</td><td>Nepripravujem, <strong>odmietnut alebo odlozit</strong></td></tr>
+                <tr><td>Tier 1 / TV / medzinarodny</td><td>Eskalovat Jurajovi okamzite</td></tr>
+                <tr><td>Konkurent v ponuke organizatorovi</td><td>Eskalovat Jurajovi</td></tr>
+                <tr><td>Komisny predaj</td><td>NIE (tento rok nespustame), poslat info</td></tr>
+                <tr><td>Cumulative season spend &gt; 450K CZK</td><td>Check-in s Jurajom pred dalsimi schvalami</td></tr>
+                <tr><td>Organizator chce viac/zlavu nad strop</td><td>Slusne ale tvrdo: "40 / 25 % je nas strop, viac nemozeme"</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+    `;
+}
+
 function renderMaterialView() {
     const container = document.getElementById('material-container');
     const approved = allEvents.filter(e => {
@@ -1559,7 +1925,7 @@ function exportCSV() {
 }
 
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeEmailModal(); closePanel(); closeTahak(); document.getElementById('tier-popover').style.display = 'none'; }
+    if (e.key === 'Escape') { closeEmailModal(); closePanel(); document.getElementById('tier-popover').style.display = 'none'; }
 });
 
 // ===== INIT =====
