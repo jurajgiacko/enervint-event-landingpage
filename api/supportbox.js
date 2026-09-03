@@ -9,8 +9,13 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'SupportBox not configured' });
     }
 
+    // Fail closed: bez nastaveneho ADMIN_PIN nikto nevidi data (predtym sa kontrola preskocila).
+    if (!ADMIN_PIN) {
+        console.error('ADMIN_PIN is not configured');
+        return res.status(500).json({ error: 'Server configuration error: ADMIN_PIN not set' });
+    }
     const pin = req.query.pin;
-    if (ADMIN_PIN && pin !== ADMIN_PIN) {
+    if (typeof pin !== 'string' || pin !== ADMIN_PIN) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
