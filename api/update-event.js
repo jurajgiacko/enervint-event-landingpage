@@ -11,7 +11,12 @@ export default async function handler(req, res) {
 
     const { pin, recordId, fields } = req.body;
 
-    if (ADMIN_PIN && pin !== ADMIN_PIN) {
+    // Fail closed: bez nastaveneho ADMIN_PIN nikto nezapisuje (predtym sa kontrola preskocila).
+    if (!ADMIN_PIN) {
+        console.error('ADMIN_PIN is not configured');
+        return res.status(500).json({ error: 'Server configuration error: ADMIN_PIN not set' });
+    }
+    if (typeof pin !== 'string' || pin !== ADMIN_PIN) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
